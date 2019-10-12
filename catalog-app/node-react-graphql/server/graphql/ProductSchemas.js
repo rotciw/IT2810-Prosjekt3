@@ -85,15 +85,15 @@ fields: function () {
         }
     },
     product: {
-        type: productType,
+        type: new GraphQLList(productType),
         args: {
-        Varenummer: {
-            name: 'Varenummer',
-            type: GraphQLString
-        }
+            Varenummer: {
+                name: 'Varenummer',
+                type: GraphQLString
+            }
         },
         resolve: function (root, params) {
-        const productDetails = ProductModel.find(params.Varenummer).exec()
+        const productDetails = ProductModel.find({Varenummer: params.Varenummer}).exec()
         if (!productDetails) {
             throw new Error('Error')
         }
