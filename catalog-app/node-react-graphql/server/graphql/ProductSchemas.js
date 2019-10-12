@@ -9,7 +9,7 @@ var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
 
-var ProductType = new GraphQLObjectType({
+var productType = new GraphQLObjectType({
     name: 'product',
     fields: function () {
       return {
@@ -63,6 +63,40 @@ var ProductType = new GraphQLObjectType({
         },
         argang: {
             type: GraphQLString
+        }
+      }
+    }
+  });
+
+  var queryType = new GraphQLObjectType({
+    name: 'Query',
+    fields: function () {
+      return {
+        products: {
+          type: new GraphQLList(productType),
+          resolve: function () {
+            const products = ProductModel.find().exec()
+            if (!products) {
+              throw new Error('Error')
+            }
+            return products
+          }
+        },
+        product: {
+          type: productType,
+          args: {
+            id: {
+              name: '_varenummer',
+              type: GraphQLString
+            }
+          },
+          resolve: function (root, params) {
+            const productDetails = ProductModel.findById(params.varenummer).exec()
+            if (!productDetails) {
+              throw new Error('Error')
+            }
+            return productDetails
+          }
         }
       }
     }
