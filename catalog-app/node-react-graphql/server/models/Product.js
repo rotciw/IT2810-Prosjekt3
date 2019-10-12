@@ -13,11 +13,13 @@ var ProductSchema = new mongoose.Schema({
     Garvestoffer: String,
     Bitterhet: String,
     Sodme: String,
-    Farge: String,
-    Lukt: String,
     Smak: String,
     Land: String,
     Argang: String,
+    Rastoff: String,
+    Alkohol: String,
+    Embalashetype: String,
+    Vareurl: String,
   });
-  
+
   module.exports = mongoose.model('product', ProductSchema);
