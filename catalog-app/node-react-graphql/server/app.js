@@ -7,7 +7,11 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// Mongoose and GraphQL modules and dependencies
 var mongoose = require('mongoose');
+var graphqlHTTP = require('express-graphql');
+var schema = require('./graphql/ProductSchemas');
+var cors = require("cors");
 
 mongoose.connect('mongodb://mattis:mattis@it2810-38.idi.ntnu.no:27017/catalog-db', { promiseLibrary: require('bluebird'), useNewUrlParser: true })
 .then(() =>  console.log('connection successful'))
@@ -27,6 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('*', cors());
+app.use('/graphql', cors(), graphqlHTTP({
+  schema: schema,
+  rootValue: global,
+  graphiql: true,
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
