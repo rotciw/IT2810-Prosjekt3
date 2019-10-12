@@ -49,12 +49,6 @@ var productType = new GraphQLObjectType({
         Sodme: {
             type: GraphQLString
         },
-        Farge: {
-            type: GraphQLString
-        },
-        Lukt: {
-            type: GraphQLString
-        },
         Smak: {
             type: GraphQLString
         },
@@ -62,6 +56,18 @@ var productType = new GraphQLObjectType({
             type: GraphQLString
         },
         Argang: {
+            type: GraphQLString
+        },
+        Rastoff: {
+            type: GraphQLString
+        },
+        Alkohol: {
+            type: GraphQLString
+        },
+        Emballasjetype: {
+            type: GraphQLString
+        },
+        Vareurl: {
             type: GraphQLString
         }
       }
@@ -77,7 +83,7 @@ fields: function () {
         resolve: function () {
         const products = ProductModel.find().exec()
         console.log("success");
-        
+
         if (!products) {
             throw new Error('Error')
         }
@@ -147,12 +153,6 @@ var mutation = new GraphQLObjectType({
           Sodme: {
             type: new GraphQLNonNull(GraphQLString)
           },
-          Farge: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Lukt: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
           Smak: {
             type: new GraphQLNonNull(GraphQLString)
           },
@@ -161,6 +161,18 @@ var mutation = new GraphQLObjectType({
           },
           Argang: {
             type: new GraphQLNonNull(GraphQLString)
+          },
+          Rastoff: {
+              type: new GraphQLNonNull(GraphQLString)
+          },
+          Alkohol: {
+              type: new GraphQLNonNull(GraphQLString)
+          },
+          Emballasjetype: {
+              type: new GraphQLNonNull(GraphQLString)
+          },
+          Vareurl: {
+              type: new GraphQLNonNull(GraphQLString)
           }
         },
         resolve: function (root, params) {
@@ -172,69 +184,8 @@ var mutation = new GraphQLObjectType({
           return newProduct
         }
       },
-      updateBook: {
-        type: productType,
-        args: {
-          Varenummer: {
-            name: 'Varenummer', // id?
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Varenavn: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Volum: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Pris: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Literpris: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Varetype: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Produktutvalg: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Fylde: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Friskhet: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Garvestoffer: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Bitterhet: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Sodme: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Farge: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Lukt: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Smak: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Land: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Argang: {
-            type: new GraphQLNonNull(GraphQLString)
-          }
-        },
-        resolve(root, params) {
-          return ProductModel.findByIdAndUpdate(params.varenummer, { Varenavn: params.Varenavn, Volum: params.Volum, Pris: params.Pris, Literpris: params.Literpris, Varetype: params.Varetype, Produktutvalg: params.Produktutvalg, Fylde: params.Fylde, Friskhet: params.Friskhet, Garvestoffer: params.Garvestoffer, Bitterhet: params.Bitterhet, Sodme: params.Sodme, Farge: params.Farge, Smak: params.Smak, Land: params.Land, Argang: params.Argang }, function (err) {
-            if (err) return next(err);
-          });
-        }
-      },
-      removeBook: {
+
+      removeProduct: {
         type: productType,
         args: {
           Varenummer: {
