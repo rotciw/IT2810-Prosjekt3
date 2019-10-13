@@ -112,14 +112,36 @@ fields: function () {
             Keys: {
                 name: 'Keys',
                 type: GraphQLString
+            },
+            Packaging: {
+                name: 'Packaging',
+                type: GraphQLString
+            },
+            ProductSelection: {
+                name: 'ProductSelection',
+                type: GraphQLString
+            },
+            Year: {
+                name: 'Year',
+                type: GraphQLString
             }
         },
         resolve: function (root, params) {
-            const products = ProductModel.find().or(
+            let filters = {}
+            if (params.Packaging){
+                filters['Emballasjetype'] = params.Packaging;
+            }
+            if (params.ProductSelection){
+                filters['Produktutvalg'] = params.ProductSelection;
+            }
+            if (params.Year){
+                filters['Argang'] = params.Year;
+            }
+
+            const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}]).exec()
-
             if (!products) {
                 throw new Error('Error')
             }
