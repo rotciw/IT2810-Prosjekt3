@@ -128,6 +128,10 @@ fields: function () {
             Skipping: {
                 name: 'Skipping',
                 type: GraphQLInt
+            },
+            SortAfter: {
+                name: 'SortAfter',
+                type: GraphQLString
             }
         },
         resolve: function (root, params) {
@@ -145,7 +149,8 @@ fields: function () {
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
-                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}]).limit(50).skip(50*params.Skipping).exec()
+                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}])
+                .sort(params.SortAfter).limit(50).skip(50*params.Skipping).exec()
             if (!products) {
                 throw new Error('Error')
             }
