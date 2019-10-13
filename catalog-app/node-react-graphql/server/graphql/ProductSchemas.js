@@ -124,6 +124,10 @@ fields: function () {
             Year: {
                 name: 'Year',
                 type: GraphQLString
+            },
+            Skipping: {
+                name: 'Skipping',
+                type: GraphQLInt
             }
         },
         resolve: function (root, params) {
@@ -141,7 +145,7 @@ fields: function () {
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
-                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}]).exec()
+                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}]).limit(50).skip(50*params.Skipping).exec()
             if (!products) {
                 throw new Error('Error')
             }
