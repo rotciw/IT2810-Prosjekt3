@@ -105,6 +105,26 @@ fields: function () {
         }
         return productDetails
         }
+    },
+    productQuery: {
+        type: new GraphQLList(productType),
+        args: {
+            Keys: {
+                name: 'Keys',
+                type: GraphQLString
+            }
+        },
+        resolve: function (root, params) {
+            const products = ProductModel.find().or(
+                [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
+                {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
+                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}]).exec()
+
+            if (!products) {
+                throw new Error('Error')
+            }
+            return products
+        }
     }
     }
 }
