@@ -78,13 +78,16 @@ export default class CustomTable extends Component {
                       <tr>
                         <th>Varenummer</th>
                         <th>Varenavn</th>
+                        <th>Årgang</th>
                       </tr>
                     </thead>
                     <tbody>
                       {data.productQuery.map((product, index) => (
                         <tr key={index}>
-                          <td><Link to={`/show/${product.Varenummer}`}>{product.Varenavn}</Link></td>
+                          <td><Link to={`/show/${product.Varenummer}`}>{product.Varenummer}</Link></td>
+                          <td>{product.Varenavn}</td>
                           <td>{product.Argang}</td>
+
                         </tr>
                       ))}
                     </tbody>
