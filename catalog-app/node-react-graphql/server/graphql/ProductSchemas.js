@@ -81,7 +81,7 @@ fields: function () {
     products: {
         type: new GraphQLList(productType),
         resolve: function () {
-        const products = ProductModel.find().exec()
+        const products = ProductModel.find().limit(10).exec()
         console.log("success");
 
         if (!products) {
