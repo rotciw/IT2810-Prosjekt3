@@ -32,7 +32,7 @@ const GET_PRODUCTS = gql`
 
 const GET_PRODUCTQUERY = gql`
   {
-    productQuery(Argang: "2019", skipping: 0) {
+    productQuery(Keys:"", Year:"2019", Skipping:0) {
       Varenummer
       Varenavn
       Volum
@@ -81,10 +81,10 @@ export default class CustomTable extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.products.map((product, index) => (
+                      {data.productQuery.map((product, index) => (
                         <tr key={index}>
                           <td><Link to={`/show/${product.Varenummer}`}>{product.Varenavn}</Link></td>
-                          <td>{product.Varenavn}</td>
+                          <td>{product.Argang}</td>
                         </tr>
                       ))}
                     </tbody>
