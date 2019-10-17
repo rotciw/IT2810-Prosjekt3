@@ -1,5 +1,10 @@
-.ReactTable {
-    width: 50vw;
-    display: flex;
-    align-content: center;
+#table {
+    background-color: #F2F2F2;
+    cursor:pointer;
+}
+.tableHeader {
+    background-color: #3F3D54;
+    color: #f2f2f2;
+    cursor: auto;
+    border-radius: 1em;
 }

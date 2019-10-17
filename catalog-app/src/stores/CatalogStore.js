@@ -1,4 +1,5 @@
 class CatalogStore {
+    open = false
     catalogList = ["En","to"
     ];
 
@@ -7,6 +8,10 @@ class CatalogStore {
     };
     get catalogCount() {
         return this.catalogList.length
+    }
+
+    expandRow() {
+        this.open = true;
     }
 }
 

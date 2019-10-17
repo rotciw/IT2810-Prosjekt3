@@ -8,6 +8,7 @@ import CatalogStore from '../../stores/CatalogStore';
 decorate(CatalogStore, {
   catalogList: observable,
   addItem: action,
+  expandRow: action,
   catalogCount: computed
 })
 
