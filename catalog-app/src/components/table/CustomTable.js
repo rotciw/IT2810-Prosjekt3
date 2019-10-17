@@ -1,31 +1,103 @@
 import React, { Component } from 'react';
-import "./Table.css";
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import { Link } from 'react-router-dom';
+import './App.css';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
+const GET_PRODUCTS = gql`
+  {
+    products {
+      Varenummer
+      Varenavn
+      Volum
+      Pris
+      Literpris
+      Varetype
+      Produktutvalg
+      Fylde
+      Friskhet
+      Garvestoffer
+      Bitterhet
+      Sodme
+      Smak
+      Land
+      Argang
+      Rastoff
+      Alkohol
+      Emballasjetype
+      Vareurl
+    }
+  }
+`;
+
+const GET_PRODUCTQUERY = gql`
+  {
+    productQuery(Keys:"", Year:"2019", Skipping:0) {
+      Varenummer
+      Varenavn
+      Volum
+      Pris
+      Literpris
+      Varetype
+      Produktutvalg
+      Fylde
+      Friskhet
+      Garvestoffer
+      Bitterhet
+      Sodme
+      Smak
+      Land
+      Argang
+      Rastoff
+      Alkohol
+      Emballasjetype
+      Vareurl
+    }
+  }
+`;
 export default class CustomTable extends Component {
-    render() {
-      const data = [{
-        name: 'Tanner Linsley',
-        age: 26,
-      }
-      ]
-      const columns = [{
-        Header: 'Name',
-        accessor: 'name' // String-based value accessors!
-      }, {
-        Header: 'Age',
-        accessor: 'age',
-        Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-      }]
-      return <ReactTable
-        data={ data }
-        columns={ columns }
-        SubComponent={row=> {
+  render() {
+    return (
+      <Query pollInterval={500} query={GET_PRODUCTQUERY}>
+        {({ loading, error, data }) => {
+          if (loading) return 'Loading...';
+          if (error) return `Error! ${error.message}`;
+    
           return (
-            <div>{row}</div>
+            <div className="container">
+              <div className="panel panel-default">
+                <div className="panel-heading">
+                  <h3 className="panel-title">
+                    LIST OF PRODUCTS
+                  </h3>
+                  <h4><Link to="/create">Add Product</Link></h4>
+                </div>
+                <div className="panel-body">
+                  <table className="table table-stripe">
+                    <thead>
+                      <tr>
+                        <th>Varenummer</th>
+                        <th>Varenavn</th>
+                        <th>Årgang</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.productQuery.map((product, index) => (
+                        <tr key={index}>
+                          <td><Link to={`/show/${product.Varenummer}`}>{product.Varenummer}</Link></td>
+                          <td>{product.Varenavn}</td>
+                          <td>{product.Argang}</td>
+
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           );
         }}
-      />
-    }
+      </Query>
+    );
+  }
 }
