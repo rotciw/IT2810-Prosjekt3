@@ -10,7 +10,8 @@ var usersRouter = require('./routes/users');
 // Mongoose and GraphQL modules and dependencies
 var mongoose = require('mongoose');
 var graphqlHTTP = require('express-graphql');
-var schema = require('./graphql/ProductSchemas');
+var schemaProduct = require('./graphql/ProductSchemas');
+var schemaSearch = require('./graphql/PopularSearchesSchemas');
 var cors = require("cors");
 
 mongoose.connect('mongodb://mattis:mattis@it2810-38.idi.ntnu.no:27017/catalog-db', { promiseLibrary: require('bluebird'), useNewUrlParser: true })
@@ -33,10 +34,11 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('*', cors());
 app.use('/graphql', cors(), graphqlHTTP({
-  schema: schema,
+  schema: schemaProduct,
   rootValue: global,
   graphiql: true,
 }));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
