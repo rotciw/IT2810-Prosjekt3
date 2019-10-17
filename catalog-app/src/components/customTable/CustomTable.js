@@ -48,17 +48,39 @@ const columns = [{
   dataField: 'Pris',
   text: 'Pris (i kr)'
 }
-
-]
+];
 
 const expandRow = {
   renderer: row => (
-    <div>
-      <img src='https://bilder.vinmonopolet.no/cache/250x250-0/-1.jpg' alt="bilde"/>
-      <p>{ `Varenummer: ${row.Varenummer}` }</p>
-      <p>{ `Volum (i liter): ${row.Volum}` }</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm text-center">
+        <img
+          src={"https://bilder.vinmonopolet.no/cache/250x250-0/"+ row.Varenummer + "-1.jpg"}
+          alt="Item"
+        />
+        </div>
+        <div class="col-sm">
+          <p>{ `Varenummer: ${row.Varenummer}` }</p>
+          <p>{ `Varenavn: ${row.Varenavn}` }</p>
+          <p>{ `Varetype: ${row.Varetype}` }</p>
+          <p>{ `Land: ${row.Land}` }</p>
+        </div>
+        <div class="col-sm">
+          <p>{ `Volum: ${row.Volum} liter` }</p>
+          <p>{ `Alkoholprosent: ${row.Alkohol}%` }</p>
+          <p>{ `Årgang: ${row.Argang}` }</p>
+          <p>{ `Smak: ${row.Smak}` }</p>
+        </div>
+        <div class="col-sm">
+          <p>{ `Pris: ${row.Pris} kr` }</p>
+          <p>{ `Literpris: ${row.Literpris} kr` }</p>
+        </div>
+      </div>
     </div>
-  )
+  ),
+  className: 'expandedRow',
+  parentClassName: 'parentExpandedRow'
 };
 
 export default class CustomTable extends Component {
@@ -75,6 +97,7 @@ export default class CustomTable extends Component {
                 LIST OF PRODUCTS
               </h3>
               <h4><Link to="/create">Add Product</Link></h4>
+              <div class="card">
               <BootstrapTable
                 id="table"
                 headerClasses="tableHeader"
@@ -84,8 +107,8 @@ export default class CustomTable extends Component {
                 expandRow={ expandRow }
                 bootstrap4={true}
                 hover={true}
-
-              />
+                bordered={true}
+              /></div>
             </div>
           );
         }}
