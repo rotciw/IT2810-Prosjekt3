@@ -18,10 +18,10 @@ ReactDOM.render(
             <div>
                 <Route exact path='/' component={App} />
                 <Route path='/show/:id' component={Show} />
-                
+
             </div>
         </Router>
-    </ApolloProvider>, 
+    </ApolloProvider>,
     document.getElementById('root')
 );
 
