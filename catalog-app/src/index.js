@@ -7,7 +7,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
-import Create from './components/Create';
+import Create from './components/addProduct/Create';
 import Show from './components/Show';
 
 const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });

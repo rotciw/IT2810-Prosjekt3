@@ -1,38 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './App.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
-const GET_PRODUCTS = gql`
-  {
-    products {
-      Varenummer
-      Varenavn
-      Volum
-      Pris
-      Literpris
-      Varetype
-      Produktutvalg
-      Fylde
-      Friskhet
-      Garvestoffer
-      Bitterhet
-      Sodme
-      Smak
-      Land
-      Argang
-      Rastoff
-      Alkohol
-      Emballasjetype
-      Vareurl
-    }
-  }
-`;
 
 const GET_PRODUCTQUERY = gql`
   {
-    productQuery(Keys:"", Year:"2019", Skipping:0) {
+    productQuery(Keys:"", Year:"", Skipping:0) {
       Varenummer
       Varenavn
       Volum
@@ -58,11 +32,10 @@ const GET_PRODUCTQUERY = gql`
 export default class CustomTable extends Component {
   render() {
     return (
-      <Query pollInterval={500} query={GET_PRODUCTQUERY}>
+      <Query query={GET_PRODUCTQUERY}>
         {({ loading, error, data }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
-    
           return (
             <div className="container">
               <div className="panel panel-default">

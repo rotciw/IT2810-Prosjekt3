@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './App.css';
 import { decorate, observable, action, computed } from 'mobx';
-import Untitled from '../Untitled';
+import CustomTable from '../customTable/CustomTable';
 import Viewing from '../Viewing';
 import CatalogStore from '../../stores/CatalogStore';
 
@@ -17,7 +16,7 @@ const catalogStore = new CatalogStore();
 function App() {
   return (
     <div>
-    <Untitled store={catalogStore}/>
+    <CustomTable store={catalogStore}/>
     <Viewing store={catalogStore}/>
     </div>
   );
