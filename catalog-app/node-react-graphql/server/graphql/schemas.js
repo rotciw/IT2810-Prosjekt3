@@ -166,7 +166,7 @@ fields: function () {
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}])
-                .sort(params.SortAfter).limit(50).skip(50*params.Skipping).exec()
+                .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec()
             if (!products) {
                 throw new Error('Error')
             }
