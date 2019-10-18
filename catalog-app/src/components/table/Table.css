@@ -8,7 +8,16 @@
 
 .tableHeader {
     cursor: auto;
-    font-size: 1.5em;
+    font-size: 14px;
+}
+
+@media (min-width: 576px) {
+    .tableHeader {
+        font-size: 18px;
+    }
+    #table {
+        font-size: 16pxw;
+    }
 }
 
 .expandedRow {
