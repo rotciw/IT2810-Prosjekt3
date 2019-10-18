@@ -1,18 +1,13 @@
 class CatalogStore {
-    open = false
-    catalogList = ["En","to"
-    ];
+    yearlist = [];
 
-    addItem(item) {
-        this.catalogList.push(item)
+    addYear(year) {
+        this.catalogList.push(year)
     };
     get catalogCount() {
-        return this.catalogList.length
+        return this.yearlist.length
     }
 
-    expandRow() {
-        this.open = true;
-    }
 }
 
 export default CatalogStore;
