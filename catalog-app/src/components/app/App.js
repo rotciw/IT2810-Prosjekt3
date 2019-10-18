@@ -6,6 +6,7 @@ import Viewing from '../Viewing';
 import CatalogStore from '../../stores/CatalogStore';
 import FilterGroup from '../filter/FilterGroup'
 import Header from '../header/Header'
+import Wordcloud from '../wordcloud/Wordcloud'
 
 decorate(CatalogStore, {
 
@@ -16,6 +17,7 @@ const catalogStore = new CatalogStore();
 function App() {
   return (
     <div className="container-fluid">
+    <Wordcloud />
       <div className="row">
         <Header />
         <div className="col-sm-4">
