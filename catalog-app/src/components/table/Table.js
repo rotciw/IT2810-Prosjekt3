@@ -69,7 +69,7 @@ export default class CustomTable extends Component {
     super(props);
     this.state = {
       searchBarValue: "",
-      submittedSearchBarValue: "vin"
+      submittedSearchBarValue: ""
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -125,7 +125,6 @@ export default class CustomTable extends Component {
     )
   }
   handleChange(event){
-    //console.log(this.state.searchBarValue);
     this.setState({
       searchBarValue: event.target.value,
     })
@@ -136,9 +135,6 @@ export default class CustomTable extends Component {
     this.setState({
       submittedSearchBarValue: value,
     })
-    //console.log(this.state.submittedSearchBarValue2);
-    
-
   }
 
   render() {
