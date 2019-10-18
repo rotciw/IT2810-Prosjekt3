@@ -21,7 +21,6 @@ class SearchBar extends Component {
       event.preventDefault();
       let value = this.state.searchBarValue;
       this.props.store.addSearchBarValue(value)
-      console.log(this.props.store.searchBarValue)
     }
 
     render() {
