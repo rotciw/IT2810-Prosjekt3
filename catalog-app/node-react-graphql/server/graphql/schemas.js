@@ -8,6 +8,8 @@ var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
+var PopularSearchesModel = require('../models/PopularSearches');
+
 
 var productType = new GraphQLObjectType({
     name: 'product',
@@ -73,6 +75,20 @@ var productType = new GraphQLObjectType({
       }
     }
   });
+
+var popularSearchesType = new GraphQLObjectType({
+    name: 'popularSearche',
+    fields: function () {
+      return {
+        Searched: {
+          type: GraphQLString
+        },
+        Times: {
+          type: GraphQLInt
+        }
+      }
+    }
+    });
 
 var queryType = new GraphQLObjectType({
 name: 'Query',
@@ -156,7 +172,19 @@ fields: function () {
             }
             return products
         }
-    }
+    },
+        popularSearches: {
+        type: new GraphQLList(popularSearchesType),
+        resolve: function () {
+          const popularSearches = PopularSearchesModel.find().limit(10).exec()
+          console.log("Success");
+
+           if (!popularSearches) {
+             throw new Error('Error')
+           }
+           return popularSearches
+        }
+      }
     }
 }
 });
@@ -250,7 +278,26 @@ var mutation = new GraphQLObjectType({
           }
           return removeProduct;
         }
-      }
+    },
+    addPopularSearch: {
+        type: popularSearchesType,
+        args: {
+          Searched: {
+            type: new GraphQLNonNull(GraphQLString)
+          },
+          Times: {
+            type: new GraphQLNonNull(GraphQLInt)
+          }
+        },
+        resolve: function (root, params) {
+          const popularSearchesModel = new PopularSearchesModel(params);
+          const newPopularSearch = popularSearchesModel.save();
+          if (!newPopularSearch){
+            throw new Error('Error');
+          }
+          return newPopularSearch
+        }
+    }
     }
   }
 });
