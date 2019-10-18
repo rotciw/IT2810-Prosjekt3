@@ -122,6 +122,24 @@ fields: function () {
         return productDetails
         }
     },
+    distinctCountries: {
+        type: new GraphQLList(productType),
+        resolve: function (root, params) {
+            let distinctCountriesResult = new GraphQLList(GraphQLString);
+            ProductModel.find().distinct("Land", function(error, countries) {
+                if (error){
+                    console.log(error);
+                }else{
+                    let resultArray = []
+                    for (let i = 0; i < countries.length; i++){
+                        resultArray.push(countries[i])
+                    }
+                    console.log(resultArray)
+                }
+                return distinctCountriesResult;
+            });
+        }
+    },
     productQuery: {
         type: new GraphQLList(productType),
         args: {
