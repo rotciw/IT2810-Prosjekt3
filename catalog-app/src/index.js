@@ -8,7 +8,6 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
-import Create from './components/addProduct/Create';
 import Show from './components/Show';
 
 const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
