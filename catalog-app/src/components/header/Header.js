@@ -8,8 +8,8 @@ function Header() {
       <b>
         <div class="innerTextAnimation">
           Student<br />
-          Vin<br />
-          Øl<br />
+          Vinmono<br />
+          Ølmono<br />
           Vann
           </div>
           </b>

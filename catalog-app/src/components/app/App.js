@@ -18,10 +18,10 @@ function App() {
     <div className="container-fluid">
       <div className="row">
         <Header />
-        <div className="col-sm-3">
+        <div className="col-sm-4">
         <FilterGroup store={catalogStore}/>
         </div>
-        <div className="col-sm-9">
+        <div className="col-sm-8">
         <Table store={catalogStore}/>
         </div>
         <Viewing store={catalogStore}/>

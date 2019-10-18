@@ -5,67 +5,71 @@
     margin-bottom: 25px;
     padding: 30px 0 20px 0;
     text-transform: uppercase;
-  }
+}
 
-  .textAnimation {
+.textAnimation {
     text-align: right;
     font-size: 40px;
-  }
-  .textAnimation p {
+}
+
+.textAnimation p {
     float: left;
     font-weight: bold;
-  }
-  .textAnimation b {
+    margin-left: 0.2em;
+}
+
+.textAnimation b {
     float: left;
     overflow: hidden;
     position: relative;
     height: 45px;
-    margin: 0 0.3em 0 0.5em;
-  }
-  .textAnimation .innerTextAnimation {
-    display: inline-block;
-    color: #CF5C36;
-    position: relative;
-    white-space: nowrap;
-    top: 0;
-    left: 0;
+    margin-left: 0.2em;
+}
 
-    /*animation*/
-    -webkit-animation:move 8s infinite ease-in-out;
-    -moz-animation:move 8s infinite ease-in-out;
-      -ms-animation:move 8s infinite ease-in-out;
-      -o-animation:move 8s infinite ease-in-out;
-          animation:move 8s infinite ease-in-out;
+.textAnimation .innerTextAnimation {
+display: inline-block;
+color: #CF5C36;
+position: relative;
+white-space: nowrap;
+top: 0;
+left: 0;
 
-    /*animation-delay*/
-    -webkit-animation-delay:3s;
-    -moz-animation-delay:3s;
-     -ms-animation-delay:3s;
-      -o-animation-delay:3s;
-          animation-delay:3s;
-  }
+/*animation*/
+-webkit-animation:move 8s infinite ease-in-out;
+-moz-animation:move 8s infinite ease-in-out;
+    -ms-animation:move 8s infinite ease-in-out;
+    -o-animation:move 8s infinite ease-in-out;
+        animation:move 8s infinite ease-in-out;
 
-  @-webkit-keyframes move {
+/*animation-delay*/
+-webkit-animation-delay:3s;
+-moz-animation-delay:3s;
+    -ms-animation-delay:3s;
+    -o-animation-delay:3s;
+        animation-delay:3s;
+}
+
+@-webkit-keyframes move {
+0%, 60%  { top: 0px; }
+15% { top: -48px; }
+30% { top: -95px; }
+45% { top: -144px; }
+}
+@-moz-keyframes move {
+0%, 60%  { top: 0px; }
+15% { top: -48px; }
+30% { top: -95px; }
+45% { top: -144px; }
+}
+@-o-keyframes move {
+0%, 60%  { top: 0px; }
+15% { top: -48px; }
+30% { top: -95px; }
+45% { top: -144px; }
+}
+@keyframes move {
     0%, 60%  { top: 0px; }
     15% { top: -48px; }
     30% { top: -95px; }
     45% { top: -144px; }
-  }
-  @-moz-keyframes move {
-    0%, 60%  { top: 0px; }
-    15% { top: -48px; }
-    30% { top: -95px; }
-    45% { top: -144px; }
-  }
-  @-o-keyframes move {
-    0%, 60%  { top: 0px; }
-    15% { top: -48px; }
-    30% { top: -95px; }
-    45% { top: -144px; }
-  }
-  @keyframes move {
-      0%, 60%  { top: 0px; }
-      15% { top: -48px; }
-      30% { top: -95px; }
-      45% { top: -144px; }
-  }
+}
