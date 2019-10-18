@@ -173,7 +173,7 @@ fields: function () {
             return products
         }
     },
-        popularSearches: {
+    popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
           const popularSearches = PopularSearchesModel.find().sort("Times").limit(10).exec()
@@ -184,7 +184,23 @@ fields: function () {
            }
            return popularSearches
         }
-      }
+    },
+    popularSearch: {
+        type: new GraphQLList(popularSearchesType),
+        args: {
+            Searched: {
+                name: 'Searched',
+                type: GraphQLString
+            }
+        },
+        resolve: function (root, params) {
+            const search = PopularSearchesModel.find({Searched: params.Searched}).exec();
+            if (!search) {
+              throw new Error('Error')
+            }
+            return search
+        }
+    }
     }
 }
 });
@@ -290,12 +306,29 @@ var mutation = new GraphQLObjectType({
           }
         },
         resolve: function (root, params) {
-          const popularSearchesModel = new PopularSearchesModel(params);
-          const newPopularSearch = popularSearchesModel.save();
-          if (!newPopularSearch){
-            throw new Error('Error');
-          }
-          return newPopularSearch
+            const popularSearchesModel = new PopularSearchesModel(params);
+            const newPopularSearch = popularSearchesModel.save();
+            if (!newPopularSearch){
+              throw new Error('Error');
+            }
+            return newPopularSearch
+
+        }
+    },
+    updatePopularSearch: {
+        type: popularSearchesType,
+        args: {
+            Searched: {
+              type: new GraphQLNonNull(GraphQLString)
+            }
+        },
+        resolve(root, params) {
+            return PopularSearchesModel.findOneAndUpdate(
+                params.Searched, {$inc:{Times:1}},
+                function (err){
+                    if (err)
+                        throw new Error(err);
+                    });
         }
     }
     }
