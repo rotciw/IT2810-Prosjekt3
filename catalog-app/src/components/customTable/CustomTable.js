@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { decorate, action } from 'mobx';
@@ -11,33 +10,6 @@ decorate(CatalogStore, {
   expandRow: action,
 })
 
-const catalogStore = new CatalogStore();
-
-const GET_PRODUCTQUERY = gql`
-  {
-    productQuery(Keys:"", Year:"2019", Skipping:0) {
-      Varenummer
-      Varenavn
-      Volum
-      Pris
-      Literpris
-      Varetype
-      Produktutvalg
-      Fylde
-      Friskhet
-      Garvestoffer
-      Bitterhet
-      Sodme
-      Smak
-      Land
-      Argang
-      Rastoff
-      Alkohol
-      Emballasjetype
-      Vareurl
-    }
-  }`;
-
 const columns = [{
   dataField: 'Varenummer',
   text: 'Varenummer'
@@ -47,9 +19,7 @@ const columns = [{
 }, {
   dataField: 'Pris',
   text: 'Pris (i kr)'
-}
-
-]
+}]
 
 const expandRow = {
   renderer: row => (
@@ -62,19 +32,48 @@ const expandRow = {
 };
 
 export default class CustomTable extends Component {
-
-  render() {
-    return (
+  constructor(props){
+    super(props);
+    this.state = {
+      searchBarValue: "",
+      submittedSearchBarValue: "vin"
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  refreshQuery(keys="", packaging="", productSelection="", year="", skipping=0){
+    const GET_PRODUCTQUERY = gql`
+      {
+        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Year: "${year}", Skipping: ${skipping}) {
+          Varenummer
+          Varenavn
+          Volum
+          Pris
+          Literpris
+          Varetype
+          Produktutvalg
+          Fylde
+          Friskhet
+          Garvestoffer
+          Bitterhet
+          Sodme
+          Smak
+          Land
+          Argang
+          Rastoff
+          Alkohol
+          Emballasjetype
+          Vareurl
+        }
+      }`;
+    
+    return(
       <Query query={GET_PRODUCTQUERY}>
         {({ loading, error, data }) => {
-          if (loading) return 'Loading...';
+          if (loading) return "Loading..";
           if (error) return `Error! ${error.message}`;
           return (
             <div className="container">
-              <h3>
-                LIST OF PRODUCTS
-              </h3>
-              <h4><Link to="/create">Add Product</Link></h4>
               <BootstrapTable
                 id="table"
                 headerClasses="tableHeader"
@@ -90,6 +89,35 @@ export default class CustomTable extends Component {
           );
         }}
       </Query>
+    )
+  }
+  handleChange(event){
+    //console.log(this.state.searchBarValue);
+    this.setState({
+      searchBarValue: event.target.value,
+    })
+  }
+  handleSubmit(event){
+    event.preventDefault();
+    let value = this.state.searchBarValue;
+    this.setState({
+      submittedSearchBarValue: value,
+    })
+    //console.log(this.state.submittedSearchBarValue2);
+    
+
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" value={this.state.searchBarValue} onChange={this.handleChange}></input>
+          <input type="submit" value="søk"></input>
+          {console.log(this.state.submittedSearchBarValue)}
+          {this.refreshQuery(this.state.submittedSearchBarValue)}
+        </form>
+      </div>
     );
   }
 }
