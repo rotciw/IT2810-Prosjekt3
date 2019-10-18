@@ -6,9 +6,12 @@ import Viewing from '../Viewing';
 import CatalogStore from '../../stores/CatalogStore';
 import FilterGroup from '../filter/FilterGroup'
 import Header from '../header/Header'
+import SearchBar from '../searchBar/SearchBar';
 
 decorate(CatalogStore, {
-
+  searchBarValue: observable,
+  addSearchBarValue: action,
+  getSearchBarValue: computed
 })
 
 const catalogStore = new CatalogStore();
@@ -18,13 +21,13 @@ function App() {
     <div className="container-fluid">
       <div className="row">
         <Header />
-        <div className="col-sm-4">
+        <div className="col-md-4">
+        <SearchBar store={catalogStore}/>
         <FilterGroup store={catalogStore}/>
         </div>
-        <div className="col-sm-8">
+        <div className="col-md-8">
         <Table store={catalogStore}/>
         </div>
-        <Viewing store={catalogStore}/>
       </div>
     </div>
   );

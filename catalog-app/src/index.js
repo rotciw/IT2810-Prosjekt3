@@ -17,8 +17,6 @@ ReactDOM.render(
         <Router>
             <div>
                 <Route exact path='/' component={App} />
-                <Route path='/show/:id' component={Show} />
-
             </div>
         </Router>
     </ApolloProvider>,

@@ -4,9 +4,9 @@ import './Header.css'
 function Header() {
   return (
     <h1 className="col-sm-12 justify-content-center header">
-    <div class="textAnimation">
+    <div className="textAnimation">
       <b>
-        <div class="innerTextAnimation">
+        <div className="innerTextAnimation">
           Student<br />
           Vinmono<br />
           Ølmono<br />

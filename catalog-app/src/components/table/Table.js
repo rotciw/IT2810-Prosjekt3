@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { decorate, action } from 'mobx';
-import CatalogStore from '../../stores/CatalogStore';
+import { observer, inject } from 'mobx-react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import './Table.css'
-
-decorate(CatalogStore, {
-  expandRow: action,
-})
 
 const columns = [{
   dataField: 'Varenavn',
@@ -30,8 +25,8 @@ const columns = [{
 
 const expandRow = {
   renderer: row => (
-      <div class="row">
-        <div class="col-sm text-center">
+      <div className="row">
+        <div className="col-sm text-center">
           {/* Images are fetched from vinmonopolet's website */}
         <img
           src={"https://bilder.vinmonopolet.no/cache/250x250-0/"+ row.Varenummer + "-1.jpg"}
@@ -39,19 +34,19 @@ const expandRow = {
         />
         </div>
         {/* We want to always show this information for each item */}
-        <div class="col-sm">
+        <div className="col-sm">
           <p>{ `Varenummer: ${row.Varenummer}` }</p>
           <p>{ `Varenavn: ${row.Varenavn}` }</p>
           <p>{ `Varetype: ${row.Varetype}` }</p>
           <p>{ `Land: ${row.Land}` }</p>
         </div>
-        <div class="col-sm">
+        <div className="col-sm">
           <p>{ `Volum: ${row.Volum} liter` }</p>
           <p>{ `Alkoholprosent: ${row.Alkohol}%` }</p>
           <p>{ `Årgang: ${row.Argang}` }</p>
           <p>{ `Smak: ${row.Smak}` }</p>
         </div>
-        <div class="col-sm">
+        <div className="col-sm">
           <p>{ `Pris: ${row.Pris} kr` }</p>
           <p>{ `Literpris: ${row.Literpris} kr` }</p>
           <p>{ `Emballasjetype: ${row.Emballasjetype} ` }</p>
@@ -64,16 +59,7 @@ const expandRow = {
   parentClassName: 'parentExpandedRow'
 };
 
-export default class CustomTable extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      searchBarValue: "",
-      submittedSearchBarValue: "vin"
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+class Table extends Component {
   refreshQuery(keys="", packaging="", productSelection="", year="", skipping=0){
     const GET_PRODUCTQUERY = gql`
       {
@@ -98,10 +84,12 @@ export default class CustomTable extends Component {
           Emballasjetype
           Vareurl
         }
-      }`;
-    
+      }`
+    return GET_PRODUCTQUERY
+  };
+  render() {
     return(
-      <Query query={GET_PRODUCTQUERY}>
+      <Query query={this.refreshQuery(this.props.store.searchBarValue)}>
         {({ loading, error, data }) => {
           if (loading) return "Loading..";
           if (error) return `Error! ${error.message}`;
@@ -122,35 +110,8 @@ export default class CustomTable extends Component {
           );
         }}
       </Query>
-    )
-  }
-  handleChange(event){
-    //console.log(this.state.searchBarValue);
-    this.setState({
-      searchBarValue: event.target.value,
-    })
-  }
-  handleSubmit(event){
-    event.preventDefault();
-    let value = this.state.searchBarValue;
-    this.setState({
-      submittedSearchBarValue: value,
-    })
-    //console.log(this.state.submittedSearchBarValue2);
-    
-
+      )
+    }
   }
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.searchBarValue} onChange={this.handleChange}></input>
-          <input type="submit" value="søk"></input>
-          {console.log(this.state.submittedSearchBarValue)}
-          {this.refreshQuery(this.state.submittedSearchBarValue)}
-        </form>
-      </div>
-    );
-  }
-}
+export default inject('store')(observer(Table));

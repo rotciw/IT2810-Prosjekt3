@@ -1,11 +1,12 @@
 class CatalogStore {
-    yearlist = [];
+    searchBarValue = "";
 
-    addYear(year) {
-        this.catalogList.push(year)
+    addSearchBarValue(value) {
+        this.searchBarValue = value;
     };
-    get catalogCount() {
-        return this.yearlist.length
+
+    get getSearchBarValue() {
+        return this.searchBarValue;
     }
 
 }
