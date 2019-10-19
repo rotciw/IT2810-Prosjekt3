@@ -159,8 +159,12 @@ fields: function () {
                 name: 'Country',
                 type: GraphQLString
             },
-            Year: {
-                name: 'Year',
+            YearMin: {
+                name: 'YearMin',
+                type: GraphQLString
+            },
+            YearMax: {
+                name: 'YearMax',
                 type: GraphQLString
             },
             Skipping: {
@@ -180,8 +184,8 @@ fields: function () {
             if (params.ProductSelection){
                 filters['Produktutvalg'] = params.ProductSelection;
             }
-            if (params.Year){
-                filters['Argang'] = params.Year;
+            if (params.YearMin && params.YearMax){
+                filters['Argang'] = {$gte: + params.YearMin, $lte: params.YearMax};
             }
             if (params.Country){
                 filters['Land'] = params.Country;

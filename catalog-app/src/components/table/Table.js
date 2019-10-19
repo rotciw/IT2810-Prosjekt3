@@ -60,10 +60,10 @@ const expandRow = {
 };
 
 class Table extends Component {
-  refreshQuery(keys="", packaging="", productSelection="", country="", year="", skipping=0){
+  refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", skipping=0){
     const GET_PRODUCTQUERY = gql`
       {
-        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Country: "${country}", Year: "${year}", Skipping: ${skipping}) {
+        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Country: "${country}", YearMin: "${yearMin}", YearMax: "${yearMax}", Skipping: ${skipping}) {
           Varenummer
           Varenavn
           Volum
@@ -96,7 +96,7 @@ class Table extends Component {
     
     
     return(
-      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearFilter, 0)}>
+      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearMinFilter, this.props.store.yearMaxFilter, 0)}>
         {({ loading, error, data }) => {
           if (loading && !data) return (
             <div className="card">

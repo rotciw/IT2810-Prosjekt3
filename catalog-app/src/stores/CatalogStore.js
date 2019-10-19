@@ -3,7 +3,8 @@ class CatalogStore {
     countryFilter = "";
     packagingFilter = "";
     productSelectionFilter = "";
-    yearFilter = "";
+    yearMinFilter = "2000";
+    yearMaxFilter = "2004";
 
     addSearchBarValue(value) {
         this.searchBarValue = value;
@@ -29,12 +30,19 @@ class CatalogStore {
     get getProductSelectionFilter() {
         return this.productSelectionFilter;
     };
-    addYearFilter(value) {
-        this.yearFilter = value;
+    addYearMinFilter(value) {
+        this.yearMinFilter = value;
     };
-    get getYearFilter() {
-        return this.yearFilter;
+    get getYearMinFilter() {
+        return this.yearMinFilter;
     };
+    addYearMaxFilter(value) {
+        this.yearMaxFilter = value;
+    };
+    get getYearMaxFilter() {
+        return this.yearMaxFilter;
+    };
+    
 }
 
 export default CatalogStore;
