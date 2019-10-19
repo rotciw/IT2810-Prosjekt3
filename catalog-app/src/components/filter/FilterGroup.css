@@ -7,3 +7,14 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.yearSlider{
+    margin: auto;
+    padding: 20px 0px;
+    width: 80%;
+    height: 100px;
+    text-align: center;
+}
+.yearSliderValues{
+    margin-top: 20px;
+}

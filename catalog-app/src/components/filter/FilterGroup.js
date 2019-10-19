@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Nouislider from 'react-nouislider';
+import 'nouislider/distribute/nouislider.css';
+import 'nouislider/src/nouislider.tooltips.less';
+import 'nouislider/src/nouislider.pips.less';
 import './FilterGroup.css'
+
 
 var filterData = require("./FilterData")
 
@@ -26,13 +31,14 @@ export default class FilterGroup extends Component {
             selectedCountryFilter: null,
             selectedPackagingFilter: null,
             selectedProductSelectionFilter: null,
+            yearMinFilter: "1900",
+            yearMaxFilter: "2019",
         };
         this.selectButton = this.selectButton.bind(this);
         
     }
     selectButton(filterGroup, name, i){
         console.log("selectedFilter: " + filterGroup);
-        
         if (filterGroup === 0){
             console.log("selected country filter");
             this.setState({selectedCountryFilter: i});
@@ -45,8 +51,7 @@ export default class FilterGroup extends Component {
             console.log("selected product selection filter");
             this.setState({selectedProductSelectionFilter: i});
             this.props.store.addProductSelectionFilter(name);
-        }
-        
+        } 
     }
     renderFilters(filterGroup, buttonNames, selectedFilter){
             
@@ -58,6 +63,15 @@ export default class FilterGroup extends Component {
         });
         return buttons
     };
+
+    handleSlider = (render, handle, value, un, percent) => {
+        this.setState({yearMinFilter: value[0].toFixed(0)});
+        this.setState({yearMaxFilter: value[1].toFixed(0)});
+    }
+    handleSliderUpdate = (render, handle, value, un, percent) => {
+        this.props.store.addYearMinFilter(value[0].toFixed(0));
+        this.props.store.addYearMaxFilter(value[1].toFixed(0));
+    }
     
     render() {
         
@@ -81,24 +95,48 @@ export default class FilterGroup extends Component {
             </Card>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1" className="cardHeader">
-                Emballasjetype
+                Årgang
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                    <div className="yearSlider">
+                        <Nouislider
+                            range={{min: 1900, max: 2019}}
+                            step={1}
+                            connect={true}
+                            start={[this.state.yearMinFilter, this.state.yearMaxFilter]}
+                            onSlide={this.handleSlider}
+                            onChange={this.handleSliderUpdate}
+                            
+                        />
+                        <p className="yearSliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
+                        
+                    </div>
+
+                </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="2" className="cardHeader">
+                Emballasjetype
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
                 <Card.Body>
                     {this.renderFilters(1, this.state.distinctPackaging, this.state.selectedPackagingFilter)}
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2" className="cardHeader">
+                <Accordion.Toggle as={Card.Header} eventKey="3" className="cardHeader">
                 Produktutvalg
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
+                <Accordion.Collapse eventKey="3">
                 <Card.Body>
                     {this.renderFilters(2, this.state.distinctProductSelection, this.state.selectedProductSelectionFilter)}
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
+            
             </Accordion>
         );
     }
