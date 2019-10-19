@@ -14,12 +14,16 @@ decorate(CatalogStore, {
   productSelectionFilter: observable,
   yearMinFilter: observable,
   yearMaxFilter: observable,
+  priceMinFilter: observable,
+  priceMaxFilter: observable,
   addSearchBarValue: action,
   addCountryFilter: action,
   addPackagingFilter: action,
   addProductSelectionFilter: action,
   addYearMinFilter: action,
   addYearMaxFilter: action,
+  addPriceMinFilter: action,
+  addPriceMaxFilter: action,
   getSearchBarValue: computed
 })
 

@@ -6,6 +6,7 @@ var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLID = require('graphql').GraphQLID;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
+var GraphQLFloat = require('graphql').GraphQLFloat;
 var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
 var PopularSearchesModel = require('../models/PopularSearches');
@@ -25,7 +26,7 @@ var productType = new GraphQLObjectType({
           type: GraphQLString
         },
         Pris: {
-          type: GraphQLString
+          type: GraphQLFloat
         },
         Literpris: {
           type: GraphQLString
@@ -167,6 +168,14 @@ fields: function () {
                 name: 'YearMax',
                 type: GraphQLString
             },
+            PriceMin: {
+                name: 'PriceMin',
+                type: GraphQLFloat
+            },
+            PriceMax: {
+                name: 'PriceMax',
+                type: GraphQLFloat
+            },
             Skipping: {
                 name: 'Skipping',
                 type: GraphQLInt
@@ -185,7 +194,10 @@ fields: function () {
                 filters['Produktutvalg'] = params.ProductSelection;
             }
             if (params.YearMin && params.YearMax){
-                filters['Argang'] = {$gte: + params.YearMin, $lte: params.YearMax};
+                filters['Argang'] = {$gte: params.YearMin, $lte: params.YearMax};
+            }
+            if (params.PriceMin && params.PriceMax){
+                filters['Pris'] = {$gte: params.PriceMin, $lte: params.PriceMax};
             }
             if (params.Country){
                 filters['Land'] = params.Country;

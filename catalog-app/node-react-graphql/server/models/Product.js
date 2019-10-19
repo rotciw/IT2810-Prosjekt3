@@ -4,7 +4,7 @@ var ProductSchema = new mongoose.Schema({
     Varenummer: String,
     Varenavn: String,
     Volum: String,
-    Pris: String,
+    Pris: parseFloat(String),
     Literpris: String,
     Varetype: String,
     Produktutvalg: String,
