@@ -10,7 +10,9 @@ import SearchBar from '../searchBar/SearchBar';
 
 decorate(CatalogStore, {
   searchBarValue: observable,
+  countryFilter: observable,
   addSearchBarValue: action,
+  addCountryFilter: action,
   getSearchBarValue: computed
 })
 

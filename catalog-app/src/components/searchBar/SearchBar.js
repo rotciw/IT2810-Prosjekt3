@@ -19,7 +19,7 @@ class SearchBar extends Component {
 
     handleSubmit(event){
       event.preventDefault();
-      let value = this.state.searchBarValue;
+      let value = this.state.searchBarValue.toLowerCase();
       this.props.store.addSearchBarValue(value)
     }
 

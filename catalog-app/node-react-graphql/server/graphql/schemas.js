@@ -155,6 +155,10 @@ fields: function () {
                 name: 'ProductSelection',
                 type: GraphQLString
             },
+            Country: {
+                name: 'Country',
+                type: GraphQLString
+            },
             Year: {
                 name: 'Year',
                 type: GraphQLString
@@ -179,6 +183,10 @@ fields: function () {
             if (params.Year){
                 filters['Argang'] = params.Year;
             }
+            if (params.Country){
+                filters['Land'] = params.Country;
+            }
+            
 
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
