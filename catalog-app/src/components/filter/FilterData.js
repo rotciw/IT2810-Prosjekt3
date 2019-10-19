@@ -81,4 +81,22 @@ let distinctCountries = [
   'Paraguay',
   'Nord Irland' ]
 
-module.exports = { distinctCountries: distinctCountries };
+let distinctPackaging = [
+  'Glass',
+  'Plast',
+  'Bag-in-box',
+  'Pouch',
+  'Emballasje med pant',
+  'Metall', 
+  'Øvrig',
+]
+
+let distinctProductSelection = [
+  'Basisutvalget',
+  'Bestillingsutvalget',
+  'Testutvalget',
+  'Partiutvalget'
+]
+
+
+module.exports = { distinctCountries: distinctCountries, distinctPackaging: distinctPackaging, distinctProductSelection: distinctProductSelection };

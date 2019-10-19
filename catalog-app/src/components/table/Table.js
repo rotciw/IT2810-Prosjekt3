@@ -88,10 +88,10 @@ class Table extends Component {
     return GET_PRODUCTQUERY
   };
   render() {
-    console.log(this.props.store.countryFilter);
+    console.log(this.props.store.productSelectionFilter);
     
     return(
-      <Query query={this.refreshQuery(this.props.store.searchBarValue, "", "", this.props.store.countryFilter, "")}>
+      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, "")}>
         {({ loading, error, data }) => {
           if (loading) return (
             <div className="card">

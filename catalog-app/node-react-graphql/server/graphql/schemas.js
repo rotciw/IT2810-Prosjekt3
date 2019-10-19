@@ -122,11 +122,11 @@ fields: function () {
         return productDetails
         }
     },
-    distinctCountries: {
+    distinctValues: {
         type: new GraphQLList(productType),
         resolve: function (root, params) {
             let distinctCountriesResult = new GraphQLList(GraphQLString);
-            ProductModel.find().distinct("Land", function(error, countries) {
+            ProductModel.find().distinct("Produktutvalg", function(error, countries) {
                 if (error){
                     console.log(error);
                 }else{

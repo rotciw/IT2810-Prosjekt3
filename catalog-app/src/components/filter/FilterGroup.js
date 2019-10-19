@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import './FilterGroup.css'
 
-var distinctCountriesFile = require("./DistinctCountries")
+var filterData = require("./FilterData")
 
 let buttonsStyle = {
     margin: "5px",
@@ -20,22 +20,40 @@ export default class FilterGroup extends Component {
     constructor(props){
         super(props);
         this.state = {
-            distinctCountries: distinctCountriesFile.distinctCountries.sort(),
+            distinctCountries: filterData.distinctCountries,
+            distinctPackaging: filterData.distinctPackaging,
+            distinctProductSelection: filterData.distinctProductSelection,
             selectedCountryFilter: null,
+            selectedPackagingFilter: null,
+            selectedProductSelectionFilter: null,
         };
         this.selectButton = this.selectButton.bind(this);
         
     }
-    selectButton(name, i){
-        this.setState({selectedCountryFilter: i});
-        this.props.store.addCountryFilter(name);
+    selectButton(filterGroup, name, i){
+        console.log("selectedFilter: " + filterGroup);
+        
+        if (filterGroup === 0){
+            console.log("selected country filter");
+            this.setState({selectedCountryFilter: i});
+            this.props.store.addCountryFilter(name);
+        }else if(filterGroup === 1){
+            console.log("selected packaging filter");
+            this.setState({selectedPackagingFilter: i});
+            this.props.store.addPackagingFilter(name);
+        }else if(filterGroup === 2){
+            console.log("selected product selection filter");
+            this.setState({selectedProductSelectionFilter: i});
+            this.props.store.addProductSelectionFilter(name);
+        }
+        
     }
-    renderCountryFilters(){
+    renderFilters(filterGroup, buttonNames, selectedFilter){
             
-        const buttons = this.state.distinctCountries.map((name, i) => {
-            const buttonStyle = i === this.state.selectedCountryFilter ? selectedButtonStyle : buttonsStyle;
+        const buttons = buttonNames.map((name, i) => {
+            const buttonStyle = i === selectedFilter ? selectedButtonStyle : buttonsStyle;
             return(
-                <Button onClick={() => { this.selectButton(name, i) }} key={i} id={i} style={buttonStyle} variant="outline-secondary">{name}</Button>
+                <Button onClick={() => { this.selectButton(filterGroup, name, i) }} key={i} id={i} style={buttonStyle} variant="outline-secondary">{name}</Button>
             )
             
         });
@@ -45,25 +63,35 @@ export default class FilterGroup extends Component {
     render() {
         
         return (
-            <Accordion defaultActiveKey="0">
+            <Accordion>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                 Land
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                 <Card.Body>
-
-                    {this.renderCountryFilters()}
-
+                    {this.renderFilters(0, this.state.distinctCountries, this.state.selectedCountryFilter)}
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1">
-                Filter
+                Emballasjetype
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
-                <Card.Body>Hello! I'm another body</Card.Body>
+                <Card.Body>
+                    {this.renderFilters(1, this.state.distinctPackaging, this.state.selectedPackagingFilter)}
+                </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="2">
+                Produktutvalg
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
+                <Card.Body>
+                    {this.renderFilters(2, this.state.distinctProductSelection, this.state.selectedProductSelectionFilter)}
+                </Card.Body>
                 </Accordion.Collapse>
             </Card>
             </Accordion>

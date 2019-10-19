@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { decorate, observable, action, computed } from 'mobx';
 import Table from '../table/Table';
-import Viewing from '../Viewing';
 import CatalogStore from '../../stores/CatalogStore';
 import FilterGroup from '../filter/FilterGroup'
 import Header from '../header/Header'
@@ -11,8 +10,12 @@ import SearchBar from '../searchBar/SearchBar';
 decorate(CatalogStore, {
   searchBarValue: observable,
   countryFilter: observable,
+  packagingFilter: observable,
+  productSelectionFilter: observable,
   addSearchBarValue: action,
   addCountryFilter: action,
+  addPackagingFilter: action,
+  addProductSelectionFilter: action,
   getSearchBarValue: computed
 })
 
