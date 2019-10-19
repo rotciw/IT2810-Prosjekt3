@@ -12,10 +12,12 @@ decorate(CatalogStore, {
   countryFilter: observable,
   packagingFilter: observable,
   productSelectionFilter: observable,
+  yearFilter: observable,
   addSearchBarValue: action,
   addCountryFilter: action,
   addPackagingFilter: action,
   addProductSelectionFilter: action,
+  addYearFilter: action,
   getSearchBarValue: computed
 })
 

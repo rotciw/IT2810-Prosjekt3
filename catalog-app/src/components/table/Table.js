@@ -88,12 +88,17 @@ class Table extends Component {
     return GET_PRODUCTQUERY
   };
   render() {
-    console.log(this.props.store.productSelectionFilter);
+    console.log("searchBar: " + this.props.store.searchBarValue);
+    console.log("packaging: " + this.props.store.packagingFilter);
+    console.log("productSelection: " + this.props.store.productSelectionFilter);
+    console.log("country: " + this.props.store.countryFilter);
+    console.log("year: " + this.props.store.yearFilter);
+    
     
     return(
-      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, "")}>
+      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearFilter, 0)}>
         {({ loading, error, data }) => {
-          if (loading) return (
+          if (loading && !data) return (
             <div className="card">
               <BootstrapTable
                 id="table"

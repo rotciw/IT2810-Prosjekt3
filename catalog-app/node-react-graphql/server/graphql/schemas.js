@@ -126,7 +126,7 @@ fields: function () {
         type: new GraphQLList(productType),
         resolve: function (root, params) {
             let distinctCountriesResult = new GraphQLList(GraphQLString);
-            ProductModel.find().distinct("Produktutvalg", function(error, countries) {
+            ProductModel.find().distinct("Varetype", function(error, countries) {
                 if (error){
                     console.log(error);
                 }else{
@@ -191,7 +191,7 @@ fields: function () {
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
-                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}])
+                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},])
                 .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec()
             if (!products) {
                 throw new Error('Error')

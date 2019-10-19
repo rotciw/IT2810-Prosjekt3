@@ -3,6 +3,7 @@ class CatalogStore {
     countryFilter = "";
     packagingFilter = "";
     productSelectionFilter = "";
+    yearFilter = "";
 
     addSearchBarValue(value) {
         this.searchBarValue = value;
@@ -27,6 +28,12 @@ class CatalogStore {
     };
     get getProductSelectionFilter() {
         return this.productSelectionFilter;
+    };
+    addYearFilter(value) {
+        this.yearFilter = value;
+    };
+    get getYearFilter() {
+        return this.yearFilter;
     };
 }
 

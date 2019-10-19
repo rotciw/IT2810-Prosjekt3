@@ -55,7 +55,6 @@ export default class FilterGroup extends Component {
             return(
                 <Button onClick={() => { this.selectButton(filterGroup, name, i) }} key={i} id={i} style={buttonStyle} variant="outline-secondary">{name}</Button>
             )
-            
         });
         return buttons
     };
@@ -63,9 +62,15 @@ export default class FilterGroup extends Component {
     render() {
         
         return (
+            
             <Accordion>
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
+                <Card.Header className="filterHeader">
+                <h5>Filtrering</h5>
+                </Card.Header>
+            </Card>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0" className="cardHeader">
                 Land
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
@@ -75,7 +80,7 @@ export default class FilterGroup extends Component {
                 </Accordion.Collapse>
             </Card>
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
+                <Accordion.Toggle as={Card.Header} eventKey="1" className="cardHeader">
                 Emballasjetype
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
@@ -85,7 +90,7 @@ export default class FilterGroup extends Component {
                 </Accordion.Collapse>
             </Card>
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
+                <Accordion.Toggle as={Card.Header} eventKey="2" className="cardHeader">
                 Produktutvalg
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="2">
