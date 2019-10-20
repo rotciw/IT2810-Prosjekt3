@@ -114,7 +114,7 @@ export default class FilterGroup extends Component {
                             range={{min: 1900, max: 2019}}
                             step={1}
                             connect={true}
-                            start={[this.state.yearMinFilter, this.state.yearMaxFilter]}
+                            start={[parseInt(this.state.yearMinFilter), parseInt(this.state.yearMaxFilter)]}
                             onSlide={this.handleYearSlider}
                             onChange={this.handleYearSliderUpdate}
                         />
@@ -141,7 +141,7 @@ export default class FilterGroup extends Component {
                             }}
                             step={1}
                             connect={true}
-                            start={[this.state.priceMinFilter, this.state.priceMaxFilter]}
+                            start={[parseInt(this.state.priceMinFilter), parseInt(this.state.priceMaxFilter)]}
                             onSlide={this.handlePriceSlider}
                             onChange={this.handlePriceSliderUpdate}
                         />
