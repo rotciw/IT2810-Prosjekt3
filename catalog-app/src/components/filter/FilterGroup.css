@@ -8,13 +8,13 @@
     cursor: pointer;
 }
 
-.yearSlider{
+.slider{
     margin: auto;
     padding: 20px 0px;
     width: 80%;
     height: 100px;
     text-align: center;
 }
-.yearSliderValues{
+.sliderValues{
     margin-top: 20px;
 }
