@@ -6,6 +6,7 @@ var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLID = require('graphql').GraphQLID;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
+var GraphQLDouble = require('graphql').GraphQLDouble;
 var GraphQLFloat = require('graphql').GraphQLFloat;
 var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
@@ -197,6 +198,7 @@ fields: function () {
                 filters['Argang'] = {$gte: params.YearMin, $lte: params.YearMax};
             }
             if (params.PriceMin && params.PriceMax){
+                // $expr: { $lte: [ { $toDouble: "$Price" }, 1000.0 ] }
                 filters['Pris'] = {$gte: params.PriceMin, $lte: params.PriceMax};
             }
             if (params.Country){

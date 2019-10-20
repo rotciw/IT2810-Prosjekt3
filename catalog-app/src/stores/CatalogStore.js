@@ -5,8 +5,8 @@ class CatalogStore {
     productSelectionFilter = "";
     yearMinFilter = "";
     yearMaxFilter = "";
-    priceMinFilter = "19.9";
-    priceMaxFilter = "100.0";
+    priceMinFilter = "1";
+    priceMaxFilter = "100000.0";
 
     addSearchBarValue(value) {
         this.searchBarValue = value;
