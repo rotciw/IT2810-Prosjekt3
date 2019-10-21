@@ -31,7 +31,7 @@ export default class FilterGroup extends Component {
             selectedCountryFilter: null,
             selectedPackagingFilter: null,
             selectedProductSelectionFilter: null,
-            yearMinFilter: "1900",
+            yearMinFilter: "1930",
             yearMaxFilter: "2019",
             priceMinFilter: "1",
             priceMaxFilter: "50000",
@@ -90,7 +90,10 @@ export default class FilterGroup extends Component {
             <Accordion>
             <Card>
                 <Card.Header className="filterHeader">
-                <h5>Filtrering</h5>
+                <h5 style={{display: "inline-block"}}>Filtrering</h5>
+                <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
+                <Button onClick={() => { }} className="reset_button" variant="outline-secondary">Nullstill filtrering</Button>
+
                 </Card.Header>
             </Card>
             <Card>
@@ -111,7 +114,7 @@ export default class FilterGroup extends Component {
                 <Card.Body>
                     <div className="slider">
                         <Nouislider
-                            range={{min: 1900, max: 2019}}
+                            range={{min: 1930, max: 2019}}
                             step={1}
                             connect={true}
                             start={[parseInt(this.state.yearMinFilter), parseInt(this.state.yearMaxFilter)]}
