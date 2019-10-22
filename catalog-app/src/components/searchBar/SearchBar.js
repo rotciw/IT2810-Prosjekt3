@@ -11,7 +11,6 @@ mutation AddSearch($Searched: String!) {
   }
 }`
 
-
 class SearchBar extends Component {
   constructor(props){
     super(props);
@@ -32,8 +31,7 @@ class SearchBar extends Component {
     handleSubmit(event){
       event.preventDefault();
       let value = this.state.searchBarValue.toLowerCase();
-      this.props.store.addSearchBarValue(value)
-      
+      this.props.searchBarStore.addSearchBarValue(value)
     }
 
 
@@ -76,4 +74,4 @@ class SearchBar extends Component {
     }
   }
 
-  export default SearchBar;
+  export default inject("searchBarStore")(observer(SearchBar));

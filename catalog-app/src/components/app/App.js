@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css';
-import { decorate, observable, action, computed } from 'mobx';
+import { decorate, observable, action } from 'mobx';
 import Table from '../table/Table';
-import CatalogStore from '../../stores/CatalogStore';
-import FilterGroup from '../filter/FilterGroup'
+import FilterStore from '../../stores/FilterStore';
+import SearchBarStore from '../../stores/SearchBarStore';
+import SortStore from '../../stores/SortStore';
+import FilterGroup from '../filterGroup/FilterGroup'
 import Header from '../header/Header'
-import Wordcloud from '../wordcloud/Wordcloud'
+import ModalContainer from '../modalContainer/ModalContainer'
 import SearchBar from '../searchBar/SearchBar';
+import { Provider } from 'mobx-react';
+import SortDropdown from '../sortDropdown/SortDropdown';
 
-decorate(CatalogStore, {
-  searchBarValue: observable,
+decorate(FilterStore, {
   countryFilter: observable,
   packagingFilter: observable,
   productSelectionFilter: observable,
@@ -17,7 +20,6 @@ decorate(CatalogStore, {
   yearMaxFilter: observable,
   priceMinFilter: observable,
   priceMaxFilter: observable,
-  addSearchBarValue: action,
   addCountryFilter: action,
   addPackagingFilter: action,
   addProductSelectionFilter: action,
@@ -25,26 +27,48 @@ decorate(CatalogStore, {
   addYearMaxFilter: action,
   addPriceMinFilter: action,
   addPriceMaxFilter: action,
-  getSearchBarValue: computed
+})
+decorate(SortStore, {
+  sortAfter: observable,
+  addSortAfter: action,
+})
+decorate(SearchBarStore, {
+  searchBarValue: observable,
+  addSearchBarValue: action,
 })
 
-const catalogStore = new CatalogStore();
+class RootStore {
+  constructor(){
+    this.filterStore = new FilterStore();
+    this.sortStore = new SortStore();
+    this.searchBarStore = new SearchBarStore();
+  }
+}
+const rootStore = new RootStore();
 
 function App() {
   return (
+    <Provider
+      rootStore = {rootStore}
+      filterStore = {rootStore.filterStore}
+      sortStore = {rootStore.sortStore}
+      searchBarStore = {rootStore.searchBarStore}
+    >
     <div className="container-fluid">
-    <Wordcloud />
       <div className="row">
         <Header />
         <div className="col-md-4">
-        <SearchBar store={catalogStore}/>
-        <FilterGroup store={catalogStore}/>
+        <SearchBar/>
+        <FilterGroup/>
+        <SortDropdown/>
+        <ModalContainer />
         </div>
         <div className="col-md-8">
-        <Table store={catalogStore}/>
+        <Table/>
         </div>
       </div>
     </div>
+    </Provider>
   );
 }
 

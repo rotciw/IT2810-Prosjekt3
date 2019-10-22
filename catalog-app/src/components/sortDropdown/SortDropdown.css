@@ -1,0 +1,41 @@
+.dropdownContainer {
+    margin-bottom: 15px;
+}
+
+.sortToggle{
+    background-color: #FDFFFC;
+    color: #2D2D2D;
+    padding:20px;
+    border: 3px solid #FDFFFC;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Classes with '-' are bootstrap default, which makes the naming here a bit weird */
+.sortToggle:hover,
+.sortToggle:focus,
+btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: #e2e2e2;
+    color: #2D2D2D;
+    border: 3px solid #e2e2e2;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.dropdown-menu {
+    width:100%;
+}
+
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+    width: 100%;
+}
+.activeSortingItem, .activeSortingItem:hover, .activeSortingItem:active{
+    background-color: #b2b2b2;
+}
+
+.sortingItem:hover{
+    background-color: #e2e2e2;
+}

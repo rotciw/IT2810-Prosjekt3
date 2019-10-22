@@ -1,5 +1,4 @@
-class CatalogStore {
-    searchBarValue = "";
+class FilterStore {
     countryFilter = "";
     packagingFilter = "";
     productSelectionFilter = "";
@@ -7,14 +6,7 @@ class CatalogStore {
     yearMaxFilter = "";
     priceMinFilter = 1;
     priceMaxFilter = 50000;
-    sortAfter = "Pris";
 
-    addSearchBarValue(value) {
-        this.searchBarValue = value;
-    };
-    get getSearchBarValue() {
-        return this.searchBarValue;
-    };
     addCountryFilter(value) {
         this.countryFilter = value;
     };
@@ -57,13 +49,6 @@ class CatalogStore {
     get getPriceMaxFilter() {
         return this.priceMaxFilter;
     };
-    addSortAfter(value) {
-        this.sortAfter = value;
-    };
-    get getSortAfter() {
-        return this.sortAfter;
-    };
-    
 }
 
-export default CatalogStore;
+export default FilterStore;
