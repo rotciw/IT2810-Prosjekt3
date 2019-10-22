@@ -350,12 +350,14 @@ var mutation = new GraphQLObjectType({
           }
         },
         resolve: function (root, params) {
-            const popularSearchesModel = new PopularSearchesModel(params);
-            const newPopularSearch = popularSearchesModel.save();
-            if (!newPopularSearch){
-              throw new Error('Error');
-            }
-            return newPopularSearch
+          return PopularSearchesModel.findOneAndUpdate(
+            {Searched:params.Searched},{$set:{Searched:params.Searched},$inc:{Times:1}}, {upsert: true},
+            function (err){
+                if (err)
+                    throw new Error(err);
+                });
+            
+            
 
         }
     },
