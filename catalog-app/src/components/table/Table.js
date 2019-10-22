@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { observer, inject } from 'mobx-react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './Table.css'
 
@@ -142,6 +143,21 @@ class Table extends Component {
               </div>
             );
             if (error) return `Error! ${error.message}`;
+
+            const options = {
+              onSizePerPageChange: (sizePerPage, page) => {
+                console.log('Size per page change!!!');
+                console.log('Newest size per page:' + sizePerPage);
+                console.log('Newest page:' + page);
+              },
+              onPageChange: (page, sizePerPage) => {
+                console.log('Page change!!!');
+                console.log('Newest size per page:' + sizePerPage);
+                console.log('Newest page:' + page);
+              }
+            };
+
+
             return (
               <div className="card">
                 <BootstrapTable
@@ -154,6 +170,7 @@ class Table extends Component {
                   bootstrap4={true}
                   hover={true}
                   bordered={true}
+                  pagination={ paginationFactory() }
                 />
               </div>
             );
