@@ -1,0 +1,66 @@
+.backDrop {
+    background-color: rgba(48, 49, 48, 0.42);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    transition: all 1.3s;
+    z-index: 1;
+    top:0;
+    left:0;
+}
+
+.modal-wrapper {
+    position: absolute;
+    background: #F7F7F7;
+    border-radius: 5px;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    /* transition: all .8s; */
+    width: 40vw;
+    height: auto;
+    z-index: 2;
+    top:5vh;
+    left: 30vw;
+}
+
+.modal-header {
+    background: #2D2D2D;
+    color: #F7F7F7;
+    line-height: 40px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.modal-body {
+    padding: 0 15px 15px 15px;
+    text-align: center;
+}
+
+
+.close-modal-btn {
+    color: #F7F7F7;
+    cursor: pointer;
+    float: right;
+    font-size: 30px;
+    margin: 0;
+}
+
+.close-modal-btn:hover {
+    color: #CF5C36;
+}
+
+
+.open-modal-btn {
+    background-color: #2D2D2D;
+    padding: 20px;
+    border: 3px solid #2D2D2D;
+    border-radius: 5px;
+    width: 100%;
+    color: #FDFFFC;
+    transition: all 0.5s;
+}
+
+.open-modal-btn:hover {
+    background-color: #383838;
+    border: 3px solid #383838;
+}

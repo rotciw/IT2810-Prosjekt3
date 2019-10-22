@@ -5,7 +5,7 @@ import Table from '../table/Table';
 import CatalogStore from '../../stores/CatalogStore';
 import FilterGroup from '../filter/FilterGroup'
 import Header from '../header/Header'
-import Wordcloud from '../wordcloud/Wordcloud'
+import ModalContainer from '../modalContainer/ModalContainer'
 import SearchBar from '../searchBar/SearchBar';
 
 decorate(CatalogStore, {
@@ -33,12 +33,12 @@ const catalogStore = new CatalogStore();
 function App() {
   return (
     <div className="container-fluid">
-    <Wordcloud />
       <div className="row">
         <Header />
         <div className="col-md-4">
         <SearchBar store={catalogStore}/>
         <FilterGroup store={catalogStore}/>
+        <ModalContainer />
         </div>
         <div className="col-md-8">
         <Table store={catalogStore}/>
