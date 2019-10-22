@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { TagCloud } from "react-tagcloud";
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo';

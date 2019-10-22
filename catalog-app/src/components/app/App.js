@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { decorate, observable, action, computed } from 'mobx';
+import { decorate, observable, action } from 'mobx';
 import Table from '../table/Table';
 import FilterStore from '../../stores/FilterStore';
 import SearchBarStore from '../../stores/SearchBarStore';
 import SortStore from '../../stores/SortStore';
-import FilterGroup from '../filter/FilterGroup'
+import FilterGroup from '../filterGroup/FilterGroup'
 import Header from '../header/Header'
 import ModalContainer from '../modalContainer/ModalContainer'
 import SearchBar from '../searchBar/SearchBar';

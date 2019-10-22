@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Modal from '../modal/Modal';
-import WordCloud from '../wordCloud/WordCloud';
+import Modal from './modal/Modal';
+import WordCloud from './modal/wordCloud/WordCloud';
 
 class ModalContainer extends Component {
     constructor(){
