@@ -7,6 +7,7 @@ class CatalogStore {
     yearMaxFilter = "";
     priceMinFilter = 1;
     priceMaxFilter = 50000;
+    sortAfter = "Pris";
 
     addSearchBarValue(value) {
         this.searchBarValue = value;
@@ -55,6 +56,12 @@ class CatalogStore {
     };
     get getPriceMaxFilter() {
         return this.priceMaxFilter;
+    };
+    addSortAfter(value) {
+        this.sortAfter = value;
+    };
+    get getSortAfter() {
+        return this.sortAfter;
     };
     
 }
