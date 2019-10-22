@@ -111,7 +111,7 @@ class Table extends Component {
       <div>
         <h1 style={{display: "inline-block"}}>Søkeresultat</h1>
         <Dropdown className="sort_dropdown"  alignRight>
-          <Dropdown.Toggle className="sort_toggle" id="dropdown-basic" size="sm">
+          <Dropdown.Toggle className="sort_toggle" id="dropdown-basic" >
             Sorter etter
           </Dropdown.Toggle>
           <Dropdown.Menu>
