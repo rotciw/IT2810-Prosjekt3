@@ -4,7 +4,7 @@ var ProductSchema = new mongoose.Schema({
     Varenummer: String,
     Varenavn: String,
     Volum: String,
-    Pris: String,
+    Pris: Number,
     Literpris: String,
     Varetype: String,
     Produktutvalg: String,
@@ -17,7 +17,7 @@ var ProductSchema = new mongoose.Schema({
     Land: String,
     Argang: String,
     Rastoff: String,
-    Alkohol: String,
+    Alkohol: Number,
     Emballasjetype: String,
     Vareurl: String,
   });

@@ -1,0 +1,42 @@
+.filterHeader{
+    background-color: #2d2d2d;
+    color: white;
+    height: 50px;
+}
+.cardHeader:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.slider{
+    margin: auto;
+    padding: 20px 0px;
+    width: 80%;
+    height: 100px;
+    text-align: center;
+}
+.sliderValues{
+    margin-top: 20px;
+}
+.reset_button{
+    float: right;
+    height: 45px;
+    width: 130px;
+    padding-top: 13px;
+    margin-top: -10px;
+    margin-right: -10px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.reset_button:hover{
+    cursor: pointer;
+}
+.reset_text:hover{
+    text-decoration: underline;
+}
+.cancel_icon{
+    margin-right: 5px;
+    margin-top: -2px;
+    width: 10px;
+    fill: white;
+}

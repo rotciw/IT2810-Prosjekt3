@@ -6,6 +6,8 @@ var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLID = require('graphql').GraphQLID;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
+var GraphQLDouble = require('graphql').GraphQLDouble;
+var GraphQLFloat = require('graphql').GraphQLFloat;
 var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
 var PopularSearchesModel = require('../models/PopularSearches');
@@ -25,7 +27,7 @@ var productType = new GraphQLObjectType({
           type: GraphQLString
         },
         Pris: {
-          type: GraphQLString
+          type: GraphQLFloat
         },
         Literpris: {
           type: GraphQLString
@@ -64,7 +66,7 @@ var productType = new GraphQLObjectType({
             type: GraphQLString
         },
         Alkohol: {
-            type: GraphQLString
+            type: GraphQLInt
         },
         Emballasjetype: {
             type: GraphQLString
@@ -122,6 +124,24 @@ fields: function () {
         return productDetails
         }
     },
+    distinctValues: {
+        type: new GraphQLList(productType),
+        resolve: function (root, params) {
+            let distinctCountriesResult = new GraphQLList(GraphQLString);
+            ProductModel.find().distinct("Varetype", function(error, countries) {
+                if (error){
+                    console.log(error);
+                }else{
+                    let resultArray = []
+                    for (let i = 0; i < countries.length; i++){
+                        resultArray.push(countries[i])
+                    }
+                    console.log(resultArray)
+                }
+                return distinctCountriesResult;
+            });
+        }
+    },
     productQuery: {
         type: new GraphQLList(productType),
         args: {
@@ -137,9 +157,25 @@ fields: function () {
                 name: 'ProductSelection',
                 type: GraphQLString
             },
-            Year: {
-                name: 'Year',
+            Country: {
+                name: 'Country',
                 type: GraphQLString
+            },
+            YearMin: {
+                name: 'YearMin',
+                type: GraphQLString
+            },
+            YearMax: {
+                name: 'YearMax',
+                type: GraphQLString
+            },
+            PriceMin: {
+                name: 'PriceMin',
+                type: GraphQLFloat
+            },
+            PriceMax: {
+                name: 'PriceMax',
+                type: GraphQLFloat
             },
             Skipping: {
                 name: 'Skipping',
@@ -158,14 +194,22 @@ fields: function () {
             if (params.ProductSelection){
                 filters['Produktutvalg'] = params.ProductSelection;
             }
-            if (params.Year){
-                filters['Argang'] = params.Year;
+            if (params.YearMin && params.YearMax){
+                filters['Argang'] = {$gte: params.YearMin, $lte: params.YearMax};
             }
+            if (params.PriceMin && params.PriceMax){
+                // $expr: { $lte: [ { $toDouble: "$Price" }, 1000.0 ] }
+                filters['Pris'] = {$gte: params.PriceMin, $lte: params.PriceMax};
+            }
+            if (params.Country){
+                filters['Land'] = params.Country;
+            }
+            
 
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
-                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }}])
+                {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},])
                 .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec()
             if (!products) {
                 throw new Error('Error')
