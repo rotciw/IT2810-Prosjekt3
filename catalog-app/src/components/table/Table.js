@@ -61,10 +61,17 @@ const expandRow = {
 };
 
 class Table extends Component {
-  refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0){
+  constructor(props){
+    super(props);
+    this.state = {
+      activeSort: "Pris",
+    }
+    this.handleSorting = this.handleSorting.bind(this);
+  }
+  refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0, sortAfter=""){
     const GET_PRODUCTQUERY = gql`
       {
-        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Country: "${country}", YearMin: "${yearMin}", YearMax: "${yearMax}", PriceMin: ${priceMin}, PriceMax: ${priceMax}, Skipping: ${skipping}) {
+        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Country: "${country}", YearMin: "${yearMin}", YearMax: "${yearMax}", PriceMin: ${priceMin}, PriceMax: ${priceMax}, Skipping: ${skipping}, SortAfter: "${sortAfter}") {
           Varenummer
           Varenavn
           Volum
@@ -88,13 +95,17 @@ class Table extends Component {
       }`
     return GET_PRODUCTQUERY
   };
-  render() {
-    console.log("searchBar: " + this.props.store.searchBarValue);
-    console.log("packaging: " + this.props.store.packagingFilter);
-    console.log("productSelection: " + this.props.store.productSelectionFilter);
-    console.log("country: " + this.props.store.countryFilter);
-    console.log("year: " + this.props.store.yearFilter);
+
+  handleSorting(name){
+    console.log(name);
     
+    this.props.store.addSortAfter(name)
+    this.setState({
+      activeSort: name,
+    })
+  }
+
+  render() {
     
     return(
       <div>
@@ -103,18 +114,17 @@ class Table extends Component {
           <Dropdown.Toggle className="sort_toggle" id="dropdown-basic" size="sm">
             Sorter etter
           </Dropdown.Toggle>
-
           <Dropdown.Menu>
-            <Dropdown.Item className="sorting_item active_sorting_item" href="#/action-1">Pris (lav til høy)</Dropdown.Item>
-            <Dropdown.Item className="sorting_item "href="#/action-2">Pris (høy til lav)</Dropdown.Item>
-            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol (lav til høy)</Dropdown.Item>
-            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol (høy til lav)</Dropdown.Item>
-            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol pr. krone (lav til høy)</Dropdown.Item>
-            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol pr. krone (høy til lav)</Dropdown.Item>
+            <Dropdown.Item name="Pris" className={this.state.activeSort === "Pris" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Pris (lav til høy)</Dropdown.Item>
+            <Dropdown.Item name="-Pris" className={this.state.activeSort === "-Pris" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Pris (høy til lav)</Dropdown.Item>
+            <Dropdown.Item name="Alkohol" className={this.state.activeSort === "Alkohol" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol (lav til høy)</Dropdown.Item>
+            <Dropdown.Item name="-Alkohol" className={this.state.activeSort === "-Alkohol" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol (høy til lav)</Dropdown.Item>
+            <Dropdown.Item name="AlkoholPrKorne" className={this.state.activeSort === "AlkoholPrKrone" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol pr. krone (lav til høy)</Dropdown.Item>
+            <Dropdown.Item name="-AlkoholPrKrone" className={this.state.activeSort === "-AlkoholPrKrone" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol pr. krone (høy til lav)</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       
-        <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearMinFilter, this.props.store.yearMaxFilter, this.props.store.priceMinFilter, this.props.store.priceMaxFilter, 0)}>
+        <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearMinFilter, this.props.store.yearMaxFilter, this.props.store.priceMinFilter, this.props.store.priceMaxFilter, 0, this.props.store.sortAfter)}>
           {({ loading, error, data }) => {
             if (loading && !data) return (
               <div className="card">

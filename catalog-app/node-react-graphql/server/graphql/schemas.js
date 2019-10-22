@@ -66,7 +66,7 @@ var productType = new GraphQLObjectType({
             type: GraphQLString
         },
         Alkohol: {
-            type: GraphQLString
+            type: GraphQLInt
         },
         Emballasjetype: {
             type: GraphQLString
