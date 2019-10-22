@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { TagCloud } from "react-tagcloud";
 import gql from 'graphql-tag';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, useQuery } from 'react-apollo';
 
-const GET_POPULARSEARCHES = gql`
+const GET_POPULAR = gql`
 {
   popularSearches{
     Searched,
@@ -11,20 +11,19 @@ const GET_POPULARSEARCHES = gql`
   }
 }`;
 
-
-const Wordcloud = (<Query query={GET_POPULARSEARCHES}>
-  {({ loading, error, data }) => {
-    if (loading) return "Loading..";
+  export default () => {
+    const { loading, error, data } = useQuery(GET_POPULAR)
+    if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
-    return <TagCloud minSize={1}
-              maxSize={200}
-              tags={this.cloud}
-              onClick={tag => alert(`'${tag.value}' was selected!`)} />;
-  }}
-</Query>)
-
-
-
-
-
-export default Wordcloud;
+    let cloudData = []
+    data.popularSearches.map(popSearch => (
+        cloudData.push({value:popSearch.Searched,count:popSearch.Times})
+    ))
+    return (
+    <TagCloud minSize={12}
+              maxSize={35}
+              tags={cloudData}
+              className="simple-cloud"
+              onClick={tag => alert(`'${tag.value}' was selected!`)} />
+  );
+}
