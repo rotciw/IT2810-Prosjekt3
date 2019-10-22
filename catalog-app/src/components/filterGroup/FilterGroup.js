@@ -100,101 +100,102 @@ class FilterGroup extends Component {
         this.props.filterStore.addPriceMinFilter(1);
         this.props.filterStore.addPriceMaxFilter(50000);
     }
-    
+
     render() {
-        
+
         return (
-            
-            <Accordion>
-            <Card>
-                <Card.Header className="filterHeader">
-                <h5 style={{display: "inline-block"}}>Filtrering</h5>
-                <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
-                    <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
-                    <p className="reset_text" style={{display: "inline-block"}}>Nullstill filtrering</p>
-                </div>
-
-                </Card.Header>
-            </Card>
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0" className="cardHeader">
-                Land
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                    {this.renderFilters(0, this.state.distinctCountries, this.state.selectedCountryFilter)}
-                </Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1" className="cardHeader">
-                Årgang
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                    <div className="slider">
-                        <Nouislider
-                            range={{min: 1930, max: 2019}}
-                            step={1}
-                            connect={true}
-                            start={[parseInt(this.state.yearMinFilter), parseInt(this.state.yearMaxFilter)]}
-                            onSlide={this.handleYearSlider}
-                            onChange={this.handleYearSliderUpdate}
-                        />
-                        <p className="sliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
+            <div className="filterContainer">
+                <Accordion>
+                <Card>
+                    <Card.Header className="filterHeader">
+                    <h5 style={{display: "inline-block"}}>Filtrering</h5>
+                    <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
+                        <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
+                        <p className="reset_text" style={{display: "inline-block"}}>Nullstill filtrering</p>
                     </div>
 
-                </Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2" className="cardHeader">
-                Pris
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                <Card.Body>
-                    <div className="slider">
-                        <Nouislider
-                            range={{
-                                'min': [1],
-                                '10%': [100,10],
-                                '50%': [500,100],
-                                '70%': [2000,1000],
-                                'max': [50000,10000]
-                            }}
-                            step={1}
-                            connect={true}
-                            start={[this.state.priceMinFilter, this.state.priceMaxFilter]}
-                            onSlide={this.handlePriceSlider}
-                            onChange={this.handlePriceSliderUpdate}
-                        />
-                        <p className="sliderValues">{this.state.priceMinFilter} - {this.state.priceMaxFilter}</p>                        
-                    </div>
-                </Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="3" className="cardHeader">
-                Emballasjetype
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="3">
-                <Card.Body>
-                    {this.renderFilters(1, this.state.distinctPackaging, this.state.selectedPackagingFilter)}
-                </Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="4" className="cardHeader">
-                Produktutvalg
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="4">
-                <Card.Body>
-                    {this.renderFilters(2, this.state.distinctProductSelection, this.state.selectedProductSelectionFilter)}
-                </Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            
-            </Accordion>
+                    </Card.Header>
+                </Card>
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="0" className="cardHeader">
+                    Land
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                        {this.renderFilters(0, this.state.distinctCountries, this.state.selectedCountryFilter)}
+                    </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="1" className="cardHeader">
+                    Årgang
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="1">
+                    <Card.Body>
+                        <div className="slider">
+                            <Nouislider
+                                range={{min: 1930, max: 2019}}
+                                step={1}
+                                connect={true}
+                                start={[parseInt(this.state.yearMinFilter), parseInt(this.state.yearMaxFilter)]}
+                                onSlide={this.handleYearSlider}
+                                onChange={this.handleYearSliderUpdate}
+                            />
+                            <p className="sliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
+                        </div>
+
+                    </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="2" className="cardHeader">
+                    Pris
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="2">
+                    <Card.Body>
+                        <div className="slider">
+                            <Nouislider
+                                range={{
+                                    'min': [1],
+                                    '10%': [100,10],
+                                    '50%': [500,100],
+                                    '70%': [2000,1000],
+                                    'max': [50000,10000]
+                                }}
+                                step={1}
+                                connect={true}
+                                start={[this.state.priceMinFilter, this.state.priceMaxFilter]}
+                                onSlide={this.handlePriceSlider}
+                                onChange={this.handlePriceSliderUpdate}
+                            />
+                            <p className="sliderValues">{this.state.priceMinFilter} - {this.state.priceMaxFilter}</p>                        
+                        </div>
+                    </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="3" className="cardHeader">
+                    Emballasjetype
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="3">
+                    <Card.Body>
+                        {this.renderFilters(1, this.state.distinctPackaging, this.state.selectedPackagingFilter)}
+                    </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="4" className="cardHeader">
+                    Produktutvalg
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="4">
+                    <Card.Body>
+                        {this.renderFilters(2, this.state.distinctProductSelection, this.state.selectedProductSelectionFilter)}
+                    </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+                
+                </Accordion>
+            </div>
         );
     }
   }

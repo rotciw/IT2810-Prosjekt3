@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { observer, inject } from 'mobx-react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import Dropdown from 'react-bootstrap/Dropdown';
 import './Table.css'
 
 const columns = [{
@@ -61,13 +60,7 @@ const expandRow = {
 };
 
 class Table extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      activeSort: "Pris",
-    }
-    this.handleSorting = this.handleSorting.bind(this);
-  }
+
   refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0, sortAfter=""){
     const GET_PRODUCTQUERY = gql`
       {
@@ -96,35 +89,22 @@ class Table extends Component {
     return GET_PRODUCTQUERY
   };
 
-  handleSorting(name){
-    console.log(name);
-    
-    this.props.sortStore.addSortAfter(name)
-    this.setState({
-      activeSort: name,
-    })
-  }
-
   render() {
-    
     return(
       <div>
-        <h1 style={{display: "inline-block"}}>Søkeresultat</h1>
-        <Dropdown className="sort_dropdown"  alignRight>
-          <Dropdown.Toggle className="sort_toggle" id="dropdown-basic" >
-            Sorter etter
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item name="Pris" className={this.state.activeSort === "Pris" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Pris (lav til høy)</Dropdown.Item>
-            <Dropdown.Item name="-Pris" className={this.state.activeSort === "-Pris" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Pris (høy til lav)</Dropdown.Item>
-            <Dropdown.Item name="Alkohol" className={this.state.activeSort === "Alkohol" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol (lav til høy)</Dropdown.Item>
-            <Dropdown.Item name="-Alkohol" className={this.state.activeSort === "-Alkohol" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol (høy til lav)</Dropdown.Item>
-            <Dropdown.Item name="AlkoholPrKrone" className={this.state.activeSort === "AlkoholPrKrone" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol pr. krone (lav til høy)</Dropdown.Item>
-            <Dropdown.Item name="-AlkoholPrKrone" className={this.state.activeSort === "-AlkoholPrKrone" ? "sorting_item active_sorting_item" : "sorting_item"} onClick={item => this.handleSorting(item.target.name)}>Alkohol pr. krone (høy til lav)</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      
-        <Query query={this.refreshQuery(this.props.searchBarStore.searchBarValue, this.props.filterStore.packagingFilter, this.props.filterStore.productSelectionFilter, this.props.filterStore.countryFilter, this.props.filterStore.yearMinFilter, this.props.filterStore.yearMaxFilter, this.props.filterStore.priceMinFilter, this.props.filterStore.priceMaxFilter, 0, this.props.sortStore.sortAfter)}>
+        <Query query={
+          this.refreshQuery(
+            this.props.searchBarStore.searchBarValue,
+            this.props.filterStore.packagingFilter,
+            this.props.filterStore.productSelectionFilter,
+            this.props.filterStore.countryFilter,
+            this.props.filterStore.yearMinFilter,
+            this.props.filterStore.yearMaxFilter,
+            this.props.filterStore.priceMinFilter,
+            this.props.filterStore.priceMaxFilter,
+            0,
+            this.props.sortStore.sortAfter)}
+          >
           {({ loading, error, data }) => {
             if (loading && !data) return (
               <div className="card">

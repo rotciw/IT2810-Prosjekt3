@@ -1,3 +1,7 @@
+.filterContainer {
+    margin-bottom: 15px;
+}
+
 .filterHeader{
     background-color: #2d2d2d;
     color: white;

@@ -14,12 +14,12 @@
     background: #F7F7F7;
     border-radius: 5px;
     box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
-    /* transition: all .8s; */
     width: 40vw;
     height: auto;
     z-index: 2;
     top:5vh;
     left: 30vw;
+    min-width: 200px;
 }
 
 .modal-header {
@@ -28,7 +28,8 @@
     line-height: 40px;
     padding: 10px 20px;
     margin-bottom: 15px;
-    text-align: right;
+    /* text-align: right; */
+    font-size: 20px;
 }
 
 .modal-body {
@@ -58,6 +59,7 @@
     width: 100%;
     color: #FDFFFC;
     transition: all 0.5s;
+    margin-bottom:15px;
 }
 
 .open-modal-btn:hover {

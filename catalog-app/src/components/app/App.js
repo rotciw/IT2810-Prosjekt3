@@ -10,6 +10,7 @@ import Header from '../header/Header'
 import ModalContainer from '../modalContainer/ModalContainer'
 import SearchBar from '../searchBar/SearchBar';
 import { Provider } from 'mobx-react';
+import SortDropdown from '../sortDropdown/SortDropdown';
 
 decorate(FilterStore, {
   countryFilter: observable,
@@ -58,6 +59,7 @@ function App() {
         <Header />
         <div className="col-md-4">
         <SearchBar/>
+        <SortDropdown/>
         <FilterGroup/>
         <ModalContainer />
         </div>

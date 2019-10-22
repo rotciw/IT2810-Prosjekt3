@@ -31,37 +31,3 @@
     border-bottom: 2px solid #CF5C36;
     border-radius: 5em;
 }
-.sort_dropdown{
-    float: right;
-    margin-left: 40px;
-    margin-top: 15px;
-    color: white;
-}
-.sort_toggle{
-    background-color: white;
-    color: #6C757D;
-    border: 1px solid #6C757D;
-    box-shadow: none;
-}
-.sort_toggle:hover, .sort_toggle:focus{
-    background-color: #6C757D;
-    color: white;
-    border: 1px solid #6C757D;
-    box-shadow: none;
-}
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #6C757D;
-    border: 1px solid #6C757D;
-}
-.show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: none;
-}
-.active_sorting_item, .active_sorting_item:hover{
-    background-color: #6C757D;
-    color: white;
-}
-.sorting_item:active{
-    background-color: lightgray;
-    color: black;
-}
