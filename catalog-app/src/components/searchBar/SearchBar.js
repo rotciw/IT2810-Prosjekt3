@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./SearchBar.css"
+import { inject, observer } from 'mobx-react';
 
 class SearchBar extends Component {
   constructor(props){
@@ -20,7 +21,7 @@ class SearchBar extends Component {
     handleSubmit(event){
       event.preventDefault();
       let value = this.state.searchBarValue.toLowerCase();
-      this.props.store.addSearchBarValue(value)
+      this.props.searchBarStore.addSearchBarValue(value)
     }
 
     render() {
@@ -45,4 +46,4 @@ class SearchBar extends Component {
     }
   }
 
-  export default SearchBar;
+  export default inject("searchBarStore")(observer(SearchBar));

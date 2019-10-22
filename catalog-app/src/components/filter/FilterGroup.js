@@ -7,6 +7,7 @@ import 'nouislider/distribute/nouislider.css';
 import 'nouislider/src/nouislider.tooltips.less';
 import 'nouislider/src/nouislider.pips.less';
 import './FilterGroup.css'
+import { inject } from 'mobx-react';
 
 var filterData = require("./FilterData")
 
@@ -20,7 +21,7 @@ let selectedButtonStyle = {
     color: "white",
   };
 
-export default class FilterGroup extends Component {
+class FilterGroup extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -43,15 +44,15 @@ export default class FilterGroup extends Component {
         if (filterGroup === 0){
             console.log("selected country filter");
             this.setState({selectedCountryFilter: i});
-            this.props.store.addCountryFilter(name);
+            this.props.filterStore.addCountryFilter(name);
         }else if(filterGroup === 1){
             console.log("selected packaging filter");
             this.setState({selectedPackagingFilter: i});
-            this.props.store.addPackagingFilter(name);
+            this.props.filterStore.addPackagingFilter(name);
         }else if(filterGroup === 2){
             console.log("selected product selection filter");
             this.setState({selectedProductSelectionFilter: i});
-            this.props.store.addProductSelectionFilter(name);
+            this.props.filterStore.addProductSelectionFilter(name);
         } 
     }
     renderFilters(filterGroup, buttonNames, selectedFilter){
@@ -70,16 +71,16 @@ export default class FilterGroup extends Component {
         this.setState({yearMaxFilter: value[1].toFixed(0)});
     }
     handleYearSliderUpdate = (render, handle, value, un, percent) => {
-        this.props.store.addYearMinFilter(value[0].toFixed(0));
-        this.props.store.addYearMaxFilter(value[1].toFixed(0));
+        this.props.filterStore.addYearMinFilter(value[0].toFixed(0));
+        this.props.filterStore.addYearMaxFilter(value[1].toFixed(0));
     }
     handlePriceSlider = (render, handle, value, un, percent) => {
         this.setState({priceMinFilter: value[0].toFixed(0)});
         this.setState({priceMaxFilter: value[1].toFixed(0)});
     }
     handlePriceSliderUpdate = (render, handle, value, un, percent) => {
-        this.props.store.addPriceMinFilter(value[0].toFixed(0));
-        this.props.store.addPriceMaxFilter(value[1].toFixed(0));
+        this.props.filterStore.addPriceMinFilter(value[0].toFixed(0));
+        this.props.filterStore.addPriceMaxFilter(value[1].toFixed(0));
     }
     resetFilters = () => {
         this.setState({
@@ -91,13 +92,13 @@ export default class FilterGroup extends Component {
             priceMinFilter: 1,
             priceMaxFilter: 50000,
         })
-        this.props.store.addCountryFilter("");
-        this.props.store.addPackagingFilter("");
-        this.props.store.addProductSelectionFilter("");
-        this.props.store.addYearMinFilter("");
-        this.props.store.addYearMaxFilter("");
-        this.props.store.addPriceMinFilter(1);
-        this.props.store.addPriceMaxFilter(50000);
+        this.props.filterStore.addCountryFilter("");
+        this.props.filterStore.addPackagingFilter("");
+        this.props.filterStore.addProductSelectionFilter("");
+        this.props.filterStore.addYearMinFilter("");
+        this.props.filterStore.addYearMaxFilter("");
+        this.props.filterStore.addPriceMinFilter(1);
+        this.props.filterStore.addPriceMaxFilter(50000);
     }
     
     render() {
@@ -197,3 +198,5 @@ export default class FilterGroup extends Component {
         );
     }
   }
+
+  export default inject("filterStore")(FilterGroup);
