@@ -8,7 +8,6 @@ import 'nouislider/src/nouislider.tooltips.less';
 import 'nouislider/src/nouislider.pips.less';
 import './FilterGroup.css'
 
-
 var filterData = require("./FilterData")
 
 let buttonsStyle = {
@@ -28,13 +27,13 @@ export default class FilterGroup extends Component {
             distinctCountries: filterData.distinctCountries,
             distinctPackaging: filterData.distinctPackaging,
             distinctProductSelection: filterData.distinctProductSelection,
-            selectedCountryFilter: null,
-            selectedPackagingFilter: null,
-            selectedProductSelectionFilter: null,
+            selectedCountryFilter: "",
+            selectedPackagingFilter: "",
+            selectedProductSelectionFilter: "",
             yearMinFilter: "1930",
             yearMaxFilter: "2019",
-            priceMinFilter: "1",
-            priceMaxFilter: "50000",
+            priceMinFilter: 1,
+            priceMaxFilter: 50000,
         };
         this.selectButton = this.selectButton.bind(this);
         
@@ -82,6 +81,24 @@ export default class FilterGroup extends Component {
         this.props.store.addPriceMinFilter(value[0].toFixed(0));
         this.props.store.addPriceMaxFilter(value[1].toFixed(0));
     }
+    resetFilters = () => {
+        this.setState({
+            selectedCountryFilter: "",
+            selectedPackagingFilter: "",
+            selectedProductSelectionFilter: "",
+            yearMinFilter: "1930",
+            yearMaxFilter: "2019",
+            priceMinFilter: 1,
+            priceMaxFilter: 50000,
+        })
+        this.props.store.addCountryFilter("");
+        this.props.store.addPackagingFilter("");
+        this.props.store.addProductSelectionFilter("");
+        this.props.store.addYearMinFilter("");
+        this.props.store.addYearMaxFilter("");
+        this.props.store.addPriceMinFilter(1);
+        this.props.store.addPriceMaxFilter(50000);
+    }
     
     render() {
         
@@ -91,8 +108,10 @@ export default class FilterGroup extends Component {
             <Card>
                 <Card.Header className="filterHeader">
                 <h5 style={{display: "inline-block"}}>Filtrering</h5>
-                <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
-                <Button onClick={() => { }} className="reset_button" variant="outline-secondary">Nullstill filtrering</Button>
+                <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
+                    <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
+                    <p className="reset_text" style={{display: "inline-block"}}>Nullstill filtrering</p>
+                </div>
 
                 </Card.Header>
             </Card>
@@ -144,7 +163,7 @@ export default class FilterGroup extends Component {
                             }}
                             step={1}
                             connect={true}
-                            start={[parseInt(this.state.priceMinFilter), parseInt(this.state.priceMaxFilter)]}
+                            start={[this.state.priceMinFilter, this.state.priceMaxFilter]}
                             onSlide={this.handlePriceSlider}
                             onChange={this.handlePriceSliderUpdate}
                         />

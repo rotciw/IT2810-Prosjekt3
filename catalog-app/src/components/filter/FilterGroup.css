@@ -19,15 +19,24 @@
     margin-top: 20px;
 }
 .reset_button{
-    background-color: white;
     float: right;
-    margin-top: -3px;
-    height: 30px;
-    width: 30%;
+    height: 45px;
+    width: 130px;
+    padding-top: 13px;
+    margin-top: -10px;
+    margin-right: -10px;
     font-size: 12px;
-    line-height: 0px;
+    white-space: nowrap;
+}
+.reset_button:hover{
+    cursor: pointer;
+}
+.reset_text:hover{
+    text-decoration: underline;
 }
 .cancel_icon{
+    margin-right: 5px;
+    margin-top: -2px;
     width: 10px;
     fill: white;
 }
