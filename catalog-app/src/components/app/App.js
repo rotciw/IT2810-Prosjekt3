@@ -59,8 +59,8 @@ function App() {
         <Header />
         <div className="col-md-4">
         <SearchBar/>
-        <SortDropdown/>
         <FilterGroup/>
+        <SortDropdown/>
         <ModalContainer />
         </div>
         <div className="col-md-8">

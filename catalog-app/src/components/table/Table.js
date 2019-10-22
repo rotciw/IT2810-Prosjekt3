@@ -91,7 +91,7 @@ class Table extends Component {
 
   render() {
     return(
-      <div>
+      <div className="tableContainer">
         <Query query={
           this.refreshQuery(
             this.props.searchBarStore.searchBarValue,
