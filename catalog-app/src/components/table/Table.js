@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { observer, inject } from 'mobx-react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import Dropdown from 'react-bootstrap/Dropdown';
 import './Table.css'
 
 const columns = [{
@@ -96,41 +97,59 @@ class Table extends Component {
     
     
     return(
-      <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearMinFilter, this.props.store.yearMaxFilter, this.props.store.priceMinFilter, this.props.store.priceMaxFilter, 0)}>
-        {({ loading, error, data }) => {
-          if (loading && !data) return (
-            <div className="card">
-              <BootstrapTable
-                id="table"
-                headerClasses="tableHeader"
-                keyField='Varenummer'
-                data={[]}
-                columns={ columns }
-                expandRow={ expandRow }
-                bootstrap4={true}
-                hover={true}
-                bordered={true}
-              />
-            </div>
-          );
-          if (error) return `Error! ${error.message}`;
-          return (
-            <div className="card">
-              <BootstrapTable
-                id="table"
-                headerClasses="tableHeader"
-                keyField='Varenummer'
-                data={ data.productQuery }
-                columns={ columns }
-                expandRow={ expandRow }
-                bootstrap4={true}
-                hover={true}
-                bordered={true}
-              />
-            </div>
-          );
-        }}
-      </Query>
+      <div>
+        <h1 style={{display: "inline-block"}}>Søkeresultat</h1>
+        <Dropdown className="sort_dropdown"  alignRight>
+          <Dropdown.Toggle className="sort_toggle" id="dropdown-basic" size="sm">
+            Sorter etter
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item className="sorting_item active_sorting_item" href="#/action-1">Pris (lav til høy)</Dropdown.Item>
+            <Dropdown.Item className="sorting_item "href="#/action-2">Pris (høy til lav)</Dropdown.Item>
+            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol (lav til høy)</Dropdown.Item>
+            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol (høy til lav)</Dropdown.Item>
+            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol pr. krone (lav til høy)</Dropdown.Item>
+            <Dropdown.Item className="sorting_item "href="#/action-3">Alkohol pr. krone (høy til lav)</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      
+        <Query query={this.refreshQuery(this.props.store.searchBarValue, this.props.store.packagingFilter, this.props.store.productSelectionFilter, this.props.store.countryFilter, this.props.store.yearMinFilter, this.props.store.yearMaxFilter, this.props.store.priceMinFilter, this.props.store.priceMaxFilter, 0)}>
+          {({ loading, error, data }) => {
+            if (loading && !data) return (
+              <div className="card">
+                <BootstrapTable
+                  id="table"
+                  headerClasses="tableHeader"
+                  keyField='Varenummer'
+                  data={[]}
+                  columns={ columns }
+                  expandRow={ expandRow }
+                  bootstrap4={true}
+                  hover={true}
+                  bordered={true}
+                />
+              </div>
+            );
+            if (error) return `Error! ${error.message}`;
+            return (
+              <div className="card">
+                <BootstrapTable
+                  id="table"
+                  headerClasses="tableHeader"
+                  keyField='Varenummer'
+                  data={ data.productQuery }
+                  columns={ columns }
+                  expandRow={ expandRow }
+                  bootstrap4={true}
+                  hover={true}
+                  bordered={true}
+                />
+              </div>
+            );
+          }}
+        </Query>
+      </div>
       )
     }
   }
