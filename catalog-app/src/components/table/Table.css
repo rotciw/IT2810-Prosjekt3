@@ -1,5 +1,66 @@
-.ReactTable {
-    width: 50vw;
-    display: flex;
-    align-content: center;
+#table {
+    background-color: #FDFFFC;
+    cursor:pointer;
+    border-radius: 15px !important;
+    border-width: 5px !important;
+    border-color: #FDFFFC;
+}
+
+.tableHeader {
+    cursor: auto;
+    font-size: 14px;
+}
+
+@media (min-width: 576px) {
+    .tableHeader {
+        font-size: 18px;
+    }
+    #table {
+        font-size: 16pxw;
+    }
+}
+
+.expandedRow {
+    cursor: auto;
+    background-color: white;
+}
+
+.parentExpandedRow {
+    background-color: #EEE5E9;
+    border-top: 2px solid #CF5C36;
+    border-bottom: 2px solid #CF5C36;
+    border-radius: 5em;
+}
+.sort_dropdown{
+    float: right;
+    margin-left: 40px;
+    margin-top: 15px;
+    color: white;
+}
+.sort_toggle{
+    background-color: white;
+    color: grey;
+    border: 1px solid grey;
+    box-shadow: none;
+}
+.sort_toggle:hover, .sort_toggle:focus{
+    background-color: grey;
+    color: white;
+    border: 1px solid grey;
+    box-shadow: none;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: grey;
+    border: 1px solid grey;
+}
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+.active_sorting_item, .active_sorting_item:hover{
+    background-color: lightgray;
+}
+.sorting_item:active{
+    background-color: lightgray;
+    color: black;
 }
