@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { decorate, observable, action, computed } from 'mobx';
+import { decorate, observable, action } from 'mobx';
 import { Provider } from 'mobx-react';
 import Table from '../table/Table';
 import FilterStore from '../../stores/FilterStore';
