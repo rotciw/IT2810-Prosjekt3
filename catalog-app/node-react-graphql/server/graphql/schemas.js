@@ -346,19 +346,16 @@ var mutation = new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLString)
           },
           Times: {
-            type: new GraphQLNonNull(GraphQLInt)
+            type: new GraphQLNonNull(GraphQLFloat)
           }
         },
         resolve: function (root, params) {
           return PopularSearchesModel.findOneAndUpdate(
-            {Searched:params.Searched},{$set:{Searched:params.Searched},$inc:{Times:1}}, {upsert: true},
+            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1/2}}, {upsert: true},
             function (err){
                 if (err)
                     throw new Error(err);
                 });
-            
-            
-
         }
     },
     updatePopularSearch: {
@@ -366,9 +363,12 @@ var mutation = new GraphQLObjectType({
         args: {
             Searched: {
               type: new GraphQLNonNull(GraphQLString)
+            },
+            Times: {
+              type: new GraphQLNonNull(GraphQLFloat)
             }
         },
-        resolve(root, params) {
+        resolve(params) {
             return PopularSearchesModel.findOneAndUpdate(
                 params.Searched, {$inc:{Times:1}},
                 function (err){

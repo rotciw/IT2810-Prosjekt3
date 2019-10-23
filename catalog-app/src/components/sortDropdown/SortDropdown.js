@@ -13,10 +13,10 @@ class SortDropdown extends Component {
       }
 
     handleSorting(name){
-    this.props.sortStore.addSortAfter(name)
-    this.setState({
-        activeSort: name,
-    })
+        this.props.sortStore.addSortAfter(name)
+        this.setState({
+            activeSort: name,
+        })
     }
 
     render() {
@@ -26,47 +26,46 @@ class SortDropdown extends Component {
                     Sorter etter
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                <Dropdown.Item
-                    name="Pris"
-                    className={this.state.activeSort === "Pris" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Pris (lav til høy)
-                </Dropdown.Item>
-                <Dropdown.Item
-                    name="-Pris"
-                    className={this.state.activeSort === "-Pris" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Pris (høy til lav)
-                </Dropdown.Item>
-                <Dropdown.Item
-                    name="Alkohol"
-                    className={this.state.activeSort === "Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Alkohol (lav til høy)
+                    <Dropdown.Item
+                        name="Pris"
+                        className={this.state.activeSort === "Pris" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Pris (lav til høy)
                     </Dropdown.Item>
-                <Dropdown.Item
-                    name="-Alkohol"
-                    className={this.state.activeSort === "-Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Alkohol (høy til lav)
-                </Dropdown.Item>
-                <Dropdown.Item
-                    name="AlkoholPrKrone"
-                    className={this.state.activeSort === "AlkoholPrKrone" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Alkohol pr. krone (lav til høy)
-                </Dropdown.Item>
-                <Dropdown.Item
-                    name="-AlkoholPrKrone"
-                    className={this.state.activeSort === "-AlkoholPrKrone" ? "sortingItem activeSortingItem" : "sortingItem"}
-                    onClick={item => this.handleSorting(item.target.name)}>
-                        Alkohol pr. krone (høy til lav)
-                </Dropdown.Item>
+                    <Dropdown.Item
+                        name="-Pris"
+                        className={this.state.activeSort === "-Pris" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Pris (høy til lav)
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        name="Alkohol"
+                        className={this.state.activeSort === "Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Alkohol (lav til høy)
+                        </Dropdown.Item>
+                    <Dropdown.Item
+                        name="-Alkohol"
+                        className={this.state.activeSort === "-Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Alkohol (høy til lav)
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        name="AlkoholPrKrone"
+                        className={this.state.activeSort === "AlkoholPrKrone" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Alkohol pr. krone (lav til høy)
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        name="-AlkoholPrKrone"
+                        className={this.state.activeSort === "-AlkoholPrKrone" ? "sortingItem activeSortingItem" : "sortingItem"}
+                        onClick={item => this.handleSorting(item.target.name)}>
+                            Alkohol pr. krone (høy til lav)
+                    </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         )
     }
-  
 }
 
 export default inject('sortStore')(observer(SortDropdown));
