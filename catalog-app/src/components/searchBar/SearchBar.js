@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./SearchBar.css";
 import gql from 'graphql-tag';
 import { Mutation } from '@apollo/react-components';
+import { inject, observer } from 'mobx-react';
 
 const ADD_SEARCH = gql`
 mutation AddSearch($Searched: String!) {
