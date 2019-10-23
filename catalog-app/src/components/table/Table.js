@@ -18,7 +18,7 @@ const columns = [{
   dataField: 'Pris',
   text: 'Pris (i kr)'
 }, {
-  dataField: 'Alkohol',
+  dataField: 'AlkoholPrKrone',
   text: 'Alkohol per krone'
 }
 ];
@@ -82,6 +82,7 @@ class Table extends Component {
           Argang
           Rastoff
           Alkohol
+          AlkoholPrKrone
           Emballasjetype
           Vareurl
         }

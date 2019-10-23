@@ -3,27 +3,27 @@ var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLFloat = require('graphql').GraphQLFloat;
 
-let ProductType = new GraphQLObjectType({
+let productType = new GraphQLObjectType({
     name: 'product',
     fields: function () {
-      return {
+        return {
         Varenummer: {
-          type: GraphQLString
+            type: GraphQLString
         },
         Varenavn: {
-          type: GraphQLString
+            type: GraphQLString
         },
         Volum: {
-          type: GraphQLString
+            type: GraphQLString
         },
         Pris: {
-          type: GraphQLFloat
+            type: GraphQLFloat
         },
         Literpris: {
-          type: GraphQLString
+            type: GraphQLString
         },
         Varetype: {
-          type: GraphQLString
+            type: GraphQLString
         },
         Produktutvalg: {
             type: GraphQLString
@@ -58,14 +58,31 @@ let ProductType = new GraphQLObjectType({
         Alkohol: {
             type: GraphQLInt
         },
+        AlkoholPrKrone: {
+            type: GraphQLFloat
+        },
         Emballasjetype: {
             type: GraphQLString
         },
         Vareurl: {
             type: GraphQLString
         }
-      }
+        }
     }
-  });
+});
 
-module.exports = {ProductType}
+let popularSearchesType = new GraphQLObjectType({
+name: 'popularSearche',
+    fields: function () {
+        return {
+        Searched: {
+            type: GraphQLString
+        },
+        Times: {
+            type: GraphQLInt
+        }
+        }
+    }
+});
+
+module.exports = {productType, popularSearchesType}
