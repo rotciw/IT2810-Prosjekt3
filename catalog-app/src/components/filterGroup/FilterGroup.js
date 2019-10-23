@@ -39,7 +39,6 @@ class FilterGroup extends Component {
         this.selectButton = this.selectButton.bind(this);
     }
     selectButton(filterGroup, name, i){
-        console.log("selectedFilter: " + filterGroup);
         if (filterGroup === 0){
             console.log("selected country filter");
             this.setState({selectedCountryFilter: i});
@@ -53,6 +52,8 @@ class FilterGroup extends Component {
             this.setState({selectedProductSelectionFilter: i});
             this.props.filterStore.addProductSelectionFilter(name);
         }
+        // Reset Pagination
+        this.props.paginationStore.firstPage()
     }
 
     renderFilters(filterGroup, buttonNames, selectedFilter){
@@ -65,21 +66,25 @@ class FilterGroup extends Component {
         return buttons
     };
 
-    handleYearSlider = (value) => {
+    handleYearSlider = (render, handle, value, un, percent) => {
         this.setState({yearMinFilter: value[0].toFixed(0)});
         this.setState({yearMaxFilter: value[1].toFixed(0)});
     }
-    handleYearSliderUpdate = (value) => {
+    handleYearSliderUpdate = (render, handle, value, un, percent) => {
         this.props.filterStore.addYearMinFilter(value[0].toFixed(0));
         this.props.filterStore.addYearMaxFilter(value[1].toFixed(0));
+        // Reset Pagination
+        this.props.paginationStore.firstPage()
     }
-    handlePriceSlider = (value) => {
+    handlePriceSlider = (render, handle, value, un, percent) => {
         this.setState({priceMinFilter: value[0].toFixed(0)});
         this.setState({priceMaxFilter: value[1].toFixed(0)});
     }
-    handlePriceSliderUpdate = (value) => {
+    handlePriceSliderUpdate = (render, handle, value, un, percent) => {
         this.props.filterStore.addPriceMinFilter(value[0].toFixed(0));
         this.props.filterStore.addPriceMaxFilter(value[1].toFixed(0));
+        // Reset Pagination
+        this.props.paginationStore.firstPage()
     }
     resetFilters = () => {
         this.setState({
@@ -91,6 +96,7 @@ class FilterGroup extends Component {
             priceMinFilter: 1,
             priceMaxFilter: 50000,
         })
+        // Reset filters
         this.props.filterStore.addCountryFilter("");
         this.props.filterStore.addPackagingFilter("");
         this.props.filterStore.addProductSelectionFilter("");
@@ -98,6 +104,9 @@ class FilterGroup extends Component {
         this.props.filterStore.addYearMaxFilter("");
         this.props.filterStore.addPriceMinFilter(1);
         this.props.filterStore.addPriceMaxFilter(50000);
+
+        // Reset Pagination
+        this.props.paginationStore.firstPage()
     }
 
     render() {
@@ -198,4 +207,4 @@ class FilterGroup extends Component {
     }
   }
 
-  export default inject("filterStore")(FilterGroup);
+  export default inject("filterStore", "paginationStore")(FilterGroup);
