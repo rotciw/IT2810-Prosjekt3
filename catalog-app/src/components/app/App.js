@@ -32,7 +32,9 @@ decorate(FilterStore, {
 })
 decorate(SortStore, {
   sortAfter: observable,
+  activeButton: observable,
   addSortAfter: action,
+  addActiveButton: action
 })
 decorate(SearchBarStore, {
   searchBarValue: observable,
