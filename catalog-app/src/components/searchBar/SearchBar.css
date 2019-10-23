@@ -26,6 +26,11 @@
     width: 100%;
 }
 
+#button:hover {
+  background-color: #e7eae5;
+  border: 3px solid #e7eae5;
+}
+
 #searchBar[type=text]:focus {
     transition: 500ms ease-in-out;
     background-color: #FDFFFC;

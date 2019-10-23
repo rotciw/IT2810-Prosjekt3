@@ -18,6 +18,7 @@ var ProductSchema = new mongoose.Schema({
     Argang: String,
     Rastoff: String,
     Alkohol: Number,
+    AlkoholPrKrone: Number,
     Emballasjetype: String,
     Vareurl: String,
   });

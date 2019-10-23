@@ -1,96 +1,16 @@
 var GraphQLSchema = require('graphql').GraphQLSchema;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLList = require('graphql').GraphQLList;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLID = require('graphql').GraphQLID;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
-var GraphQLDouble = require('graphql').GraphQLDouble;
 var GraphQLFloat = require('graphql').GraphQLFloat;
-var GraphQLDate = require('graphql-date');
 var ProductModel = require('../models/Product');
 var PopularSearchesModel = require('../models/PopularSearches');
+var TypeData = require('./Types')
 
-
-var productType = new GraphQLObjectType({
-    name: 'product',
-    fields: function () {
-      return {
-        Varenummer: {
-          type: GraphQLString
-        },
-        Varenavn: {
-          type: GraphQLString
-        },
-        Volum: {
-          type: GraphQLString
-        },
-        Pris: {
-          type: GraphQLFloat
-        },
-        Literpris: {
-          type: GraphQLString
-        },
-        Varetype: {
-          type: GraphQLString
-        },
-        Produktutvalg: {
-            type: GraphQLString
-        },
-        Fylde: {
-            type: GraphQLString
-        },
-        Friskhet: {
-            type: GraphQLString
-        },
-        Garvestoffer: {
-            type: GraphQLString
-        },
-        Bitterhet: {
-            type: GraphQLString
-        },
-        Sodme: {
-            type: GraphQLString
-        },
-        Smak: {
-            type: GraphQLString
-        },
-        Land: {
-            type: GraphQLString
-        },
-        Argang: {
-            type: GraphQLString
-        },
-        Rastoff: {
-            type: GraphQLString
-        },
-        Alkohol: {
-            type: GraphQLInt
-        },
-        Emballasjetype: {
-            type: GraphQLString
-        },
-        Vareurl: {
-            type: GraphQLString
-        }
-      }
-    }
-  });
-
-var popularSearchesType = new GraphQLObjectType({
-    name: 'popularSearche',
-    fields: function () {
-      return {
-        Searched: {
-          type: GraphQLString
-        },
-        Times: {
-          type: GraphQLInt
-        }
-      }
-    }
-    });
+var productType = TypeData.productType;
+var popularSearchesType = TypeData.popularSearchesType;
 
 var queryType = new GraphQLObjectType({
 name: 'Query',
@@ -204,7 +124,6 @@ fields: function () {
             if (params.Country){
                 filters['Land'] = params.Country;
             }
-            
 
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
@@ -220,7 +139,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("Times").limit(10).exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(10).exec()
           console.log("Success");
 
            if (!popularSearches) {
@@ -253,92 +172,6 @@ var mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: function () {
     return {
-      addProduct: {
-        type: productType,
-        args: {
-          Varenummer: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Varenavn: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Volum: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Pris: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Literpris: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Varetype: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Produktutvalg: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Fylde: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Friskhet: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Garvestoffer: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Bitterhet: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Sodme: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Smak: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Land: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Argang: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          Rastoff: {
-              type: new GraphQLNonNull(GraphQLString)
-          },
-          Alkohol: {
-              type: new GraphQLNonNull(GraphQLString)
-          },
-          Emballasjetype: {
-              type: new GraphQLNonNull(GraphQLString)
-          },
-          Vareurl: {
-              type: new GraphQLNonNull(GraphQLString)
-          }
-        },
-        resolve: function (root, params) {
-          const productModel = new ProductModel(params);
-          const newProduct = productModel.save();
-          if (!newProduct) {
-            throw new Error('Error');
-          }
-          return newProduct
-        }
-      },
-
-      removeProduct: {
-        type: productType,
-        args: {
-          Varenummer: {
-            type: new GraphQLNonNull(GraphQLString)
-          }
-        },
-        resolve(root, params) {
-          const removeProduct = ProductModel.findByIdAndRemove(params.varenummer).exec();
-          if (!removeProduct) {
-            throw new Error('Error')
-          }
-          return removeProduct;
-        }
-    },
     addPopularSearch: {
         type: popularSearchesType,
         args: {
@@ -346,17 +179,16 @@ var mutation = new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLString)
           },
           Times: {
-            type: new GraphQLNonNull(GraphQLInt)
+            type: new GraphQLNonNull(GraphQLFloat)
           }
         },
         resolve: function (root, params) {
-            const popularSearchesModel = new PopularSearchesModel(params);
-            const newPopularSearch = popularSearchesModel.save();
-            if (!newPopularSearch){
-              throw new Error('Error');
-            }
-            return newPopularSearch
-
+          return PopularSearchesModel.findOneAndUpdate(
+            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1/2}}, {upsert: true},
+            function (err){
+                if (err)
+                    throw new Error(err);
+                });
         }
     },
     updatePopularSearch: {
@@ -364,9 +196,12 @@ var mutation = new GraphQLObjectType({
         args: {
             Searched: {
               type: new GraphQLNonNull(GraphQLString)
+            },
+            Times: {
+              type: new GraphQLNonNull(GraphQLFloat)
             }
         },
-        resolve(root, params) {
+        resolve(params) {
             return PopularSearchesModel.findOneAndUpdate(
                 params.Searched, {$inc:{Times:1}},
                 function (err){

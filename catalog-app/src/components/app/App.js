@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css';
-import { decorate, observable, action, computed } from 'mobx';
+import { decorate, observable, action } from 'mobx';
+import { Provider } from 'mobx-react';
 import Table from '../table/Table';
-import CatalogStore from '../../stores/CatalogStore';
-import FilterGroup from '../filter/FilterGroup'
-import Header from '../header/Header'
+import FilterStore from '../../stores/FilterStore';
+import SearchBarStore from '../../stores/SearchBarStore';
+import SortStore from '../../stores/SortStore';
+import PaginationStore from '../../stores/PaginationStore';
+import FilterGroup from '../filterGroup/FilterGroup';
+import Header from '../header/Header';
+import ModalContainer from '../modalContainer/ModalContainer';
 import SearchBar from '../searchBar/SearchBar';
+import Pagination from '../pagination/Pagination';
+import SortDropdown from '../sortDropdown/SortDropdown';
 
-decorate(CatalogStore, {
-  searchBarValue: observable,
+decorate(FilterStore, {
   countryFilter: observable,
   packagingFilter: observable,
   productSelectionFilter: observable,
@@ -16,7 +22,6 @@ decorate(CatalogStore, {
   yearMaxFilter: observable,
   priceMinFilter: observable,
   priceMaxFilter: observable,
-  addSearchBarValue: action,
   addCountryFilter: action,
   addPackagingFilter: action,
   addProductSelectionFilter: action,
@@ -24,25 +29,61 @@ decorate(CatalogStore, {
   addYearMaxFilter: action,
   addPriceMinFilter: action,
   addPriceMaxFilter: action,
-  getSearchBarValue: computed
+})
+decorate(SortStore, {
+  sortAfter: observable,
+  activeButton: observable,
+  addSortAfter: action,
+  addActiveButton: action
+})
+decorate(SearchBarStore, {
+  searchBarValue: observable,
+  addSearchBarValue: action,
+})
+decorate(PaginationStore, {
+  paginationPage: observable,
+  buttonIsDisabled: observable,
+  incrementPage: action,
+  decrementPage: action,
+  firstPage: action
 })
 
-const catalogStore = new CatalogStore();
+class RootStore {
+  constructor(){
+    this.filterStore = new FilterStore();
+    this.sortStore = new SortStore();
+    this.searchBarStore = new SearchBarStore();
+    this.paginationStore = new PaginationStore();
+  }
+}
+const rootStore = new RootStore();
 
 function App() {
   return (
+    <Provider
+      rootStore = {rootStore}
+      filterStore = {rootStore.filterStore}
+      sortStore = {rootStore.sortStore}
+      searchBarStore = {rootStore.searchBarStore}
+      paginationStore = {rootStore.paginationStore}
+    >
     <div className="container-fluid">
       <div className="row">
         <Header />
         <div className="col-md-4">
-        <SearchBar store={catalogStore}/>
-        <FilterGroup store={catalogStore}/>
+        <SearchBar/>
+        <FilterGroup/>
+        <SortDropdown/>
+        <ModalContainer />
         </div>
         <div className="col-md-8">
-        <Table store={catalogStore}/>
+          <Pagination />
+          <Table/>
+          <Pagination />
         </div>
       </div>
     </div>
+    </Provider>
   );
 }
 
