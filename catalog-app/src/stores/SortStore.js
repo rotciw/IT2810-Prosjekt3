@@ -1,8 +1,13 @@
 class SortStore {
-    sortAfter = "Pris";
+    sortAfter = "-AlkoholPrKrone";
+    activeButton = "Sorter etter"
 
     addSortAfter(value) {
         this.sortAfter = value;
+    };
+
+    addActiveButton(value) {
+        this.activeButton = value
     };
 }
 
