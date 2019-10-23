@@ -37,7 +37,6 @@ class FilterGroup extends Component {
             priceMaxFilter: 50000,
         };
         this.selectButton = this.selectButton.bind(this);
-        
     }
     selectButton(filterGroup, name, i){
         console.log("selectedFilter: " + filterGroup);
@@ -53,10 +52,10 @@ class FilterGroup extends Component {
             console.log("selected product selection filter");
             this.setState({selectedProductSelectionFilter: i});
             this.props.filterStore.addProductSelectionFilter(name);
-        } 
+        }
     }
+
     renderFilters(filterGroup, buttonNames, selectedFilter){
-            
         const buttons = buttonNames.map((name, i) => {
             const buttonStyle = i === selectedFilter ? selectedButtonStyle : buttonsStyle;
             return(
@@ -66,19 +65,19 @@ class FilterGroup extends Component {
         return buttons
     };
 
-    handleYearSlider = (render, handle, value, un, percent) => {
+    handleYearSlider = (value) => {
         this.setState({yearMinFilter: value[0].toFixed(0)});
         this.setState({yearMaxFilter: value[1].toFixed(0)});
     }
-    handleYearSliderUpdate = (render, handle, value, un, percent) => {
+    handleYearSliderUpdate = (value) => {
         this.props.filterStore.addYearMinFilter(value[0].toFixed(0));
         this.props.filterStore.addYearMaxFilter(value[1].toFixed(0));
     }
-    handlePriceSlider = (render, handle, value, un, percent) => {
+    handlePriceSlider = (value) => {
         this.setState({priceMinFilter: value[0].toFixed(0)});
         this.setState({priceMaxFilter: value[1].toFixed(0)});
     }
-    handlePriceSliderUpdate = (render, handle, value, un, percent) => {
+    handlePriceSliderUpdate = (value) => {
         this.props.filterStore.addPriceMinFilter(value[0].toFixed(0));
         this.props.filterStore.addPriceMaxFilter(value[1].toFixed(0));
     }
@@ -168,7 +167,7 @@ class FilterGroup extends Component {
                                 onSlide={this.handlePriceSlider}
                                 onChange={this.handlePriceSliderUpdate}
                             />
-                            <p className="sliderValues">{this.state.priceMinFilter} - {this.state.priceMaxFilter}</p>                        
+                            <p className="sliderValues">{this.state.priceMinFilter} - {this.state.priceMaxFilter}</p>
                         </div>
                     </Card.Body>
                     </Accordion.Collapse>
@@ -193,7 +192,6 @@ class FilterGroup extends Component {
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
-                
                 </Accordion>
             </div>
         );
