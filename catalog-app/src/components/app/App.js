@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-import { decorate, observable, action } from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
+import { Provider } from 'mobx-react';
 import Table from '../table/Table';
 import FilterStore from '../../stores/FilterStore';
 import SearchBarStore from '../../stores/SearchBarStore';
 import SortStore from '../../stores/SortStore';
-import FilterGroup from '../filterGroup/FilterGroup'
-import Header from '../header/Header'
-import ModalContainer from '../modalContainer/ModalContainer'
+import PaginationStore from '../../stores/PaginationStore';
+import FilterGroup from '../filterGroup/FilterGroup';
+import Header from '../header/Header';
+import ModalContainer from '../modalContainer/ModalContainer';
 import SearchBar from '../searchBar/SearchBar';
-import { Provider } from 'mobx-react';
+import Pagination from '../pagination/Pagination';
 import SortDropdown from '../sortDropdown/SortDropdown';
 
 decorate(FilterStore, {
@@ -36,12 +38,20 @@ decorate(SearchBarStore, {
   searchBarValue: observable,
   addSearchBarValue: action,
 })
+decorate(PaginationStore, {
+  paginationPage: observable,
+  buttonIsDisabled: observable,
+  incrementPage: action,
+  decrementPage: action,
+  firstPage: action
+})
 
 class RootStore {
   constructor(){
     this.filterStore = new FilterStore();
     this.sortStore = new SortStore();
     this.searchBarStore = new SearchBarStore();
+    this.paginationStore = new PaginationStore();
   }
 }
 const rootStore = new RootStore();
@@ -53,6 +63,7 @@ function App() {
       filterStore = {rootStore.filterStore}
       sortStore = {rootStore.sortStore}
       searchBarStore = {rootStore.searchBarStore}
+      paginationStore = {rootStore.paginationStore}
     >
     <div className="container-fluid">
       <div className="row">
@@ -64,7 +75,9 @@ function App() {
         <ModalContainer />
         </div>
         <div className="col-md-8">
-        <Table/>
+          <Pagination />
+          <Table/>
+          <Pagination />
         </div>
       </div>
     </div>

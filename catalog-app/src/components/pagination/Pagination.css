@@ -1,0 +1,25 @@
+.paginationButton {
+    background-color: #FDFFFC;
+    padding:10px;
+    border: 3px solid #FDFFFC;
+    border-radius: 5px;
+    width: 3vw !important;
+    margin-bottom: 15px;
+    margin-right: 8px;
+    color: #2D2D2D;
+}
+
+.paginationButton:disabled {
+    color: #9e9e9e;
+}
+
+.paginationNumber {
+    border: 3px solid #FDFFFC;
+    border-radius: 5px;
+    background-color: #FDFFFC;
+    padding:10px;
+    width: 5vw !important;
+    margin-bottom: 15px;
+    margin-right: 8px;
+    text-align: center;
+}

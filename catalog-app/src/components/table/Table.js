@@ -102,7 +102,7 @@ class Table extends Component {
             this.props.filterStore.yearMaxFilter,
             this.props.filterStore.priceMinFilter,
             this.props.filterStore.priceMaxFilter,
-            0,
+            this.props.paginationStore.paginationPage,
             this.props.sortStore.sortAfter)}
           >
           {({ loading, error, data }) => {
@@ -144,4 +144,4 @@ class Table extends Component {
     }
   }
 
-export default inject('sortStore', 'filterStore', 'searchBarStore')(observer(Table));
+export default inject('sortStore', 'filterStore', 'searchBarStore', 'paginationStore')(observer(Table));
