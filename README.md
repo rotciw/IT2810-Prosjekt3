@@ -1,3 +1,14 @@
-# project_3
+# IT2810 - prosjekt 2
 
-MongoDB, Apollo, GraphQL, MobX
+## Krav til innhold og funksjonalitet
+
+### Brukergrensesnitt
+
+### Backend
+
+## Krav til bruk av teknologi
+
+## Testing
+
+
+MongoDB, Apollo, Express, Mongoose, GraphQL, MobX
