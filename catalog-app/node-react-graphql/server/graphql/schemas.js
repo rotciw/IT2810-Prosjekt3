@@ -220,7 +220,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("Times").limit(10).exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(10).exec()
           console.log("Success");
 
            if (!popularSearches) {
