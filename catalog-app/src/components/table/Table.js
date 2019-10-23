@@ -62,6 +62,15 @@ const expandRow = {
 };
 
 class Table extends Component {
+  constructor(props){ 
+    super(props);
+    this.state = {
+      page: 1,
+      sizePerPage: 10,
+    }
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSizePerPageChange = this.handleSizePerPageChange.bind(this);
+  }
 
   refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0, sortAfter=""){
     const GET_PRODUCTQUERY = gql`
@@ -90,6 +99,18 @@ class Table extends Component {
       }`
     return GET_PRODUCTQUERY
   };
+  handlePageChange(page, sizePerPage){
+    console.log("page change");
+    this.fetchData(page, sizePerPage)
+    
+  }
+  handleSizePerPageChange(sizePerPage){
+    console.log("size per page");
+    
+  }
+  fetchData(page = this.state.page, sizePerPage = this.state.sizePerPage){
+
+  }
 
   render() {
     return(
@@ -126,16 +147,10 @@ class Table extends Component {
             if (error) return `Error! ${error.message}`;
 
             const options = {
-              onSizePerPageChange: (sizePerPage, page) => {
-                console.log('Size per page change!!!');
-                console.log('Newest size per page:' + sizePerPage);
-                console.log('Newest page:' + page);
-              },
-              onPageChange: (page, sizePerPage) => {
-                console.log('Page change!!!');
-                console.log('Newest size per page:' + sizePerPage);
-                console.log('Newest page:' + page);
-              }
+              onPageChange: this.handlePageChange,
+              onSizePerPageList: this.handleSizePerPageChange,
+              page: this.state.page,
+              sizePerPage: this.state.sizePerPage,
             };
 
 
@@ -151,7 +166,7 @@ class Table extends Component {
                   bootstrap4={true}
                   hover={true}
                   bordered={true}
-                  pagination={ paginationFactory() }
+                  pagination={ paginationFactory(options)}
                 />
               </div>
             );
