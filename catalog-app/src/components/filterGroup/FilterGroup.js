@@ -60,8 +60,8 @@ class FilterGroup extends Component {
     };
 
     handleYearSliderUpdate = (render, handle, value, un, percent) => {
-        this.props.filterStore.addYearMinFilter(parseInt(value[0].toFixed(0)));
-        this.props.filterStore.addYearMaxFilter(parseInt(value[1].toFixed(0)));
+        this.props.filterStore.addYearMinFilter(value[0].toFixed(0));
+        this.props.filterStore.addYearMaxFilter(value[1].toFixed(0));
         // Reset Pagination
         this.props.paginationStore.firstPage()
     }
@@ -78,10 +78,6 @@ class FilterGroup extends Component {
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
-            yearMinFilter: 1930,
-            yearMaxFilter: 2019,
-            priceMinFilter: 1,
-            priceMaxFilter: 50000,
         })
         // Reset filters
         this.props.filterStore.addCountryFilter("");
@@ -139,7 +135,6 @@ class FilterGroup extends Component {
                                     />
                                     <p className="sliderValues">{this.props.filterStore.yearMinFilter} - {this.props.filterStore.yearMaxFilter}</p>
                                 </div>
-
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
