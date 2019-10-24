@@ -9,7 +9,7 @@ import 'nouislider/src/nouislider.pips.less';
 import './FilterGroup.css'
 import { inject } from 'mobx-react';
 
-var filterData = require("./FilterData")
+let filterData = require("./FilterData")
 
 let buttonsStyle = {
     margin: "5px",

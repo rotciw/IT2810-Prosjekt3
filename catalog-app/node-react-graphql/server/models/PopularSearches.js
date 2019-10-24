@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var PopularSearchesSchema = new mongoose.Schema({
+let PopularSearchesSchema = new mongoose.Schema({
     Searched: String,
     Times: Number
   });

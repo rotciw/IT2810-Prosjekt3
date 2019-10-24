@@ -1,18 +1,18 @@
-var GraphQLSchema = require('graphql').GraphQLSchema;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLList = require('graphql').GraphQLList;
-var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLString = require('graphql').GraphQLString;
-var GraphQLInt = require('graphql').GraphQLInt;
-var GraphQLFloat = require('graphql').GraphQLFloat;
-var ProductModel = require('../models/Product');
-var PopularSearchesModel = require('../models/PopularSearches');
-var TypeData = require('./Types')
+let GraphQLSchema = require('graphql').GraphQLSchema;
+let GraphQLObjectType = require('graphql').GraphQLObjectType;
+let GraphQLList = require('graphql').GraphQLList;
+let GraphQLNonNull = require('graphql').GraphQLNonNull;
+let GraphQLString = require('graphql').GraphQLString;
+let GraphQLInt = require('graphql').GraphQLInt;
+let GraphQLFloat = require('graphql').GraphQLFloat;
+let ProductModel = require('../models/Product');
+let PopularSearchesModel = require('../models/PopularSearches');
+let TypeData = require('./Types')
 
-var productType = TypeData.productType;
-var popularSearchesType = TypeData.popularSearchesType;
+let productType = TypeData.productType;
+let popularSearchesType = TypeData.popularSearchesType;
 
-var queryType = new GraphQLObjectType({
+let queryType = new GraphQLObjectType({
 name: 'Query',
 fields: function () {
     return {
@@ -168,7 +168,7 @@ fields: function () {
 }
 });
 
-var mutation = new GraphQLObjectType({
+let mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: function () {
     return {
