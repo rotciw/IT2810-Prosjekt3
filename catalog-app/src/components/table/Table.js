@@ -47,10 +47,10 @@ const expandRow = {
           <p>{ `Smak: ${row.Smak}` }</p>
         </div>
         <div className="col-sm">
-          <p>{ `Pris: ${row.Pris} kr` }</p>
           <p>{ `Literpris: ${row.Literpris} kr` }</p>
           <p>{ `Emballasjetype: ${row.Emballasjetype} ` }</p>
           <p>{ `Produktutvalg: ${row.Produktutvalg} ` }</p>
+          <p><a target="_blank" href={row.Vareurl}>{ `Vareurl` }</a></p>
         </div>
       </div>
 
@@ -64,7 +64,16 @@ class Table extends Component {
   refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0, sortAfter=""){
     const GET_PRODUCTQUERY = gql`
       {
-        productQuery(Keys: "${keys}", Packaging: "${packaging}", ProductSelection: "${productSelection}", Country: "${country}", YearMin: "${yearMin}", YearMax: "${yearMax}", PriceMin: ${priceMin}, PriceMax: ${priceMax}, Skipping: ${skipping}, SortAfter: "${sortAfter}") {
+        productQuery(Keys: "${keys}",
+                     Packaging: "${packaging}",
+                     ProductSelection: "${productSelection}",
+                     Country: "${country}",
+                     YearMin: "${yearMin}",
+                     YearMax: "${yearMax}",
+                     PriceMin: ${priceMin},
+                     PriceMax: ${priceMax},
+                     Skipping: ${skipping},
+                     SortAfter: "${sortAfter}") {
           Varenummer
           Varenavn
           Volum
