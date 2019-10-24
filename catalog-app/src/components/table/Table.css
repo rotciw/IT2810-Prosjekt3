@@ -14,7 +14,7 @@
 
 .tableHeader {
     cursor: auto;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 @media (min-width: 576px) {
