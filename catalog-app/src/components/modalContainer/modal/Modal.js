@@ -40,6 +40,7 @@ function Modal(props) {
                     words={cloudData}
                     options={{fontSizes: [16,60]}}
                 />
+                {console.log(cloudData)}
             </div>
         </div>
     </div>

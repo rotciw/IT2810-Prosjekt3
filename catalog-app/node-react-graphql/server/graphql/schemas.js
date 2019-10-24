@@ -138,7 +138,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(50).exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").exec()
           console.log("Success");
 
            if (!popularSearches) {
@@ -183,7 +183,7 @@ let mutation = new GraphQLObjectType({
         },
         resolve: function (root, params) {
           return PopularSearchesModel.findOneAndUpdate(
-            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1}},
+            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1}}, {upsert: true},
             function (err){
                 if (err)
                     throw new Error(err);
