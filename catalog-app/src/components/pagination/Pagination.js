@@ -24,13 +24,13 @@ class Pagination extends Component {
                 <div className="row">
                 <button
                     className="paginationButton"
-                    disabled={this.props.paginationStore.buttonIsDisabled}
+                    disabled={this.props.paginationStore.prevButtonDisabled}
                     onClick={this.handleFirstPage.bind(this)}>
                          <FontAwesomeIcon icon={faAngleDoubleLeft} />
                 </button>
                 <button
                     className="paginationButton"
-                    disabled={this.props.paginationStore.buttonIsDisabled}
+                    disabled={this.props.paginationStore.prevButtonDisabled}
                     onClick={this.handleDecrement.bind(this)}>
                          <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
@@ -39,6 +39,7 @@ class Pagination extends Component {
                 </div>
                 <button
                     className="paginationButton"
+                    disabled={this.props.paginationStore.nextButtonDisabled}
                     onClick={this.handleIncrement.bind(this)}>
                         <FontAwesomeIcon icon={faAngleRight} />
                 </button>
