@@ -13,11 +13,7 @@ const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Router>
-            <div>
-                <Route exact path='/' component={App} />
-            </div>
-        </Router>
+        <App/>
     </ApolloProvider>,
     document.getElementById('root')
 );
