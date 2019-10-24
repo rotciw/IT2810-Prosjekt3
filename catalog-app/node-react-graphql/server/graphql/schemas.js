@@ -20,7 +20,6 @@ fields: function () {
         type: new GraphQLList(productType),
         resolve: function () {
         const products = ProductModel.find().limit(10).exec()
-        console.log("success");
 
         if (!products) {
             throw new Error('Error')
@@ -139,7 +138,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(10).exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(50).exec()
           console.log("Success");
 
            if (!popularSearches) {
@@ -184,7 +183,7 @@ let mutation = new GraphQLObjectType({
         },
         resolve: function (root, params) {
           return PopularSearchesModel.findOneAndUpdate(
-            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1/2}}, {upsert: true},
+            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1}},
             function (err){
                 if (err)
                     throw new Error(err);

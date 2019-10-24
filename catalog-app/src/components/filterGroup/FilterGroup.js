@@ -84,10 +84,6 @@ class FilterGroup extends Component {
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
-            yearMinFilter: 1930,
-            yearMaxFilter: 2019,
-            priceMinFilter: 1,
-            priceMaxFilter: 50000,
         })
         // Reset filters
         this.props.filterStore.addCountryFilter("");
@@ -107,13 +103,13 @@ class FilterGroup extends Component {
         return (
             <div className="filterContainer">
                 <Accordion>
-                    <Card>
-                        <Card.Header className="filterHeader">
-                            <h5 style={{ display: "inline-block" }}>Filtrering</h5>
-                            <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
-                                <img src="/cancel_icon.svg" alt="x" className="cancel_icon"></img>
-                                <p className="reset_text" style={{ display: "inline-block" }}>Nullstill filtrering</p>
-                            </div>
+                <Card>
+                    <Card.Header className="filterHeader">
+                    <h5 style={{display: "inline-block"}}>Filtrering</h5>
+                    <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
+                        <img src="cancel_icon.svg" alt="x" className="cancel_icon"></img>
+                        <p className="reset_text" style={{display: "inline-block"}}>Nullstill filtrering</p>
+                    </div>
 
                         </Card.Header>
                     </Card>
@@ -145,7 +141,6 @@ class FilterGroup extends Component {
                                     />
                                     <p className="sliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
                                 </div>
-
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>

@@ -14,7 +14,6 @@ let distinctCountries = [
   'Canada',
   'Nederland',
   'England',
-  'Trinidad, Tobago',
   'Mexico',
   'Spania',
   'Chile',
