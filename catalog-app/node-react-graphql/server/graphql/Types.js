@@ -68,7 +68,7 @@ let productType = new GraphQLObjectType({
         Vareurl: {
             type: GraphQLString
         }
-        }
+        };
     }
 });
 
@@ -83,8 +83,8 @@ name: 'popularSearche',
         Times: {
             type: GraphQLInt
         }
-        }
+        };
     }
 });
 
-module.exports = {productType, popularSearchesType}
+module.exports = {productType, popularSearchesType};

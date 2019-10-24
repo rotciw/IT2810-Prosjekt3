@@ -7,7 +7,7 @@ let GraphQLInt = require('graphql').GraphQLInt;
 let GraphQLFloat = require('graphql').GraphQLFloat;
 let ProductModel = require('../models/Product');
 let PopularSearchesModel = require('../models/PopularSearches');
-let TypeData = require('./Types')
+let TypeData = require('./Types');
 
 // Import GraphQL object types from separate file
 let productType = TypeData.productType;
@@ -65,7 +65,7 @@ fields: function () {
         },
         resolve: function (root, params) {
             // filter dictionary handles filtering on packaging, product selection, price, year and country
-            let filters = {}
+            let filters = {};
             if (params.Packaging){
                 filters['Emballasjetype'] = params.Packaging;
             }
@@ -91,11 +91,11 @@ fields: function () {
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},])
-                .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec()
+                .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec();
             if (!products) {
-                throw new Error('Error')
+                throw new Error('Error');
             }
-            return products
+            return products;
         }
     },
     // Returns a GraphQLList of all distinct values in a specified field in the database
@@ -107,11 +107,11 @@ fields: function () {
                 if (error){
                     console.log(error);
                 }else{
-                    let resultArray = []
+                    let resultArray = [];
                     for (let i = 0; i < countries.length; i++){
-                        resultArray.push(countries[i])
+                        resultArray.push(countries[i]);
                     }
-                    console.log(resultArray)
+                    console.log(resultArray);
                 }
                 return distinctCountriesResult;
             });
@@ -121,16 +121,16 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").exec();
           console.log("Success");
 
            if (!popularSearches) {
-             throw new Error('Error')
+             throw new Error('Error');
            }
-           return popularSearches
+           return popularSearches;
         }
     },
-    }
+    };
 }
 });
 
@@ -179,7 +179,7 @@ let mutation = new GraphQLObjectType({
                     });
         }
     }
-    }
+    };
   }
 });
 
