@@ -23,22 +23,22 @@ class Pagination extends Component {
             <div className="container-fluid">
                 <div className="row">
                 <button
-                    className="paginationButton"
+                    className="paginationButton mr-2 col-2 col-sm-1"
                     disabled={this.props.paginationStore.prevButtonDisabled}
                     onClick={this.handleFirstPage.bind(this)}>
                          <FontAwesomeIcon icon={faAngleDoubleLeft} />
                 </button>
                 <button
-                    className="paginationButton"
+                    className="paginationButton mr-2 col-3 col-sm-1"
                     disabled={this.props.paginationStore.prevButtonDisabled}
                     onClick={this.handleDecrement.bind(this)}>
                          <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
-                <div className="paginationNumber">
+                <div className="paginationNumber mr-2 col-3 col-sm-1">
                     {this.props.paginationStore.paginationPage+1}
                 </div>
                 <button
-                    className="paginationButton"
+                    className="paginationButton col-3 col-sm-1"
                     disabled={this.props.paginationStore.nextButtonDisabled}
                     onClick={this.handleIncrement.bind(this)}>
                         <FontAwesomeIcon icon={faAngleRight} />

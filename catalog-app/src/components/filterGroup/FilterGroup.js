@@ -7,7 +7,7 @@ import 'nouislider';
 import 'nouislider/distribute/nouislider.css';
 import wNumb from 'wnumb';
 import './FilterGroup.css'
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 var filterData = require("./FilterData")
 
@@ -31,10 +31,6 @@ class FilterGroup extends Component {
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
-            yearMinFilter: "1930",
-            yearMaxFilter: "2019",
-            priceMinFilter: 1,
-            priceMaxFilter: 50000,
         };
         this.selectButton = this.selectButton.bind(this);
     }
@@ -63,33 +59,27 @@ class FilterGroup extends Component {
         return buttons
     };
 
-    handleYearSlider = (render, handle, value, un, percent) => {
-        this.setState({ yearMinFilter: value[0].toFixed(0) });
-        this.setState({ yearMaxFilter: value[1].toFixed(0) });
-    }
     handleYearSliderUpdate = (render, handle, value, un, percent) => {
-        this.props.filterStore.addYearMinFilter(value[0].toFixed(0));
-        this.props.filterStore.addYearMaxFilter(value[1].toFixed(0));
+        this.props.filterStore.addYearMinFilter(parseInt(value[0].toFixed(0)));
+        this.props.filterStore.addYearMaxFilter(parseInt(value[1].toFixed(0)));
         // Reset Pagination
         this.props.paginationStore.firstPage()
     }
-    handlePriceSlider = (render, handle, value, un, percent) => {
-        this.setState({ priceMinFilter: value[0] });
-        this.setState({ priceMaxFilter: value[1] });
-    }
+
     handlePriceSliderUpdate = (render, handle, value, un, percent) => {
-        this.props.filterStore.addPriceMinFilter(value[0].toFixed(0));
-        this.props.filterStore.addPriceMaxFilter(value[1].toFixed(0));
+        this.props.filterStore.addPriceMinFilter(parseInt(value[0].toFixed(0)));
+        this.props.filterStore.addPriceMaxFilter(parseInt(value[1].toFixed(0)));
         // Reset Pagination
         this.props.paginationStore.firstPage()
     }
+
     resetFilters = () => {
         this.setState({
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
-            yearMinFilter: "1930",
-            yearMaxFilter: "2019",
+            yearMinFilter: 1930,
+            yearMaxFilter: 2019,
             priceMinFilter: 1,
             priceMaxFilter: 50000,
         })
@@ -142,12 +132,12 @@ class FilterGroup extends Component {
                                         range={{ min: 1930, max: 2019 }}
                                         step={1}
                                         connect={true}
-                                        start={[parseInt(this.state.yearMinFilter), parseInt(this.state.yearMaxFilter)]}
+                                        start={[parseInt(this.props.filterStore.yearMinFilter), parseInt(this.props.filterStore.yearMaxFilter)]}
                                         tooltips
                                         format={wNumb({ decimals: 0 })}
                                         onChange={this.handleYearSliderUpdate}
                                     />
-                                    <p className="sliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
+                                    <p className="sliderValues">{this.props.filterStore.yearMinFilter} - {this.props.filterStore.yearMaxFilter}</p>
                                 </div>
 
                             </Card.Body>
@@ -170,12 +160,12 @@ class FilterGroup extends Component {
                                         }}
                                         step={1}
                                         connect={true}
-                                        start={[this.state.priceMinFilter, this.state.priceMaxFilter]}
+                                        start={[this.props.filterStore.priceMinFilter, this.props.filterStore.priceMaxFilter]}
                                         tooltips={true}
-                                        format={ wNumb({ decimals: 0 }) }
+                                        format={wNumb({ decimals: 0 })}
                                         onChange={this.handlePriceSliderUpdate}
                                     />
-                                    <p className="sliderValues">{this.state.priceMinFilter} - {this.state.priceMaxFilter}</p>
+                                    <p className="sliderValues">{this.props.filterStore.priceMinFilter} - {this.props.filterStore.priceMaxFilter}</p>
                                 </div>
                             </Card.Body>
                         </Accordion.Collapse>
@@ -206,4 +196,4 @@ class FilterGroup extends Component {
     }
 }
 
-export default inject("filterStore", "paginationStore")(FilterGroup);
+export default inject("filterStore", "paginationStore")(observer(FilterGroup));

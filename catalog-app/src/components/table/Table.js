@@ -12,9 +12,6 @@ const columns = [{
   dataField: 'Varetype',
   text: 'Varetype'
 }, {
-  dataField: 'Land',
-  text: 'Land'
-}, {
   dataField: 'Pris',
   text: 'Pris (i kr)'
 }, {
