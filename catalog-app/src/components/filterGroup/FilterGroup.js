@@ -31,6 +31,8 @@ class FilterGroup extends Component {
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
+            yearMinFilter: 1930,
+            yearMaxFilter: 2019,
         };
         this.selectButton = this.selectButton.bind(this);
     }
@@ -62,6 +64,10 @@ class FilterGroup extends Component {
     handleYearSliderUpdate = (render, handle, value, un, percent) => {
         this.props.filterStore.addYearMinFilter(parseInt(value[0].toFixed(0)));
         this.props.filterStore.addYearMaxFilter(parseInt(value[1].toFixed(0)));
+        this.setState({
+            yearMinFilter: parseInt(value[0].toFixed(0)),
+            yearMaxFilter: parseInt(value[1].toFixed(0)),
+        })
         // Reset Pagination
         this.props.paginationStore.firstPage()
     }
@@ -132,12 +138,12 @@ class FilterGroup extends Component {
                                         range={{ min: 1930, max: 2019 }}
                                         step={1}
                                         connect={true}
-                                        start={[parseInt(this.props.filterStore.yearMinFilter), parseInt(this.props.filterStore.yearMaxFilter)]}
+                                        start={[this.state.yearMinFilter, this.state.yearMaxFilter]}
                                         tooltips
                                         format={wNumb({ decimals: 0 })}
                                         onChange={this.handleYearSliderUpdate}
                                     />
-                                    <p className="sliderValues">{this.props.filterStore.yearMinFilter} - {this.props.filterStore.yearMaxFilter}</p>
+                                    <p className="sliderValues">{this.state.yearMinFilter} - {this.state.yearMaxFilter}</p>
                                 </div>
 
                             </Card.Body>

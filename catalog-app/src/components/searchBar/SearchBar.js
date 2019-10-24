@@ -33,10 +33,10 @@ class SearchBar extends Component {
       event.preventDefault();
       let value = this.state.searchBarValue.toLowerCase();
       this.props.searchBarStore.addSearchBarValue(value)
+
+      //Reset pagination
+      this.props.paginationStore.firstPage()
     }
-
-
-
 
     render() {
       let input;
@@ -75,4 +75,4 @@ class SearchBar extends Component {
     }
   }
 
-  export default inject("searchBarStore")(observer(SearchBar));
+  export default inject("searchBarStore", "paginationStore")(observer(SearchBar));
