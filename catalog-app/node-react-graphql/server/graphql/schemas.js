@@ -9,13 +9,16 @@ let ProductModel = require('../models/Product');
 let PopularSearchesModel = require('../models/PopularSearches');
 let TypeData = require('./Types')
 
+// Import GraphQL object types from separate file
 let productType = TypeData.productType;
 let popularSearchesType = TypeData.popularSearchesType;
 
+// Backend queries
 let queryType = new GraphQLObjectType({
 name: 'Query',
 fields: function () {
     return {
+    // Returns a GraphQLList of every product in the database
     products: {
         type: new GraphQLList(productType),
         resolve: function () {
@@ -27,6 +30,7 @@ fields: function () {
         return products
         }
     },
+    // Returns a GraphQLList of 
     product: {
         type: new GraphQLList(productType),
         args: {
