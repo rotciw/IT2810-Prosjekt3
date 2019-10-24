@@ -18,7 +18,7 @@ let queryType = new GraphQLObjectType({
 name: 'Query',
 fields: function () {
     return {
-    // Main query which handles search, filters and sorting. Returns a GraphQLList containing all relevant results.
+    // Main query which handles search, filters, pagination and sorting. Returns a GraphQLList containing all relevant results.
     productQuery: {
         type: new GraphQLList(productType),
         args: {
