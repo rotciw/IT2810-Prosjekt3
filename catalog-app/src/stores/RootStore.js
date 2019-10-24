@@ -4,6 +4,7 @@ import SortStore from './SortStore';
 import PaginationStore from './PaginationStore';
 import { decorate, observable, action } from 'mobx';
 
+// decorate the store variables with their types
 decorate(FilterStore, {
     countryFilter: observable,
     packagingFilter: observable,
@@ -46,6 +47,7 @@ decorate(PaginationStore, {
 });
 
 class RootStore {
+    // Construct all stores
     constructor() {
         this.filterStore = new FilterStore();
         this.sortStore = new SortStore();

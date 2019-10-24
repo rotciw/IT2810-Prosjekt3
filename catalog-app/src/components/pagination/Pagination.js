@@ -1,51 +1,52 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleDoubleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import './Pagination.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faAngleDoubleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 class Pagination extends Component {
 
     handleIncrement() {
-        this.props.paginationStore.incrementPage()
+        this.props.paginationStore.incrementPage();
     }
 
     handleDecrement() {
-        this.props.paginationStore.decrementPage()
+        this.props.paginationStore.decrementPage();
     }
 
     handleFirstPage() {
-        this.props.paginationStore.firstPage()
+        // For jumping back to page 1
+        this.props.paginationStore.firstPage();
     }
 
     render() {
-        return(
+        return (
             <div className="container-fluid">
                 <div className="row">
-                <button
-                    className="paginationButton mr-2 col-2 col-sm-1"
-                    disabled={this.props.paginationStore.prevButtonDisabled}
-                    onClick={this.handleFirstPage.bind(this)}>
-                         <FontAwesomeIcon icon={faAngleDoubleLeft} />
-                </button>
-                <button
-                    className="paginationButton mr-2 col-3 col-sm-1"
-                    disabled={this.props.paginationStore.prevButtonDisabled}
-                    onClick={this.handleDecrement.bind(this)}>
-                         <FontAwesomeIcon icon={faAngleLeft} />
-                </button>
-                <div className="paginationNumber mr-2 col-3 col-sm-1">
-                    {this.props.paginationStore.paginationPage+1}
-                </div>
-                <button
-                    className="paginationButton col-3 col-sm-1"
-                    disabled={this.props.paginationStore.nextButtonDisabled}
-                    onClick={this.handleIncrement.bind(this)}>
+                    <button
+                        className="paginationButton mr-2 col-2 col-sm-1"
+                        disabled={this.props.paginationStore.prevButtonDisabled}
+                        onClick={this.handleFirstPage.bind(this)}>
+                        <FontAwesomeIcon icon={faAngleDoubleLeft} />
+                    </button>
+                    <button
+                        className="paginationButton mr-2 col-3 col-sm-1"
+                        disabled={this.props.paginationStore.prevButtonDisabled}
+                        onClick={this.handleDecrement.bind(this)}>
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                    </button>
+                    <div className="paginationNumber mr-2 col-3 col-sm-1">
+                        {this.props.paginationStore.paginationPage + 1}
+                    </div>
+                    <button
+                        className="paginationButton col-3 col-sm-1"
+                        disabled={this.props.paginationStore.nextButtonDisabled}
+                        onClick={this.handleIncrement.bind(this)}>
                         <FontAwesomeIcon icon={faAngleRight} />
-                </button>
+                    </button>
                 </div>
             </div>
-        )
+        );
     }
 }
 

@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Nouislider from 'react-nouislider';
+import wNumb from 'wnumb';
 import 'nouislider';
 import 'nouislider/distribute/nouislider.css';
-import wNumb from 'wnumb';
-import './FilterGroup.css'
-import { inject, observer } from 'mobx-react';
+import './FilterGroup.css';
 
-let filterData = require("./FilterData")
-
-let buttonsStyle = {
-    margin: "5px",
-};
-
-let selectedButtonStyle = {
-    background: "#6c757d",
-    margin: "5px",
-    color: "white",
-};
+let filterData = require("./FilterData");
 
 class FilterGroup extends Component {
     constructor(props) {
         super(props);
+        // These states are for displaying data seperately from the store
         this.state = {
             distinctCountries: filterData.distinctCountries,
             distinctPackaging: filterData.distinctPackaging,
@@ -36,6 +27,7 @@ class FilterGroup extends Component {
         };
         this.selectButton = this.selectButton.bind(this);
     }
+
     selectButton(filterGroup, name, i) {
         if (filterGroup === 0) {
             this.setState({ selectedCountryFilter: i });
@@ -47,18 +39,27 @@ class FilterGroup extends Component {
             this.setState({ selectedProductSelectionFilter: i });
             this.props.filterStore.addProductSelectionFilter(name);
         }
-        // Reset Pagination
-        this.props.paginationStore.firstPage()
+        // Reset Pagination when selecting a filter
+        this.props.paginationStore.firstPage();
     }
 
     renderFilters(filterGroup, buttonNames, selectedFilter) {
+        // Function for displaying a button for each country filter
         const buttons = buttonNames.map((name, i) => {
-            const buttonStyle = i === selectedFilter ? selectedButtonStyle : buttonsStyle;
+            const buttonStyle = i === selectedFilter ? "buttonStyle active" : "buttonStyle";
             return (
-                <Button onClick={() => { this.selectButton(filterGroup, name, i) }} key={i} id={i} style={buttonStyle} variant="outline-secondary">{name}</Button>
-            )
+                <Button
+                    onClick={() => { this.selectButton(filterGroup, name, i); }}
+                    key={i}
+                    id={i}
+                    className={buttonStyle}
+                    variant="outline-secondary"
+                >
+                    {name}
+                </Button>
+            );
         });
-        return buttons
+        return buttons;
     };
 
     handleYearSliderUpdate = (render, handle, value, un, percent) => {
@@ -67,16 +68,16 @@ class FilterGroup extends Component {
         this.setState({
             yearMinFilter: parseInt(value[0].toFixed(0)),
             yearMaxFilter: parseInt(value[1].toFixed(0)),
-        })
-        // Reset Pagination
-        this.props.paginationStore.firstPage()
+        });
+        // Reset Pagination when selecting years
+        this.props.paginationStore.firstPage();
     }
 
     handlePriceSliderUpdate = (render, handle, value, un, percent) => {
         this.props.filterStore.addPriceMinFilter(parseInt(value[0].toFixed(0)));
         this.props.filterStore.addPriceMaxFilter(parseInt(value[1].toFixed(0)));
-        // Reset Pagination
-        this.props.paginationStore.firstPage()
+        // Reset Pagination when selecting prices
+        this.props.paginationStore.firstPage();
     }
 
     resetFilters = () => {
@@ -84,7 +85,7 @@ class FilterGroup extends Component {
             selectedCountryFilter: "",
             selectedPackagingFilter: "",
             selectedProductSelectionFilter: "",
-        })
+        });
         // Reset filters
         this.props.filterStore.addCountryFilter("");
         this.props.filterStore.addPackagingFilter("");
@@ -95,21 +96,20 @@ class FilterGroup extends Component {
         this.props.filterStore.addPriceMaxFilter(50000);
 
         // Reset Pagination
-        this.props.paginationStore.firstPage()
+        this.props.paginationStore.firstPage();
     }
 
     render() {
-
         return (
             <div className="filterContainer">
                 <Accordion>
-                <Card>
-                    <Card.Header className="filterHeader">
-                    <h5 style={{display: "inline-block"}}>Filtrering</h5>
-                    <div onClick={this.resetFilters} className="reset_button" variant="outline-secondary">
-                        <img src="cancel_icon.svg" alt="x" className="cancel_icon"></img>
-                        <p className="reset_text" style={{display: "inline-block"}}>Nullstill filtrering</p>
-                    </div>
+                    <Card>
+                        <Card.Header className="filterHeader">
+                            <h5 style={{ display: "inline-block" }}>Filtrering</h5>
+                            <div onClick={this.resetFilters} className="resetButton" variant="outline-secondary">
+                                <img src="cancel_icon.svg" alt="x" className="cancelIcon"></img>
+                                <p className="resetText" style={{ display: "inline-block" }}>Nullstill filtrering</p>
+                            </div>
 
                         </Card.Header>
                     </Card>

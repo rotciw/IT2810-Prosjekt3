@@ -1,9 +1,11 @@
 class PaginationStore {
+    // Observables
     paginationPage = 0;
     prevButtonDisabled = true;
     nextButtonDisabled = false;
     tableIsEmpty = false;
 
+    // Actions
     incrementPage() {
         if (this.paginationPage >= 0) {
             this.prevButtonDisabled = false;
@@ -18,12 +20,12 @@ class PaginationStore {
         this.paginationPage--;
     }
 
-    firstPage() {
+    firstPage() {
         this.prevButtonDisabled = true;
         this.paginationPage = 0;
     }
 
-    tableEmpty() {
+    tableEmpty() {
         this.nextButtonDisabled = true;
         this.tableIsEmpty = true;
     }

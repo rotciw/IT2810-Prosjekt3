@@ -8,11 +8,12 @@ import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
 
+// Link to API
 const client = new ApolloClient({ uri: 'http://it2810-38.idi.ntnu.no:3000/graphql' });
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <App/>
+        <App />
     </ApolloProvider>,
     document.getElementById('root')
 );

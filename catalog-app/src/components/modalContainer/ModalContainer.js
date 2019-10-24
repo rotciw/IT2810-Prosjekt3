@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';
 import Modal from './modal/Modal';
 
 class ModalContainer extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             isShowing: false
-        }
+        };
     }
 
     openModalHandler = () => {
@@ -21,10 +21,10 @@ class ModalContainer extends Component {
         });
     }
 
-    render () {
+    render() {
         return (
             <div>
-                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="backDrop"></div> : null }
+                {this.state.isShowing ? <div onClick={this.closeModalHandler} className="backDrop"></div> : null}
                 <button className="openModalBtn" onClick={this.openModalHandler}>
                     Avansert visning (Mest populære søk)
                 </button>

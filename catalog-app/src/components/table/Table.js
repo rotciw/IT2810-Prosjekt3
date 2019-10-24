@@ -3,8 +3,9 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { observer, inject } from 'mobx-react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import './Table.css'
+import './Table.css';
 
+// Columns which are displayed in the table
 const columns = [{
   dataField: 'Varenavn',
   text: 'Varenavn'
@@ -57,14 +58,16 @@ const expandRow = {
 };
 
 function emptyTable() {
-  this.props.paginationStore.tableEmpty()
-  return "Tabellen er tom"
+  // When the table is empty, communicate it to the paginationstore
+  this.props.paginationStore.tableEmpty();
+  return "Ingen data";
 }
 
 class Table extends Component {
   refreshQuery(keys = "", packaging = "", productSelection = "", country = "",
-               yearMin = "", yearMax = "", priceMin, priceMax,
-               skipping = 0, sortAfter = "") {
+    yearMin = "", yearMax = "", priceMin, priceMax,
+    skipping = 0, sortAfter = "") {
+    // Availbale queries
     const GET_PRODUCTQUERY = gql`
       {
         productQuery(Keys: "${keys}",
@@ -84,27 +87,22 @@ class Table extends Component {
           Literpris
           Varetype
           Produktutvalg
-          Fylde
-          Friskhet
-          Garvestoffer
-          Bitterhet
-          Sodme
           Smak
           Land
           Argang
-          Rastoff
           Alkohol
           AlkoholPrKrone
           Emballasjetype
           Vareurl
         }
-      }`
-    return GET_PRODUCTQUERY
+      }`;
+    return GET_PRODUCTQUERY;
   };
 
   render() {
     return (
       <div className="tableContainer">
+        {/* Queries after these filters */}
         <Query query={
           this.refreshQuery(
             this.props.searchBarStore.searchBarValue,
@@ -117,7 +115,7 @@ class Table extends Component {
             this.props.filterStore.priceMaxFilter,
             this.props.paginationStore.paginationPage,
             this.props.sortStore.sortAfter)
-          }
+        }
         >
           {({ loading, error, data }) => {
             if (loading && !data) return (
@@ -126,9 +124,10 @@ class Table extends Component {
               </div>
             );
             if (error) return `Error! ${error.message}`;
+            // Pagination check
             // If the table was empty, the next state shall be not empty
             if (this.props.paginationStore.tableIsEmpty === true) {
-              this.props.paginationStore.tableNotEmpty()
+              this.props.paginationStore.tableNotEmpty();
             }
             return (
               <div className="card">
@@ -149,7 +148,7 @@ class Table extends Component {
           }}
         </Query>
       </div>
-    )
+    );
   }
 }
 

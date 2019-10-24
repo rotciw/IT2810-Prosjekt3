@@ -49,7 +49,6 @@ let distinctCountries = [
   'Colombia',
   'Nicaragua',
   'Guyana',
-  //'Amer. Jomfruøy.',
   'Haiti',
   'Venezuela',
   'Tsjekkia',
@@ -78,7 +77,8 @@ let distinctCountries = [
   'Sør-Korea',
   'Kina',
   'Paraguay',
-  'Nord Irland' ]
+  'Nord Irland'
+];
 
 let distinctPackaging = [
   'Glass',
@@ -86,16 +86,15 @@ let distinctPackaging = [
   'Bag-in-box',
   'Pouch',
   'Emballasje med pant',
-  'Metall', 
+  'Metall',
   'Øvrig',
-]
+];
 
 let distinctProductSelection = [
   'Basisutvalget',
   'Bestillingsutvalget',
   'Testutvalget',
   'Partiutvalget'
-]
-
+];
 
 module.exports = { distinctCountries: distinctCountries, distinctPackaging: distinctPackaging, distinctProductSelection: distinctProductSelection };

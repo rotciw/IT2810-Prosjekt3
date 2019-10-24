@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { inject, observer } from 'mobx-react';
-import './SortDropdown.css'
+import './SortDropdown.css';
 
 class SortDropdown extends Component {
     constructor(props) {
@@ -10,8 +10,9 @@ class SortDropdown extends Component {
     }
 
     handleSorting(id, name) {
-        this.props.sortStore.addSortAfter(id)
-        this.props.sortStore.addActiveButton(name)
+        // Sorts after, and displays what is sorted after
+        this.props.sortStore.addSortAfter(id);
+        this.props.sortStore.addActiveButton(name);
     }
 
     render() {
@@ -65,7 +66,7 @@ class SortDropdown extends Component {
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-        )
+        );
     }
 }
 

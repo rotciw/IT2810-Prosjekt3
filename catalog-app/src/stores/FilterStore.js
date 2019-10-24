@@ -1,4 +1,5 @@
 class FilterStore {
+    // Observables
     countryFilter = "";
     packagingFilter = "";
     productSelectionFilter = "";
@@ -7,6 +8,7 @@ class FilterStore {
     priceMinFilter = 1;
     priceMaxFilter = 50000;
 
+    // Actions
     addCountryFilter(value) {
         this.countryFilter = value;
     };
