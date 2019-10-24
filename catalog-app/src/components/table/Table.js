@@ -12,9 +12,6 @@ const columns = [{
   dataField: 'Varetype',
   text: 'Varetype'
 }, {
-  dataField: 'Land',
-  text: 'Land'
-}, {
   dataField: 'Pris',
   text: 'Pris (i kr)'
 }, {
@@ -25,43 +22,49 @@ const columns = [{
 
 const expandRow = {
   renderer: row => (
-      <div className="row">
-        <div className="col-sm text-center">
-          {/* Images are fetched from vinmonopolet's website */}
+    <div className="row">
+      <div className="col-sm text-center">
+        {/* Images are fetched from vinmonopolet's website */}
         <img
-          src={"https://bilder.vinmonopolet.no/cache/250x250-0/"+ row.Varenummer + "-1.jpg"}
+          src={"https://bilder.vinmonopolet.no/cache/250x250-0/" + row.Varenummer + "-1.jpg"}
           alt="Item"
         />
-        </div>
-        {/* We want to always show this information for each item */}
-        <div className="col-sm">
-          <p>{ `Varenummer: ${row.Varenummer}` }</p>
-          <p>{ `Varenavn: ${row.Varenavn}` }</p>
-          <p>{ `Varetype: ${row.Varetype}` }</p>
-          <p>{ `Land: ${row.Land}` }</p>
-        </div>
-        <div className="col-sm">
-          <p>{ `Volum: ${row.Volum} liter` }</p>
-          <p>{ `Alkoholprosent: ${row.Alkohol}%` }</p>
-          <p>{ `Årgang: ${row.Argang}` }</p>
-          <p>{ `Smak: ${row.Smak}` }</p>
-        </div>
-        <div className="col-sm">
-          <p>{ `Literpris: ${row.Literpris} kr` }</p>
-          <p>{ `Emballasjetype: ${row.Emballasjetype} ` }</p>
-          <p>{ `Produktutvalg: ${row.Produktutvalg} ` }</p>
-          <p><a target="_blank" href={row.Vareurl}>{ `Vareurl` }</a></p>
-        </div>
       </div>
+      {/* We want to always show this information for each item */}
+      <div className="col-sm">
+        <p>{`Varenummer: ${row.Varenummer}`}</p>
+        <p>{`Varenavn: ${row.Varenavn}`}</p>
+        <p>{`Varetype: ${row.Varetype}`}</p>
+        <p>{`Land: ${row.Land}`}</p>
+      </div>
+      <div className="col-sm">
+        <p>{`Volum: ${row.Volum} liter`}</p>
+        <p>{`Alkoholprosent: ${row.Alkohol}%`}</p>
+        <p>{`Årgang: ${row.Argang}`}</p>
+        <p>{`Smak: ${row.Smak}`}</p>
+      </div>
+      <div className="col-sm">
+        <p>{`Literpris: ${row.Literpris} kr`}</p>
+        <p>{`Emballasjetype: ${row.Emballasjetype} `}</p>
+        <p>{`Produktutvalg: ${row.Produktutvalg} `}</p>
+        <p><a target="_blank" rel="noopener noreferrer" href={row.Vareurl}>{`Vareurl`}</a></p>
+      </div>
+    </div>
 
   ),
   className: 'expandedRow',
   parentClassName: 'parentExpandedRow'
 };
 
-class Table extends Component {
+function emptyTable() {
+  this.props.paginationStore.tableEmpty()
+  return "Tabellen er tom"
+}
 
-  refreshQuery(keys="", packaging="", productSelection="", country="", yearMin="", yearMax="", priceMin="", priceMax="", skipping=0, sortAfter=""){
+class Table extends Component {
+  refreshQuery(keys = "", packaging = "", productSelection = "", country = "",
+               yearMin = "", yearMax = "", priceMin, priceMax,
+               skipping = 0, sortAfter = "") {
     const GET_PRODUCTQUERY = gql`
       {
         productQuery(Keys: "${keys}",
@@ -100,7 +103,7 @@ class Table extends Component {
   };
 
   render() {
-    return(
+    return (
       <div className="tableContainer">
         <Query query={
           this.refreshQuery(
@@ -113,45 +116,41 @@ class Table extends Component {
             this.props.filterStore.priceMinFilter,
             this.props.filterStore.priceMaxFilter,
             this.props.paginationStore.paginationPage,
-            this.props.sortStore.sortAfter)}
-          >
+            this.props.sortStore.sortAfter)
+          }
+        >
           {({ loading, error, data }) => {
             if (loading && !data) return (
               <div className="card">
-                <BootstrapTable
-                  id="table"
-                  headerClasses="tableHeader"
-                  keyField='Varenummer'
-                  data={[]}
-                  columns={ columns }
-                  expandRow={ expandRow }
-                  bootstrap4={true}
-                  hover={true}
-                  bordered={true}
-                />
+                Loading...
               </div>
             );
             if (error) return `Error! ${error.message}`;
+            // If the table was empty, the next state shall be not empty
+            if (this.props.paginationStore.tableIsEmpty === true) {
+              this.props.paginationStore.tableNotEmpty()
+            }
             return (
               <div className="card">
                 <BootstrapTable
                   id="table"
                   headerClasses="tableHeader"
                   keyField='Varenummer'
-                  data={ data.productQuery }
-                  columns={ columns }
-                  expandRow={ expandRow }
+                  data={data.productQuery}
+                  columns={columns}
+                  expandRow={expandRow}
                   bootstrap4={true}
                   hover={true}
                   bordered={true}
+                  noDataIndication={emptyTable.bind(this)}
                 />
               </div>
             );
           }}
         </Query>
       </div>
-      )
-    }
+    )
   }
+}
 
 export default inject('sortStore', 'filterStore', 'searchBarStore', 'paginationStore')(observer(Table));

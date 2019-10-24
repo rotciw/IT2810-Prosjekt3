@@ -9,11 +9,12 @@
     border-width: 5px !important;
     border-color: #FDFFFC;
     min-width: 300px;
+    font-size: 12px;
 }
 
 .tableHeader {
     cursor: auto;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 @media (min-width: 576px) {
@@ -21,7 +22,7 @@
         font-size: 18px;
     }
     #table {
-        font-size: 16pxw;
+        font-size: 16px;
     }
 }
 
