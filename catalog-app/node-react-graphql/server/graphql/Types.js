@@ -50,7 +50,7 @@ let productType = new GraphQLObjectType({
             type: GraphQLString
         },
         Argang: {
-            type: GraphQLInt
+            type: GraphQLString
         },
         Rastoff: {
             type: GraphQLString

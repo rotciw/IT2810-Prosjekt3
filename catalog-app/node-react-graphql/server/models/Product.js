@@ -15,7 +15,7 @@ let ProductSchema = new mongoose.Schema({
     Sodme: String,
     Smak: String,
     Land: String,
-    Argang: Number,
+    Argang: String,
     Rastoff: String,
     Alkohol: Number,
     AlkoholPrKrone: Number,
