@@ -2,8 +2,8 @@ class FilterStore {
     countryFilter = "";
     packagingFilter = "";
     productSelectionFilter = "";
-    yearMinFilter = 1930;
-    yearMaxFilter = 2019;
+    yearMinFilter = "";
+    yearMaxFilter = "";
     priceMinFilter = 1;
     priceMaxFilter = 50000;
 
