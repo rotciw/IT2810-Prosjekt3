@@ -26,7 +26,7 @@ class ModalContainer extends Component {
             <div>
                 {this.state.isShowing ? <div onClick={this.closeModalHandler} className="backDrop"></div> : null}
                 <button className="openModalBtn" onClick={this.openModalHandler}>
-                    Avansert visning (Mest populære søk)
+                    Mest populære søk
                 </button>
 
                 <Modal
