@@ -19,20 +19,22 @@ const client = new ApolloClient({
 });
 const rootStore = new RootStore();
 
-it('renders correctly', () => {
-    const tree = renderer
-        .create(
-            <ApolloProvider client={client}>
-                <Provider
-                    rootStore={rootStore}
-                    filterStore={rootStore.filterStore}
-                    sortStore={rootStore.sortStore}
-                    searchBarStore={rootStore.searchBarStore}
-                    paginationStore={rootStore.paginationStore}>
-                    <Header/>
-                </Provider>
-            </ApolloProvider>
+describe("Header component", () => {
+    it('renders correctly', () => {
+        const tree = renderer
+            .create(
+                <ApolloProvider client={client}>
+                    <Provider
+                        rootStore={rootStore}
+                        filterStore={rootStore.filterStore}
+                        sortStore={rootStore.sortStore}
+                        searchBarStore={rootStore.searchBarStore}
+                        paginationStore={rootStore.paginationStore}>
+                        <Header />
+                    </Provider>
+                </ApolloProvider>
             )
-        .toJSON();
-    expect(tree).toMatchSnapshot();
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 });
