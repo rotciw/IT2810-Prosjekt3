@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Header component renders correctly 1`] = `
 <h1
   className="col-sm-12 justify-content-center header"
 >

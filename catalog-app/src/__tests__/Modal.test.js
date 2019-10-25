@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Table from '../components/table/Table.js';
+import Modal from '../components/modalContainer/modal/Modal';
 import { Provider } from 'mobx-react';
 import RootStore from '../stores/RootStore';
 import ApolloClient from 'apollo-client';
@@ -19,7 +19,8 @@ const client = new ApolloClient({
 });
 const rootStore = new RootStore();
 
-describe("Table component", () => {
+
+describe("Modal component", () => {
     it('renders correctly', () => {
         const tree = renderer
             .create(
@@ -30,7 +31,7 @@ describe("Table component", () => {
                         sortStore={rootStore.sortStore}
                         searchBarStore={rootStore.searchBarStore}
                         paginationStore={rootStore.paginationStore}>
-                        <Table />
+                        <Modal />
                     </Provider>
                 </ApolloProvider>
             )
