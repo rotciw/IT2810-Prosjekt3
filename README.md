@@ -2,11 +2,11 @@
 
 ## Krav til innhold og funksjonalitet
 
-Gruppen har valgt å ha en søkbar katalog med produkter fra vinmonopolet. Her kan man søke, filtrere, sortere og blad i produkter. Man kan også få mer informasjon om produktene og se hva andre har søkt på i populære søk.
+Gruppen har valgt å ha en søkbar katalog med produkter fra vinmonopolet. Her kan man søke, filtrere, sortere og bla i produkter. Man kan også få mer informasjon om produktene og se hva andre har søkt på i populære søk.
 
 ### Datapresentasjon
 
-Data er hentet fra vinmonopolets sitt csv. Dataene presenteres i en liste, trykker man på et produkt vil man få mer data om produktet samt et bildet. Bildene er hentet fra vinmonopolet via varenummeret til produktene. Alkohol per krone har vi generert selv.
+Data er hentet fra vinmonopolets sine data i csv-format. Dataene presenteres i en liste, trykker man på et produkt vil man få mer data om produktet samt et bilde. Bildene er hentet fra bilder.vinmonopolet.no via varenummeret til produktene. Alkohol per krone har vi generert selv.
 
 ### Filtrering, søk, sortering og paginering
 
@@ -44,31 +44,75 @@ For henting av data fra databasen har vi valgt å bruke GraphQL. Dette fordi vi 
 
 GraphQL brukergrensesnittet kan aksesseres ved å åpne siden [http://it2810-38.idi.ntnu.no:3000/graphql](http://it2810-38.idi.ntnu.no:3000/graphql) i en nettleser. Her er det mulig å skrive GraphQL spørringer for å hente data fra databasen.
 
+Eksempelspørringer:
+
+Hente data
+```
+<!-- Hente Varenavn, nummer, årgang og land -->
+{
+  productQuery (Keys:"",){
+  	Varenavn,
+    Varenummer,
+    Argang,
+    Land
+	}
+}
+
+<!-- Hente populære søk -->
+{
+  popularSearches{
+  	Searched,
+    Times
+	}
+}
+
+```
+Legge til data
+```
+<!-- Legge til et søk til populære søk -->
+mutation AddSearch($Searched: String!) {
+  addPopularSearch(Searched:$Searched, Times:1){
+    Searched,
+    Times
+  }
+}
+
+```
+
+
 ##### Express
 
 Gruppen har benyttet Express som API og webserver. Ved bruk av Express trenger vi ikke å fokusere på lavnivå prosesser, protokoller osv. Express serveren kan startes fra directory `/catalog-app/node-react-graphql/server` med kommandoen `npm start` , eller `forever start “npm start” ./` for å kjøre serveren permanent i bakgrunnen . Videre benytter vi `nodemon` for å kjøre serveren slik at serveren starter på nytt ved endringer i koden.
 
 ##### Mongoose
 
+<img src="https://imgur.com/4mtZmOu.png" width="500px" alt="Systemarkitektur"/>
+
 Bruk av rammeverket Mongoose muliggjør en enkel, skjemabasert modellering av applikasjonsdata. Mongoose benyttes også til type-casting og spørringer til databasen. Vi har en spørring til hver collection i databasen. Spørringen `productQuery` håndterer søk, filtrering, paginering og sortering. Spørringen benytter `.find(...)` for filtrering på spesifiserte argumenter. Funksjonen `.or(...)` brukes med regular expressions for søk på produkttype, produktnavn og land. Videre brukes `.sort(...)` for sortering etter et spesifisert database-felt. Tilslutt brukes funksjonen `.skip(...)` for paginering.
 
 ### Frontend
 
+<img src="https://imgur.com/7raSgNK.png" width="600px" alt="Brukergrensesnitt"/>
+
 #### Responsivt design
-Gruppen har brukt Bootstrap4 for oppsettet av siden. På venstre siden av siden har komponentene SearchBar, FilterGroup, SortDropdown og ModalContainer fått bootstrap klassen `col-md-4`, mens de pagination og table fikk `col-md-8`. Det betyr at "grid”-et deles inn slik at høyredelen tar større del av siden enn venstredelen. Når skjermen blir mindre enn “md” (medium), vil filter wrappes til å være over tabellen.
-Det er også brukt CSS media queries for f.eks.å gjøre ModalContainer større ved wrapping.
+Gruppen har brukt Bootstrap4 for oppsettet av siden. På venstre siden av siden har komponentene `SearchBar`, `FilterGroup`, `SortDropdown` og `ModalContainer` fått bootstrap klassen `col-md-4`, mens de pagination og table fikk `col-md-8`. Det betyr at "grid”-et deles inn slik at høyredelen tar større del av siden enn venstredelen. Når skjermen blir mindre enn “md” (medium), vil filter wrappes til å være over tabellen.
+Det er også brukt CSS media queries for f.eks.å gjøre `ModalContainer` større ved wrapping.
 
 #### React
 
-Gruppen benyttet av seg både funksjonelle og klasse komponenter. Det er brukt både egenlagde komponenter (eks. Pagination, Header og SearchBar), samt tredjepartskomponenter (eks ReactWordCloud, BootstrapTable og Accordion). Koden er skrevet i ES6, med ESLint som linter.
-Komponentene kan gjenbrukes som feks. Pagination har blitt gjort, og lett omplasseres.
-BootstrapTable brukes strengt bare som visning av dataen, da all sortering, paginering, filtrering og søking håndteres som nevnt backend.
+<img src="https://imgur.com/RHUkRTk.png" width="700px" alt="Komponentstruktur"/>
+
+Gruppen benyttet av seg både funksjonelle og klasse komponenter. Det er brukt både egenlagde komponenter (eks. `Pagination`, `Header` og `SearchBar`), samt tredjepartskomponenter (eks. `ReactWordCloud`, `BootstrapTable` og `Accordion`). Koden er skrevet i ES6, med ESLint som linter.
+Komponentene kan gjenbrukes som feks. `Pagination` har blitt gjort, og lett omplasseres.
+`BootstrapTable` brukes strengt bare som visning av dataen, da all sortering, paginering, filtrering og søking håndteres som nevnt backend.
 
 ##### MobX og state management
 
+<img src="https://imgur.com/E6ioXwn.png" width="400px" alt="MobX Store"/>
+
 Gruppen valgte å bruke MobX for state management for prosjektet. MobX ble hovedsakelig valgt på grunn av størrelsen til prosjektet, da Redux ofte er valget for store prosjekter. Siden gruppen ikke hadde noen erfaring med noen av disse rammeverkene, var MobX også anbefalt som et startpunkt.
 
-Det er tre instanser til unntak for bruk av MobX for state management. I FilterGroup, ModalContainer, og SearchBar komponentene, blir React sitt innebygde state management brukt. Disse brukes for å holde intern state på komponenten i form av feks.å vise live oppdatering på hva som skrives inn i søkefeltet.
+Det er tre instanser til unntak for bruk av MobX for state management. I `FilterGroup`, `ModalContainer`, og `SearchBar` komponentene, blir React sitt innebygde state management brukt. Disse brukes for å holde intern state på komponenten i form av feks.å vise live oppdatering på hva som skrives inn i søkefeltet.
 
 ##### Eksempel på bruk av MobX:
 
@@ -128,6 +172,9 @@ Paginering
 Avansert visning
 Med dette har vi også fått testet andre viktige ting med siden som henting av data fra databasen. På testing av søk, filtrering og sortering har vi valgt å kun teste en ting da andre tester ville vært svært like å ikke gitt noe særlig mer læringsutbytte. Vi valgte å ha en fil per test for en oversiktlig kode og enkel feilsøking om en test skulle feile.
 
+
+<img src="https://imgur.com/ARifEBE.png" width="400px" alt="Resultater fra end-end testing"/>
+
 ### Testing med Jest og Enzyme
 
 Dette prosjektet benytter Jest for snapshot-testing, og unit-testing. Etter foregående prosjekt var gruppen allerede komfortable med oppsett og enkle tester med dette rammeverket. Vi har skrevet syv snapshot-tester som sjekker om de tilhørende React-komponentene renderer riktig. Vi valgte bevisst å ikke teste alle komponenter siden det hadde medført repetitivt arbeid uten noe større læringsutbytte.
@@ -144,6 +191,9 @@ describe("<Pagination /> interactions", () => {
     });
 });
 ```
+
+<img src="https://imgur.com/Bt5zOui.png" width="400px" alt="Resultater fra testing med Jest og Enzyme"/>
+
 
 ## Bruk av Git og kommentering
 
