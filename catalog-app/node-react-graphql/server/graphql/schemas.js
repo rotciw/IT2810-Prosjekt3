@@ -139,7 +139,7 @@ let mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: function () {
     return {
-    // Mutation for adding a new popularSearch to the database
+    // Mutation for adding a new popularSearch to the database if they already exists update the times searched 
     addPopularSearch: {
         type: popularSearchesType,
         args: {
