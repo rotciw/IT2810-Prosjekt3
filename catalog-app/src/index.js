@@ -2,22 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
 
-const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
+// Link to API
+const client = new ApolloClient({ uri: 'http://it2810-38.idi.ntnu.no:3000/graphql' });
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Router>
-            <div>
-                <Route exact path='/' component={App} />
-            </div>
-        </Router>
+        <App />
     </ApolloProvider>,
     document.getElementById('root')
 );

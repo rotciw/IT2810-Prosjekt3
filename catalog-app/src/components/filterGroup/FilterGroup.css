@@ -2,27 +2,30 @@
     margin-bottom: 15px;
 }
 
-.filterHeader{
+.filterHeader {
     background-color: #2d2d2d;
     color: white;
     height: 50px;
 }
-.cardHeader:hover{
+
+.cardHeader:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.slider{
+.slider {
     margin: auto;
     padding: 20px 0px;
     width: 80%;
     height: 100px;
     text-align: center;
 }
-.sliderValues{
+
+.sliderValues {
     margin-top: 20px;
 }
-.reset_button{
+
+.resetButton {
     float: right;
     height: 45px;
     width: 130px;
@@ -32,15 +35,42 @@
     font-size: 12px;
     white-space: nowrap;
 }
-.reset_button:hover{
+
+.resetButton:hover {
     cursor: pointer;
 }
-.reset_text:hover{
+
+.resetText:hover {
     text-decoration: underline;
 }
-.cancel_icon{
+
+.cancelIcon {
     margin-right: 5px;
     margin-top: -2px;
     width: 10px;
     fill: white;
+}
+
+.nobr {
+    white-space: nowrap
+}
+
+.buttonStyle {
+    margin: 5px;
+}
+
+.buttonStyle:focus {
+    background: #D6D6D6;
+    margin: 5px;
+    color: black;
+}
+
+/* These are predefined for noUiSlider, so classNames are already given */
+
+.noUi-tooltip {
+    display: none;
+}
+
+.noUi-active .noUi-tooltip {
+    display: block;
 }

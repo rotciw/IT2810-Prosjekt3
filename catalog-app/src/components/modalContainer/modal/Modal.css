@@ -5,20 +5,20 @@
     position: fixed;
     transition: all 1.3s;
     z-index: 1;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
 }
 
 .modalWrapper {
     position: fixed;
     background: #F7F7F7;
     border-radius: 5px;
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
     width: 90vw;
     min-width: 320px !important;
     height: auto;
     z-index: 2;
-    top:15vh;
+    top: 15vh;
     left: 5vw;
     min-width: 200px;
 }
@@ -44,7 +44,6 @@
     text-align: center;
 }
 
-
 .closeModalBtn {
     color: #F7F7F7;
     cursor: pointer;
@@ -57,7 +56,6 @@
     color: #CF5C36;
 }
 
-
 .openModalBtn {
     background-color: #2D2D2D;
     padding: 20px;
@@ -66,7 +64,7 @@
     width: 100%;
     color: #FDFFFC;
     transition: all 0.5s;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
 
 .openModalBtn:hover {

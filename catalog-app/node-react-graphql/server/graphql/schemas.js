@@ -1,18 +1,18 @@
-var GraphQLSchema = require('graphql').GraphQLSchema;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLList = require('graphql').GraphQLList;
-var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLString = require('graphql').GraphQLString;
-var GraphQLInt = require('graphql').GraphQLInt;
-var GraphQLFloat = require('graphql').GraphQLFloat;
-var ProductModel = require('../models/Product');
-var PopularSearchesModel = require('../models/PopularSearches');
-var TypeData = require('./Types')
+let GraphQLSchema = require('graphql').GraphQLSchema;
+let GraphQLObjectType = require('graphql').GraphQLObjectType;
+let GraphQLList = require('graphql').GraphQLList;
+let GraphQLNonNull = require('graphql').GraphQLNonNull;
+let GraphQLString = require('graphql').GraphQLString;
+let GraphQLInt = require('graphql').GraphQLInt;
+let GraphQLFloat = require('graphql').GraphQLFloat;
+let ProductModel = require('../models/Product');
+let PopularSearchesModel = require('../models/PopularSearches');
+let TypeData = require('./Types')
 
-var productType = TypeData.productType;
-var popularSearchesType = TypeData.popularSearchesType;
+let productType = TypeData.productType;
+let popularSearchesType = TypeData.popularSearchesType;
 
-var queryType = new GraphQLObjectType({
+let queryType = new GraphQLObjectType({
 name: 'Query',
 fields: function () {
     return {
@@ -20,7 +20,6 @@ fields: function () {
         type: new GraphQLList(productType),
         resolve: function () {
         const products = ProductModel.find().limit(10).exec()
-        console.log("success");
 
         if (!products) {
             throw new Error('Error')
@@ -139,7 +138,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(10).exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").exec()
           console.log("Success");
 
            if (!popularSearches) {
@@ -168,7 +167,7 @@ fields: function () {
 }
 });
 
-var mutation = new GraphQLObjectType({
+let mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: function () {
     return {
@@ -184,7 +183,7 @@ var mutation = new GraphQLObjectType({
         },
         resolve: function (root, params) {
           return PopularSearchesModel.findOneAndUpdate(
-            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1/2}}, {upsert: true},
+            {Searched:params.Searched.toLowerCase()},{$set:{Searched:params.Searched.toLowerCase()},$inc:{Times: 1}}, {upsert: true},
             function (err){
                 if (err)
                     throw new Error(err);

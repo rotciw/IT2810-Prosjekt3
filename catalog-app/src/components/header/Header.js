@@ -1,5 +1,5 @@
 import React from 'react';
-import './Header.css'
+import './Header.css';
 
 function Header() {
   return (
@@ -16,7 +16,7 @@ function Header() {
       <p>polet</p>
       </div>
     </h1>
-  )
+  );
 }
 
 export default Header;

@@ -1,9 +1,10 @@
 import React from 'react';
-import './Modal.css'
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo';
 import ReactWordCloud from 'react-wordcloud';
+import './Modal.css';
 
+// These variables are the same as the backend.
 const GET_POPULAR = gql`
 {
   popularSearches{
@@ -13,21 +14,21 @@ const GET_POPULAR = gql`
 }`;
 
 function Modal(props) {
-    const { loading, error, data } = useQuery(GET_POPULAR)
+    // Queries and pushes data to cloudData to later display
+    const { loading, error, data } = useQuery(GET_POPULAR);
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
-    let cloudData = []
+    let cloudData = [];
     data.popularSearches.map(popSearch => (
         cloudData.push({
-            text:popSearch.Searched,
-            value:popSearch.Times
+            text: popSearch.Searched,
+            value: popSearch.Times
         })
 
-    ))
+    ));
 
     return (
-        <div>
-            <div className="modalWrapper"
+        <div className="modalWrapper"
             style={{
                 visibility: props.show ? 'visible' : 'hidden',
             }}>
@@ -38,12 +39,11 @@ function Modal(props) {
             <div className="modalBody">
                 <ReactWordCloud
                     words={cloudData}
-                    options={{fontSizes: [16,60]}}
+                    options={{ fontSizes: [16, 60] }}
                 />
             </div>
         </div>
-    </div>
-    )
+    );
 }
 
 export default Modal;

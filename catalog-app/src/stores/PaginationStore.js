@@ -1,25 +1,40 @@
 class PaginationStore {
+    // Observables
     paginationPage = 0;
-    buttonIsDisabled = true;
+    prevButtonDisabled = true;
+    nextButtonDisabled = false;
+    tableIsEmpty = false;
 
+    // Actions
     incrementPage() {
         if (this.paginationPage >= 0) {
-            this.buttonIsDisabled = false;
+            this.prevButtonDisabled = false;
         }
         this.paginationPage++;
     }
 
     decrementPage() {
         if (this.paginationPage <= 1) {
-            this.buttonIsDisabled = true;
+            this.prevButtonDisabled = true;
         }
         this.paginationPage--;
     }
 
-    firstPage() {
-        this.buttonIsDisabled = true;
+    firstPage() {
+        this.prevButtonDisabled = true;
         this.paginationPage = 0;
     }
+
+    tableEmpty() {
+        this.nextButtonDisabled = true;
+        this.tableIsEmpty = true;
+    }
+
+    tableNotEmpty() {
+        this.nextButtonDisabled = false;
+        this.tableIsEmpty = false;
+    }
+
 }
 
 export default PaginationStore;

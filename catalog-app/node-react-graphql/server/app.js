@@ -1,23 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
 
 // Mongoose and GraphQL modules and dependencies
-var mongoose = require('mongoose');
-var graphqlHTTP = require('express-graphql');
-var schema = require('./graphql/schemas');
-var cors = require("cors");
+let mongoose = require('mongoose');
+let graphqlHTTP = require('express-graphql');
+let schema = require('./graphql/schemas');
+let cors = require("cors");
 
 mongoose.connect('mongodb://mattis:mattis@it2810-38.idi.ntnu.no:27017/catalog-db', { promiseLibrary: require('bluebird'), useNewUrlParser: true })
 .then(() =>  console.log('connection successful'))
 .catch((err) => console.error(err));
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
