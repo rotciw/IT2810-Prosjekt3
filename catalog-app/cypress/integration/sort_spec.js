@@ -8,7 +8,8 @@ describe('Testing sorting', function() {
         cy.get('.expandedRow').contains(' 0%');
         cy.get('.dropdownContainer').click();
         cy.get('#-Alkohol').click();
-        cy.wait(500);
+        //The delay is long because our database had much traffic and the test fails if it does not load
+        cy.wait(1000);
         cy.get("td").first().click();
         //60% is the highest percentage alcohol legal in Norway
         cy.get('.expandedRow').contains('60%');
