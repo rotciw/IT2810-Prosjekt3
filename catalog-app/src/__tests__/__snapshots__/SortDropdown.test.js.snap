@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortDropdown component renders correctly 1`] = `
+<div
+  className="dropdownContainer dropdown"
+  onKeyDown={[Function]}
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup={true}
+    className="sortToggle dropdown-toggle btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sorter etter
+  </button>
+</div>
+`;

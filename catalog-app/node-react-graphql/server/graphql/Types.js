@@ -1,8 +1,9 @@
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLString = require('graphql').GraphQLString;
-var GraphQLInt = require('graphql').GraphQLInt;
-var GraphQLFloat = require('graphql').GraphQLFloat;
+let GraphQLObjectType = require('graphql').GraphQLObjectType;
+let GraphQLString = require('graphql').GraphQLString;
+let GraphQLInt = require('graphql').GraphQLInt;
+let GraphQLFloat = require('graphql').GraphQLFloat;
 
+// GraphQL Type for product collection
 let productType = new GraphQLObjectType({
     name: 'product',
     fields: function () {
@@ -67,10 +68,11 @@ let productType = new GraphQLObjectType({
         Vareurl: {
             type: GraphQLString
         }
-        }
+        };
     }
 });
 
+// GraphQL Type for popularSearches collection
 let popularSearchesType = new GraphQLObjectType({
 name: 'popularSearche',
     fields: function () {
@@ -81,8 +83,8 @@ name: 'popularSearche',
         Times: {
             type: GraphQLInt
         }
-        }
+        };
     }
 });
 
-module.exports = {productType, popularSearchesType}
+module.exports = {productType, popularSearchesType};

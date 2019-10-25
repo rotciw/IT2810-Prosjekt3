@@ -1,11 +1,9 @@
 .paginationButton {
     background-color: #FDFFFC;
-    padding:10px;
+    padding: 10px;
     border: 3px solid #FDFFFC;
     border-radius: 5px;
-    width: 50px !important;
     margin-bottom: 15px;
-    margin-right: 8px;
     color: #2D2D2D;
 }
 
@@ -14,12 +12,10 @@
 }
 
 .paginationNumber {
-    border: 3px solid #FDFFFC;
+    border: 3px solid #d6d6d6;
     border-radius: 5px;
-    background-color: #FDFFFC;
-    padding:10px;
-    width: 80px !important;
+    background-color: #d6d6d6;
+    padding: 10px;
     margin-bottom: 15px;
-    margin-right: 8px;
     text-align: center;
 }

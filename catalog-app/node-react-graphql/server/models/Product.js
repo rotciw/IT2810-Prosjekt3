@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var ProductSchema = new mongoose.Schema({
+// Mongoose schema for products
+let ProductSchema = new mongoose.Schema({
     Varenummer: String,
     Varenavn: String,
     Volum: String,
