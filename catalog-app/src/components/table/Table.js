@@ -48,7 +48,7 @@ const expandRow = {
         <p>{`Literpris: ${row.Literpris} kr`}</p>
         <p>{`Emballasjetype: ${row.Emballasjetype} `}</p>
         <p>{`Produktutvalg: ${row.Produktutvalg} `}</p>
-        <p><a target="_blank" rel="noopener noreferrer" href={row.Vareurl}>{`Vareurl`}</a></p>
+        <p><a target="_blank" rel="noopener noreferrer" href={row.Vareurl}>{`Link til produktet`}</a></p>
       </div>
     </div>
 
