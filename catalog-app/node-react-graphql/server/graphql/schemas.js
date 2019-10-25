@@ -121,7 +121,7 @@ fields: function () {
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").exec();
+          const popularSearches = PopularSearchesModel.find().sort("-Times").limit(30).exec();
           console.log("Success");
 
            if (!popularSearches) {
