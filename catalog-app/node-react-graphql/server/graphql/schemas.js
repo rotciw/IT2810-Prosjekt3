@@ -105,13 +105,12 @@ let queryType = new GraphQLObjectType({
                     let distinctCountriesResult = new GraphQLList(GraphQLString);
                     ProductModel.find().distinct("Varetype", function (error, countries) {
                         if (error) {
-                            console.log(error);
+                            throw new Error(error);
                         } else {
                             let resultArray = [];
                             for (let i = 0; i < countries.length; i++) {
                                 resultArray.push(countries[i]);
                             }
-                            console.log(resultArray);
                         }
                         return distinctCountriesResult;
                     });
@@ -122,8 +121,6 @@ let queryType = new GraphQLObjectType({
                 type: new GraphQLList(popularSearchesType),
                 resolve: function () {
                     const popularSearches = PopularSearchesModel.find().sort("-Times").limit(30).exec();
-                    console.log("Success");
-
                     if (!popularSearches) {
                         throw new Error('Error');
                     }
