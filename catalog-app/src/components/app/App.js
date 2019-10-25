@@ -25,7 +25,7 @@ function App() {
       paginationStore={rootStore.paginationStore}
     >
       <div className="container-fluid">
-        <div className="row">
+        <div className="row mb-5">
           <Header />
           <div className="col-md-4">
             <SearchBar />

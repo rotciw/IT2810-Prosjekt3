@@ -38,14 +38,14 @@ class SortDropdown extends Component {
                         </Dropdown.Item>
                     <Dropdown.Item
                         id="-Alkohol"
-                        name="Alkohol (høy til lav)"
+                        name="Alkoholprosent (høy til lav)"
                         className={this.props.sortStore.sortAfter === "-Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
                         onClick={item => this.handleSorting(item.target.id, item.target.name)}>
                         Alkohol (høy til lav)
                     </Dropdown.Item>
                     <Dropdown.Item
                         id="Alkohol"
-                        name="Alkohol (lav til høy)"
+                        name="Alkoholprosent (lav til høy)"
                         className={this.props.sortStore.sortAfter === "Alkohol" ? "sortingItem activeSortingItem" : "sortingItem"}
                         onClick={item => this.handleSorting(item.target.id, item.target.name)}>
                         Alkohol (lav til høy)
