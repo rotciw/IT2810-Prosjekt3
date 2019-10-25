@@ -7,60 +7,18 @@ let GraphQLInt = require('graphql').GraphQLInt;
 let GraphQLFloat = require('graphql').GraphQLFloat;
 let ProductModel = require('../models/Product');
 let PopularSearchesModel = require('../models/PopularSearches');
-let TypeData = require('./Types')
+let TypeData = require('./Types');
 
+// Import GraphQL object types from separate file
 let productType = TypeData.productType;
 let popularSearchesType = TypeData.popularSearchesType;
 
+// GraphQL queries
 let queryType = new GraphQLObjectType({
 name: 'Query',
 fields: function () {
     return {
-    products: {
-        type: new GraphQLList(productType),
-        resolve: function () {
-        const products = ProductModel.find().limit(10).exec()
-
-        if (!products) {
-            throw new Error('Error')
-        }
-        return products
-        }
-    },
-    product: {
-        type: new GraphQLList(productType),
-        args: {
-            Varenummer: {
-                name: 'Varenummer',
-                type: GraphQLString
-            }
-        },
-        resolve: function (root, params) {
-        const productDetails = ProductModel.find({Varenummer: params.Varenummer}).exec()
-        if (!productDetails) {
-            throw new Error('Error')
-        }
-        return productDetails
-        }
-    },
-    distinctValues: {
-        type: new GraphQLList(productType),
-        resolve: function (root, params) {
-            let distinctCountriesResult = new GraphQLList(GraphQLString);
-            ProductModel.find().distinct("Varetype", function(error, countries) {
-                if (error){
-                    console.log(error);
-                }else{
-                    let resultArray = []
-                    for (let i = 0; i < countries.length; i++){
-                        resultArray.push(countries[i])
-                    }
-                    console.log(resultArray)
-                }
-                return distinctCountriesResult;
-            });
-        }
-    },
+    // Main query which handles search, filters, pagination and sorting. Returns a GraphQLList containing all relevant results.
     productQuery: {
         type: new GraphQLList(productType),
         args: {
@@ -106,7 +64,8 @@ fields: function () {
             }
         },
         resolve: function (root, params) {
-            let filters = {}
+            // filter dictionary handles filtering on packaging, product selection, price, year and country
+            let filters = {};
             if (params.Packaging){
                 filters['Emballasjetype'] = params.Packaging;
             }
@@ -117,60 +76,70 @@ fields: function () {
                 filters['Argang'] = {$gte: params.YearMin, $lte: params.YearMax};
             }
             if (params.PriceMin && params.PriceMax){
-                // $expr: { $lte: [ { $toDouble: "$Price" }, 1000.0 ] }
                 filters['Pris'] = {$gte: params.PriceMin, $lte: params.PriceMax};
             }
             if (params.Country){
                 filters['Land'] = params.Country;
             }
 
+            // Mongoose query using:
+            // find(...) for filtering on arguments
+            // or(...) with regex for searching on product type, product name and country
+            // sort(...) for sorting by specified database field
+            // skip(...) for pagination
             const products = ProductModel.find(filters).or(
                 [{Varetype: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Varenavn: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},
                 {Land: { $regex: ".*"+params.Keys+".*",'$options' : 'i' }},])
-                .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec()
+                .sort(params.SortAfter).limit(20).skip(20*params.Skipping).exec();
             if (!products) {
-                throw new Error('Error')
+                throw new Error('Error');
             }
-            return products
+            return products;
         }
     },
+    // Returns a GraphQLList of all distinct values in a specified field in the database
+    distinctValues: {
+        type: new GraphQLList(productType),
+        resolve: function (root, params) {
+            let distinctCountriesResult = new GraphQLList(GraphQLString);
+            ProductModel.find().distinct("Varetype", function(error, countries) {
+                if (error){
+                    console.log(error);
+                }else{
+                    let resultArray = [];
+                    for (let i = 0; i < countries.length; i++){
+                        resultArray.push(countries[i]);
+                    }
+                    console.log(resultArray);
+                }
+                return distinctCountriesResult;
+            });
+        }
+    },
+    // Returns a GraphQLList of popularSearches in decending order. Used for advanced view functionality.
     popularSearches: {
         type: new GraphQLList(popularSearchesType),
         resolve: function () {
-          const popularSearches = PopularSearchesModel.find().sort("-Times").exec()
+          const popularSearches = PopularSearchesModel.find().sort("-Times").exec();
           console.log("Success");
 
            if (!popularSearches) {
-             throw new Error('Error')
+             throw new Error('Error');
            }
-           return popularSearches
+           return popularSearches;
         }
     },
-    popularSearch: {
-        type: new GraphQLList(popularSearchesType),
-        args: {
-            Searched: {
-                name: 'Searched',
-                type: GraphQLString
-            }
-        },
-        resolve: function (root, params) {
-            const search = PopularSearchesModel.find({Searched: params.Searched}).exec();
-            if (!search) {
-              throw new Error('Error')
-            }
-            return search
-        }
-    }
-    }
+    };
 }
 });
 
+// GraphQL mutations
 let mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: function () {
     return {
+    // Mutation for adding a new popularSearch to the database
     addPopularSearch: {
         type: popularSearchesType,
         args: {
@@ -190,6 +159,7 @@ let mutation = new GraphQLObjectType({
                 });
         }
     },
+    // If popularSearch is already in the database, increment Times field by 1
     updatePopularSearch: {
         type: popularSearchesType,
         args: {
@@ -209,7 +179,7 @@ let mutation = new GraphQLObjectType({
                     });
         }
     }
-    }
+    };
   }
 });
 

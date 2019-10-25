@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 
+// Mongoose schema for products
 let ProductSchema = new mongoose.Schema({
     Varenummer: String,
     Varenavn: String,
