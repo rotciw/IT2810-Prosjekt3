@@ -6,7 +6,7 @@ exports[`Modal component renders correctly 1`] = `
     className="openModalBtn"
     onClick={[Function]}
   >
-    Avansert visning (Mest populære søk)
+    Mest populære søk
   </button>
   Loading...
 </div>
