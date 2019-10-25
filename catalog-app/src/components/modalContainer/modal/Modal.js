@@ -39,7 +39,11 @@ function Modal(props) {
             <div className="modalBody">
                 <ReactWordCloud
                     words={cloudData}
-                    options={{ fontSizes: [16, 60] }}
+                    options={{
+                        fontSizes: [16, 60],
+                        enableTooltip: false,
+                     }}
+                    transitionDuration={10}
                 />
             </div>
         </div>
