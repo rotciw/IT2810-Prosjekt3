@@ -8,7 +8,7 @@
 
 .textAnimation {
     text-align: right;
-    font-size: 40px;
+    font-size: 38px;
 }
 
 .textAnimation p {
@@ -96,12 +96,12 @@
         top: 0px;
     }
     15% {
-        top: -48px;
+        top: -45px;
     }
     30% {
-        top: -95px;
+        top: -90px;
     }
     45% {
-        top: -144px;
+        top: -136px;
     }
 }
