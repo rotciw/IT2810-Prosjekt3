@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-8 pr-0"
+    >
+      <input
+        id="searchBar"
+        onChange={[Function]}
+        placeholder="Navn, type, land.."
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="col-4 pl-0"
+    >
+      <input
+        id="button"
+        type="submit"
+        value="SØK"
+      />
+    </div>
+  </div>
+</form>
+`;
