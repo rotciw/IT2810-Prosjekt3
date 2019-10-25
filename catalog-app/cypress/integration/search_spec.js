@@ -3,6 +3,6 @@ describe('Testing search', function() {
         cy.visit('/');
         cy.get('#searchBar').type('Gin').should('have.value', 'Gin');
         cy.get('#button').click();
-        cy.get("#table").contains("gin")
-    })
-  })
+        cy.get("#table").contains("gin");
+    });
+  });

@@ -5,5 +5,5 @@ describe('Test filtering', function() {
         cy.get("#0").click();
         cy.get("tbody").first().click();
         cy.get("#table").contains("Norge");
-    })
-  })
+    });
+  });
