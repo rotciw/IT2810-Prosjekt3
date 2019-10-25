@@ -120,7 +120,7 @@ let queryType = new GraphQLObjectType({
             popularSearches: {
                 type: new GraphQLList(popularSearchesType),
                 resolve: function () {
-                    const popularSearches = PopularSearchesModel.find().sort("-Times").limit(30).exec();
+                    const popularSearches = PopularSearchesModel.find().sort("-Times").limit(50).exec();
                     if (!popularSearches) {
                         throw new Error('Error');
                     }

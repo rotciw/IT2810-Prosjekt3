@@ -71,3 +71,6 @@
     background-color: #383838;
     border: 3px solid #383838;
 }
+.tooltip-arrow {
+    display: none !important;
+}
