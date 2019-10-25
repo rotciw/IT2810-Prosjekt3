@@ -6,9 +6,32 @@
 
 ### Backend
 
+### Overordnede krav
+
 ## Krav til bruk av teknologi
+
+### Backend
+
+#### MongoDB
+
+#### GraphQL
+
+#### Express
+
+#### Mongoose
+
+### Frontend
+
+#### React
+
+#### MobX
+
+#### ApolloClient
 
 ## Testing
 
+### End-end testing
 
-MongoDB, Apollo, Express, Mongoose, GraphQL, MobX
+### Snapsho testing
+
+### Unit testing
